@@ -34,6 +34,7 @@ from keri.vc import protocoling
 from keri.vdr import verifying
 from keri.vdr.credentialing import Regery
 from keri.vdr.eventing import Tevery
+from keri.app import httping as khttping
 
 from . import aiding, notifying, indirecting, credentialing
 from .specing import AgentSpecResource
@@ -41,28 +42,14 @@ from ..core import authing, longrunning, httping
 from ..core.authing import Authenticater
 from ..core.keeping import RemoteManager
 from ..db import basing
-import requests
+
 logger = ogler.getLogger()
 
-#function to push data to an webhook endpoint
 
-class Interceptor:
-
-    def __init__(self, webhook, headers):
-        self.webhook = webhook
-        self.headers = headers
-
-    def push(self, data):
-        try:
-            resp = requests.post(self.webhook, data=json.dumps(data), headers=self.headers)
-            if resp.status_code != 200:
-                logger.info('Error in pushing data to webhook')
-        except Exception as e:
-            logger.info('Error in pushing data to webhook')
-def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None, interceptor_webhook=None, interceptor_headers=None):
+def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None,interceptor_webhook=None, interceptor_headers=None):
     """ Set up an ahab in Signify mode """
 
-    agency = Agency(name=name, base=base, bran=bran, configFile=configFile, configDir=configDir)
+    agency = Agency(name=name, base=base, bran=bran, configFile=configFile, configDir=configDir,interceptor_webhook=interceptor_webhook, interceptor_headers=interceptor_headers)
     bootApp = falcon.App(middleware=falcon.CORSMiddleware(
         allow_origins='*', allow_credentials='*',
         expose_headers=['cesr-attachment', 'cesr-date', 'content-type', 'signature', 'signature-input',
@@ -121,7 +108,7 @@ def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=No
 
 
 class Agency(doing.DoDoer):
-    def __init__(self, name, bran, base="", configFile=None, configDir=None, adb=None, temp=False,interceptor_webhook=None,interceptor_headers=None):
+    def __init__(self, name, bran, base="", configFile=None, configDir=None, adb=None, temp=False,interceptor_webhook=None, interceptor_headers=None):
         self.name = name
         self.base = base
         self.bran = bran
@@ -129,8 +116,8 @@ class Agency(doing.DoDoer):
         self.configFile = configFile
         self.configDir = configDir
         self.cf = None
-        self.interceptor_webhook = interceptor_webhook
-        self.interceptor_headers = interceptor_headers
+        self.metrics = decking.Deck()
+        self.interceptor = InterceptorDoer(interceptor_webhook, interceptor_headers, cues=self.metrics)
         if self.configFile is not None:  # Load config file if creating database
             self.cf = configing.Configer(name=self.configFile,
                                          base="",
@@ -175,10 +162,7 @@ class Agency(doing.DoDoer):
                       caid=caid,
                       agency=self,
                       configDir=self.configDir,
-                      configFile=self.configFile,
-                      interceptor_webhook=self.interceptor_webhook,
-                      interceptor_headers=self.interceptor_headers
-                      )
+                      configFile=self.configFile)
 
         self.adb.agnt.pin(keys=(caid,),
                           val=coring.Prefixer(qb64=agent.pre))
@@ -266,15 +250,12 @@ class Agent(doing.DoDoer):
 
         self.mgr = RemoteManager(hby=hby)
 
-
-        interceptor = Interceptor(self.agency.interceptor_webhook, self.agency.interceptor_headers)
-
-
         self.cues = decking.Deck()
         self.groups = decking.Deck()
         self.anchors = decking.Deck()
         self.witners = decking.Deck()
         self.queries = decking.Deck()
+        self.metrics = self.agency.metrics
 
         receiptor = agenting.Receiptor(hby=hby)
         self.postman = forwarding.Poster(hby=hby)
@@ -336,10 +317,10 @@ class Agent(doing.DoDoer):
             Escrower(kvy=self.kvy, rgy=self.rgy, rvy=self.rvy, tvy=self.tvy, exc=self.exc, vry=self.verifier,
                      registrar=self.registrar, credentialer=self.credentialer),
             Messager(kvy=self.kvy, parser=self.parser),
-            Witnesser(receiptor=receiptor, witners=self.witners, interceptor=interceptor),
-            Delegator(agentHab=agentHab, swain=self.swain, anchors=self.anchors,interceptor=interceptor),
+            Witnesser(receiptor=receiptor, witners=self.witners, metrics=self.metrics),
+            Delegator(agentHab=agentHab, swain=self.swain, anchors=self.anchors, metrics=self.metrics),
             GroupRequester(hby=hby, agentHab=agentHab, postman=self.postman, counselor=self.counselor,
-                           groups=self.groups,interceptor=interceptor),
+                           groups=self.groups, metrics=self.metrics),
         ])
 
         super(Agent, self).__init__(doers=doers, always=True, **opts)
@@ -372,6 +353,31 @@ class Agent(doing.DoDoer):
 
         self.agency.incept(self.caid, pre)
 
+class InterceptorDoer(doing.DoDoer):
+
+    def __init__(self, webhook, headers, cues=None):
+        self.webhook = webhook
+        self.headers = headers
+        self.cues = cues if cues is not None else decking.Deck()
+        self.clienter = khttping.Clienter()
+
+        super(InterceptorDoer, self).__init__(doers=[self.clienter], always=True)
+
+    def recur(self, tyme, deeds=None):
+        if self.cues:
+            msg = self.cues.popleft()
+            # TODO: Sent the message somewhere
+            client = self.clienter.request("POST", self.webhook, body=msg, headers=self.headers)
+            while not client.responses:
+                yield self.tock
+
+            rep = client.respond()
+
+            self.clienter.remove(client)
+            return rep.status == 200
+
+        return super(InterceptorDoer, self).recur(tyme, deeds)
+
 
 class Messager(doing.Doer):
 
@@ -389,19 +395,20 @@ class Messager(doing.Doer):
 
 class Witnesser(doing.Doer):
 
-    def __init__(self, receiptor, witners, interceptor):
+    def __init__(self, receiptor, witners, metrics):
         self.receiptor = receiptor
         self.witners = witners
-        self.interceptor = interceptor
+        self.metrics = metrics
         super(Witnesser, self).__init__()
 
     def recur(self, tyme=None):
         while True:
             if self.witners:
                 msg = self.witners.popleft()
-                self.interceptor.push(msg)
                 serder = msg["serder"]
-
+                if self.interceptor:
+                    data = serder.pretty() 
+                    self.interceptor.push(data)
                 # If we are a rotation event, may need to catch new witnesses up to current key state
                 if serder.ked['t'] in (Ilks.rot, Ilks.drt):
                     adds = serder.ked["ba"]
@@ -409,25 +416,28 @@ class Witnesser(doing.Doer):
                         yield from self.receiptor.catchup(serder.pre, wit)
 
                 yield from self.receiptor.receipt(serder.pre, serder.sn)
+                self.metrics.append(dict(evt="witnessing", data=dict(aid=serder.pre)))
 
             yield self.tock
 
 
 class Delegator(doing.Doer):
 
-    def __init__(self, agentHab, swain, anchors, interceptor):
+    def __init__(self, agentHab, swain, anchors, metrics):
         self.agentHab = agentHab
         self.swain = swain
         self.anchors = anchors
-        self.interceptor = interceptor
+        self.metrics = metrics
         super(Delegator, self).__init__()
 
     def recur(self, tyme=None):
         if self.anchors:
             msg = self.anchors.popleft()
-            self.interceptor.push(msg)
+            if self.interceptor:
+                self.interceptor.push(msg)
             sn = msg["sn"] if "sn" in msg else None
             self.swain.delegation(pre=msg["pre"], sn=sn, proxy=self.agentHab)
+            self.metrics.append(dict(msg))
 
         return False
 
@@ -449,23 +459,23 @@ class Initer(doing.Doer):
 
 class GroupRequester(doing.Doer):
 
-    def __init__(self, hby, agentHab, postman, counselor, groups, interceptor):
+    def __init__(self, hby, agentHab, postman, counselor, groups, metrics):
         self.hby = hby
         self.agentHab = agentHab
         self.postman = postman
         self.counselor = counselor
         self.groups = groups
-        self.interceptor = interceptor
+        self.metrics = metrics
+
         super(GroupRequester, self).__init__()
 
     def recur(self, tyme):
         """ Checks cue for group proceccing requests and processes any with Counselor """
         if self.groups:
             msg = self.groups.popleft()
-            self.interceptor.push(msg)
             serder = msg["serder"]
             sigers = msg["sigers"]
-
+            self.metrics.append(dict(evt="grouping", data=dict(msg)))
             ghab = self.hby.habs[serder.pre]
             if "smids" in msg:
                 smids = msg['smids']
