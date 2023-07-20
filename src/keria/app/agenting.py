@@ -71,15 +71,15 @@ def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=No
     if os.getenv("KERI_AGENT_CORS", "false").lower() in ("true", "1"):
         app.add_middleware(middleware=httping.HandleCORS())
     allowed_routes = ["/agent"]
-     # if os.getenv("KERI_AGENT_METRICS", "false").lower() in ("true", "1"):
-    promethus = MetricsMiddleware()
-    bootApp.add_middleware(promethus)
-    MetricsEnds = MetricsEndpoint(promethus.registry)
-    bootApp.add_route("/metrics", MetricsEnds)
+    if os.getenv("KERI_AGENT_METRICS", "false").lower() in ("true", "1"):
+        promethus = MetricsMiddleware()
+        bootApp.add_middleware(promethus)
+        MetricsEnds = MetricsEndpoint(promethus.registry)
+        bootApp.add_route("/metrics", MetricsEnds)
 
-    app.add_middleware(promethus)
-    app.add_route("/metrics", promethus)
-    allowed_routes.append("/metrics")
+        app.add_middleware(promethus)
+        app.add_route("/metrics", promethus)
+        allowed_routes.append("/metrics")
 
     app.add_middleware(authing.SignatureValidationComponent(agency=agency, authn=authn, allowed=allowed_routes))
     app.req_options.media_handlers.update(media.Handlers())
