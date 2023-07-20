@@ -188,7 +188,6 @@ def test_witnesser(helpers):
         deeds = doist.enter(doers=[wr])
         doist.recur(deeds)
 
-
 def test_keystate_ends(helpers):
     caid = "ELI7pg979AdhmvrjDeam2eAO2SR5niCgnjAJXJHtJose"
     salt = b'0123456789abcdef'
