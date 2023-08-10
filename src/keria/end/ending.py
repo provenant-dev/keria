@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 """
+KERIA
 keria.end.ending module
 
 ReST API endpoints
@@ -71,12 +72,8 @@ class OOBIEnd:
             rep.status = falcon.HTTP_NOT_FOUND
             return
 
-        owits = oset(kever.wits)
         if kever.prefixer.qb64 in agent.hby.prefixes:  # One of our identifiers
             hab = agent.hby.habs[kever.prefixer.qb64]
-        elif match := owits.intersection(agent.hby.prefixes):  # We are a witness for identifier
-            pre = match.pop()
-            hab = agent.hby.habs[pre]
         else:  # Not allowed to respond
             rep.status = falcon.HTTP_NOT_ACCEPTABLE
             return
