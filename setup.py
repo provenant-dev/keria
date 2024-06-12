@@ -83,6 +83,7 @@ setup(
         'http_sfv>=0.9.8',
         'dataclasses_json>=0.5.7',
         'apispec>=6.3.0',
+        'prometheus-client>=0.17.1'
     ],
     extras_require={
         # eg:
