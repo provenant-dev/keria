@@ -398,5 +398,52 @@ class ExternKeeper:
     def __init__(self, rb: RemoteKeeper):
         self.rb = rb
 
-    def incept(self, **kwargs):
-        pass
+    def incept(self, pre, verfers, digers, pidx=0, transferable=False):
+
+        pp = Prefix(
+            pidx=pidx,
+            algo=Algos.extern
+        )
+
+        if not self.rb.pres.put(pre, val=pp):
+            raise ValueError("Already incepted pre={}.".format(pre))
+
+        dt = helping.nowIso8601()
+        ps = PreSit(
+            new=PubLot(pubs=[verfer.qb64 for verfer in verfers],
+                       dt=dt),
+            nxt=PubLot(pubs=[diger.qb64 for diger in digers],
+                       dt=dt))
+
+        if not self.rb.sits.put(pre, val=ps):
+            raise ValueError("Already incepted sit for pre={}.".format(pre))
+
+    def rotate(self, pre, verfers, digers, transferable):
+        if (pp := self.rb.pres.get(pre)) is None or pp.algo != Algos.extern:
+            raise ValueError("Attempt to rotate non-existant or invalid pre={}.".format(pre))
+
+        dt = helping.nowIso8601()
+        ps = PreSit(
+            new=PubLot(pubs=[verfer.qb64 for verfer in verfers],
+                       dt=dt),
+            nxt=PubLot(pubs=[diger.qb64 for diger in digers],
+                       dt=dt))
+
+        if not self.rb.sits.pin(pre, val=ps):
+            raise ValueError(f"Error saving sit rotating pre={pre}.")
+
+    def params(self, pre):
+        if (pp := self.rb.pres.get(pre)) is None or pp.algo != Algos.extern:
+            raise ValueError("Attempt to load nonexistent or invalid pre={}.".format(pre))
+
+        # if (ps := self.rb.sits.get(pre)) is None:
+        #     raise ValueError(f"Attempt to load invalid sit for pre={pre}.")
+        
+        prms = dict(
+            extern=dict(
+                pidx=pp.pidx
+            )
+        )       
+
+        return prms
+
