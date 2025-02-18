@@ -53,7 +53,7 @@ import time
 
 logger = ogler.getLogger()
 
-def profile_app(interval=10, output_file="reports/profile.prof"):
+def profile_app(interval=10, output_file="/reports/profile.prof"):
     profiler = cProfile.Profile()
     profiler.enable()
 
