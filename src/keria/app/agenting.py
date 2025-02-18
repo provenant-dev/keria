@@ -53,7 +53,8 @@ import time
 
 logger = ogler.getLogger()
 
-def profile_app(interval=10, output_file="/reports/profile.prof"):
+
+def profile_app(interval=10, output_file=os.getenv("PROFILER_REPORT_FILE", "/home/origin/data/reports/profile.prof")):
     profiler = cProfile.Profile()
     profiler.enable()
 
@@ -69,8 +70,12 @@ def profile_app(interval=10, output_file="/reports/profile.prof"):
 
 def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None,
           keypath=None, certpath=None, cafilepath=None):
-    print("Start setup")
-    profiler = profile_app()
+
+    if os.getenv("PROFILING_ENABLED", "false").lower() in ("true", "1"):
+        print("Start profiling")
+        profiler = profile_app()
+    else:
+        print("Profiling disabled")
     """ Set up an ahab in Signify mode """
 
     agency = Agency(name=name, base=base, bran=bran, configFile=configFile, configDir=configDir)
