@@ -36,6 +36,10 @@ parser.add_argument('-B', '--boot',
                     default=3903,
                     help="Boot port number the Boot HTTP server listens on.  This port needs to be secured."
                          " Default is 3903.")
+parser.add_argument('-C', '--credentials',
+                    action='store',
+                    default=3904,
+                    help="Port for credentials operations. Default is 3904.")
 parser.add_argument('-n', '--name',
                     action='store',
                     default="keria",
@@ -83,6 +87,7 @@ def launch(args):
              admin=int(args.admin),
              http=int(args.http),
              boot=int(args.boot),
+             credentials=int(args.credentials),
              configFile=args.configFile,
              configDir=args.configDir,
              keypath=args.keypath,
@@ -93,7 +98,7 @@ def launch(args):
                 ".******", args.name, args.admin, args.http)
 
 
-def runAgent(name="ahab", base="", bran="", admin=3901, http=3902, boot=3903, configFile=None,
+def runAgent(name="ahab", base="", bran="", admin=3901, http=3902, boot=3903, credentials=3904, configFile=None,
              configDir=None, keypath=None, certpath=None, cafilepath=None, expire=0.0):
     """
     Setup and run a KERIA Agency
@@ -104,6 +109,7 @@ def runAgent(name="ahab", base="", bran="", admin=3901, http=3902, boot=3903, co
                                 adminPort=admin,
                                 httpPort=http,
                                 bootPort=boot,
+                                credentialsPort=credentials,
                                 configFile=configFile,
                                 configDir=configDir,
                                 keypath=keypath,

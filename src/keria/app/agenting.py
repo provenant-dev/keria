@@ -68,7 +68,7 @@ def profile_app(interval=10, output_file=os.getenv("PROFILER_REPORT_FILE", "/hom
     threading.Thread(target=save_report, daemon=True).start()
     return profiler
 
-def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None,
+def setup(name, bran, adminPort, bootPort, credentialsPort, base='', httpPort=None, configFile=None, configDir=None,
           keypath=None, certpath=None, cafilepath=None):
 
     if os.getenv("PROFILING_ENABLED", "false").lower() in ("true", "1"):
@@ -142,6 +142,22 @@ def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=No
         specEnd = AgentSpecResource(app=app, title='KERIA Interactive Web Interface API')
         specEnd.addRoutes(happ)
         happ.add_route("/spec.yaml", specEnd)
+
+    if os.getenv("SEPARATE_CREDENTIAL_CONTROLLER", "false").lower() in ("true", "1"):
+        print(f"Separate credential controller enabled on port {credentialsPort}")
+        # credentials
+        capp = falcon.App(middleware=falcon.CORSMiddleware(
+            allow_origins='*', allow_credentials='*',
+            expose_headers=['cesr-attachment', 'cesr-date', 'content-type', 'signature', 'signature-input',
+                            'signify-resource', 'signify-timestamp']))
+        credentialing.loadCredentialsQuery(capp)
+        credentialsServer = createHttpServer(credentialsPort, capp, keypath, certpath, cafilepath)
+        credentialsDoer = http.ServerDoer(server=credentialsServer)
+        doers.append(credentialsDoer)
+    else:
+        print("Separate credential controller disabled")
+        credentialing.loadCredentialsQuery(app)
+
 
     print("The Agency is loaded and waiting for requests...")
     return doers
