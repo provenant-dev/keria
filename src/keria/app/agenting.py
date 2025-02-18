@@ -46,11 +46,31 @@ from ..core.authing import Authenticater
 from ..core.keeping import RemoteManager
 from ..db import basing
 
+import cProfile
+import pstats
+import threading
+import time
+
 logger = ogler.getLogger()
 
+def profile_app(interval=10, output_file="reports/profile.prof"):
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    def save_report():
+        while True:
+            print(f"Profiling report saved to {output_file}")
+            time.sleep(interval)
+            profiler.dump_stats(output_file)
+
+    # Start background thread to save profile periodically
+    threading.Thread(target=save_report, daemon=True).start()
+    return profiler
 
 def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None,
           keypath=None, certpath=None, cafilepath=None):
+    print("Start setup")
+    profiler = profile_app()
     """ Set up an ahab in Signify mode """
 
     agency = Agency(name=name, base=base, bran=bran, configFile=configFile, configDir=configDir)
