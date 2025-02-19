@@ -40,9 +40,9 @@ def loadEnds(app, identifierResource):
     credentialResourceDelEnd = CredentialResourceDeleteEnd(identifierResource)
     app.add_route("/identifiers/{name}/credentials/{said}", credentialResourceDelEnd)
 
+def loadCredentialsQuery(app):
     queryCollectionEnd = CredentialQueryCollectionEnd()
     app.add_route("/credentials/query", queryCollectionEnd)
-
 
 class RegistryCollectionEnd:
     """
