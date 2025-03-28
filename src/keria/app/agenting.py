@@ -4,12 +4,16 @@ KERIA
 keria.app.agenting module
 
 """
+from collections import namedtuple
 import json
 import os
 import datetime
-from dataclasses import asdict
+import random
+import time
+from dataclasses import asdict, dataclass
 from urllib.parse import urlparse, urljoin
 
+from dataclasses_json import dataclass_json
 from keri import kering
 from keri.app.notifying import Notifier
 from keri.app.storing import Mailboxer
@@ -47,6 +51,19 @@ from ..core.keeping import RemoteManager
 from ..db import basing
 
 logger = ogler.getLogger()
+
+# witness state statuses
+Stateage = namedtuple("Stateage", 'even ahead behind duplicitous')
+
+States = Stateage(even="even", ahead="ahead", behind="behind", duplicitous="duplicitous")
+
+@dataclass_json
+@dataclass
+class WitnessState:
+    wit: str
+    state: Stateage
+    sn: int
+    dig: str
 
 
 def setup(name, bran, adminPort, bootPort, base='', httpPort=None, configFile=None, configDir=None,
@@ -821,6 +838,7 @@ def loadEnds(app):
 
     statesEnd = KeyStateCollectionEnd()
     app.add_route("/states", statesEnd)
+    app.add_route('/states/{aid}/watch', statesEnd, suffix='watch')
 
     eventsEnd = KeyEventCollectionEnd()
     app.add_route("/events", eventsEnd)
@@ -980,6 +998,148 @@ class KeyStateCollectionEnd:
         rep.status = falcon.HTTP_200
         rep.content_type = "application/json"
         rep.data = json.dumps(states).encode("utf-8")
+
+    @staticmethod
+    def on_get_watch(req, resp, aid):
+        
+        tock=1.0
+        if not aid:
+            raise falcon.HTTPBadRequest(description="required parameter 'aid' missing")
+        
+        agent = req.context.agent
+
+        if aid not in agent.hby.prefixes:
+            raise falcon.HTTPBadRequest(description=f"{aid} is not a local identifier.")
+        
+        hab = agent.hby.habs[aid]
+        
+        if len(hab.kever.wits) == 0:
+            raise falcon.HTTPBadRequest(description=f"{aid} has no witnesses")
+
+        logger.info(f"Checking witness state for {hab.name} : {hab.pre}")
+
+        states = []
+        results = []
+        for wit in hab.kever.wits:
+            try:
+                logger.info(f"Checking witness {wit}...")
+                keys = (hab.pre, wit)
+
+                # # Check for Key State from this Witness and remove if exists
+                saider = hab.db.knas.get(keys)
+                if saider is not None:
+                    hab.db.knas.rem(keys)
+                    hab.db.ksns.rem((saider.qb64,))
+                    hab.db.ksns.rem((saider.qb64,))
+
+                witer = agenting.messenger(hab, wit)
+
+                msg = hab.query(pre=hab.pre, src=wit, route="ksn")
+                witer.msgs.append(bytearray(msg))
+
+                start = time.perf_counter()
+                while not witer.idle:
+                    end = time.perf_counter()
+                    if end - start > 10:
+                        break
+                    
+                    time.sleep(tock)
+
+                start = time.perf_counter()
+                skip = False
+                while True:
+                    if (saider := hab.db.knas.get(keys)) is not None:
+                        results[wit] = dict(status=falcon.HTTP_200)
+                        results[wit]['action']="no_action"
+                        break
+                    
+                    end = time.perf_counter()
+                    if end - start > 10:
+                        logger.info(f"No response received from {wit} after 10 seconds...")
+                        results[wit] = dict(status=falcon.HTTP_504, error="No response received from witness after 10 seconds")
+                        skip = True
+                        break
+
+                    time.sleep(tock)
+                
+                if skip:
+                    continue
+
+                mystate = hab.kever.state()
+                witstate = hab.db.ksns.get((saider.qb64,))
+
+                state = diffState(wit, mystate, witstate)
+
+                results[wit]['state'] = asdict(state)
+                states.append(state)
+
+            except Exception as e:
+                logger.error(f"Error processing witness {wit}", e)
+                results[wit] = dict(status=falcon.HTTP_500, error=f"Processing witness failed: {str(e)}")
+
+        # # First check for any duplicity, if so get out of here
+        dups = [state for state in states if state.state == States.duplicitous]
+        ahds = [state for state in states if state.state == States.ahead]
+        bhds = [state for state in states if state.state == States.behind]
+
+        if len(dups) > 0:
+                logger.info("The following witnesses have a duplicitous event:")
+                for state in dups:
+                    results[state.wit]['status_text']=f"Witness {state.wit} at Seq No. {state.sn} with digest: {state.dig}. Further action must be taken to recover from the duplicity"
+                    results[state.wit]['action']="resolve_duplicity"
+                    logger.info(f"\tWitness {state.wit} at Seq No. {state.sn} with digest: {state.dig}")
+                logger.info("Further action must be taken to recover from the duplicity")
+
+        elif len(ahds) > 0:
+                # # Only group habs can be behind their witnesses
+                if not isinstance(hab, habbing.SignifyGroupHab) or not isinstance(hab, habbing.GroupHab):
+                    logger.info("ERROR: Single sig AID behind witnesses, aborting for this AID")
+                    raise falcon.HTTPBadRequest(description=f"Only multisig AIDs can be behind their witnesses, {hab.name} is single sig AID, skipping further checks")
+
+                # # First check for duplicity among the witnesses that are ahead (possible only if toad is below
+                # # super majority)
+                digs = set([state.dig for state in ahds])
+                if len(digs) > 1:  # Duplicity across witness sets
+                    logger.info(f"There are multiple duplicitous events on witnesses for {hab.pre}")
+                    logger.info("We recommend you abandon this AID")
+                    for state in ahds:
+                        results[state.wit]['status_text']=f"There are multiple duplicitous events on witnesses for {hab.pre}. We recommend you abandon this AID"
+                        results[state.wit]['action']="abandon"
+                else:  # # all witnesses that are ahead agree on the event
+                    logger.info("The following witnesses have an event that is ahead of the local KEL:")
+                    for state in ahds:
+                        logger.info(f"\tWitness {state.wit} at Seq No. {state.sn} with digest: {state.dig}")
+                        results[state.wit]['status_text']=f"Witness {state.wit} at Seq No. {state.sn} has an event that is ahead of the local KEL of {hab.name}."
+                        results[state.wit]['action']="catchup"
+
+                # state = random.choice(ahds)
+                # logger.info("If and only if you were expecting to locally be behind your witnesses (multisig for example)")
+                # logger.info("the following command can be used to locally catch up with your witness:")
+                # logger.info(f"\n\tkli multisig update --name {hab.name} --alias {hab.name} --wit {state.wit} --sn "
+                #       f"{state.sn} --said {state.dig}\n")
+
+                # if len(bhds) > 0:
+                #     logger.info("You have some witnesses that are also behind you, catch them up afterwards with:")
+                #     logger.info(f"\n\tkli submit --name {hab.name} --alias {hab.name}\n")
+
+        elif len(bhds) > 0:
+                print("The following witnesses are behind the local KEL:")
+                for state in bhds:
+                    print(f"\tWitness {state.wit} at Seq No. {state.sn} with digest: {state.dig}")
+                    results[state.wit]['status_text']=f"Witness {state.wit} at Seq No. {state.sn} is behind the local KEL of {hab.name}."
+                    results[state.wit]['action']="submit"
+
+                # print("Recommend the following command to catch up witnesses:")
+                # print(f"\n\tkli submit --name {hab.name} --alias {hab.name}\n")
+
+        else:
+            print(f"Local key state is consistent with the {len(states)} (out of "
+                  f"{len(hab.kever.wits)} total) witnesses that responded")
+       
+
+        resp.status = falcon.HTTP_200
+        resp.content_type = "application/json"
+        resp.data = json.dumps(results).encode("utf-8")
 
 
 class KeyEventCollectionEnd:
@@ -1248,3 +1408,30 @@ class QueryCollectionEnd:
         rep.status = falcon.HTTP_202
         rep.content_type = "application/json"
         rep.data = op.to_json().encode("utf-8")
+
+def diffState(wit, preksn, witksn):
+
+    witstate = WitnessState()
+    witstate.wit = wit
+    mysn = int(preksn.s, 16)
+    mydig = preksn.d
+    witstate.sn = int(witksn.f, 16)
+    witstate.dig = witksn.d
+
+    # At the same sequence number, check the DIGs
+    if mysn == witstate.sn:
+        if mydig == witstate.dig:
+            witstate.state = States.even
+        else:
+            witstate.state = States.duplicitous
+
+    # This witness is behind and will need to be caught up.
+    elif mysn > witstate.sn:
+        witstate.state = States.behind
+
+    # mysn < witstate.sn - We are behind this witness (multisig or restore situation).
+    # Must ensure that controller approves this event or a recovery rotation is needed
+    else:
+        witstate.state = States.ahead
+
+    return witstate
