@@ -781,8 +781,8 @@ class Escrower(doing.Doer):
             yield self.tock
 
 class Releaser(doing.Doer):
-    KERIAReleaserTimeOut = "KERIA_RELEASER_TIMEOUT"
-    TimeoutRel = int(os.getenv(KERIAReleaserTimeOut)) or 1*60*60
+    maybe_release_timeout = os.getenv("KERIA_RELEASER_TIMEOUT")
+    TimeoutRel = int(maybe_release_timeout) if maybe_release_timeout else 1*60*60
     def __init__(self, agency):
         """ Check open agents and close if idle for more than TimeoutRel seconds
 
