@@ -2260,3 +2260,490 @@ def test_rotation(helpers):
             path=f"/identifiers/{aid3['name']}/events", body=json.dumps(body)
         )
         assert res.status_code == 200
+
+
+def test_renaming_after_incepting_hoses_wallet(helpers):
+    """ This test is the same as test_identifier_collection_end until the final
+    part of the test where we try to rename a multisig identifier that's
+    already been incepted.  From there the wallet is hosed always returning
+    500"""
+    # Same as test_identifier_collection_end until end of test
+    salt = b"0123456789abcdef"
+    salter = core.Salter(raw=salt)
+
+    with (
+        helpers.openKeria() as (agency, agent, app, client),
+        habbing.openHby(name="p1", temp=True, salt=salter.qb64) as p1hby,
+        habbing.openHby(name="p2", temp=True, salt=salter.qb64) as p2hby,
+    ):
+        end = aiding.IdentifierCollectionEnd()
+        resend = aiding.IdentifierResourceEnd()
+        app.add_route("/identifiers", end)
+        app.add_route("/identifiers/{name}", resend)
+        app.add_route("/identifiers/{name}/events", resend)
+        app.add_route("/identifiers/{name}/submit", resend)
+
+        groupEnd = aiding.GroupMemberCollectionEnd()
+        app.add_route("/identifiers/{name}/members", groupEnd)
+
+        opColEnd = longrunning.OperationCollectionEnd()
+        app.add_route("/operations", opColEnd)
+        opResEnd = longrunning.OperationResourceEnd()
+        app.add_route("/operations/{name}", opResEnd)
+
+        client = testing.TestClient(app)
+
+        res = client.simulate_post(path="/identifiers", body=b"{}")
+        assert res.status_code == 400
+        assert res.json == {
+            "description": "required field 'icp' missing from request",
+            "title": "400 Bad Request",
+        }
+
+        salt = b"0123456789abcdef"
+        serder, signers = helpers.incept(salt, "signify:aid", pidx=0)
+        assert len(signers) == 1
+        signer0 = signers[0]
+        diger0 = serder.ndigers[0]
+
+        sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
+        body = {
+            "name": "aid1",
+            "icp": serder.ked,
+            "sigs": sigers,
+        }
+
+        # Try to create one without key params
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {
+            "description": "invalid request: one of group, rand or salt field required",
+            "title": "400 Bad Request",
+        }
+
+        salter = core.Salter(raw=salt)
+        encrypter = core.Encrypter(verkey=signers[0].verfer.qb64)
+        sxlt = encrypter.encrypt(ser=salter.qb64).qb64
+
+        body = {
+            "name": "aid1",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 0,
+                "tier": "low",
+                "sxlt": sxlt,
+                "transferable": True,
+                "kidx": 0,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 202
+
+        # Try to resubmit and get an error
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {"title": "AID with name aid1 already incepted"}
+
+        res = client.simulate_get(path="/identifiers")
+        assert res.status_code == 200
+        assert len(res.json) == 1
+        aid = res.json[0]
+        assert aid["name"] == "aid1"
+        assert aid["prefix"] == "EHgwVwQT15OJvilVvW57HE4w0-GPs_Stj2OFoAHZSysY"
+
+        serder, signer = helpers.incept(salt, "signify:aid", pidx=1, count=3)
+        sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
+
+        body = {
+            "name": "aid2",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 1,
+                "tier": "low",
+                "sxlt": sxlt,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 202
+
+        res = client.simulate_get(path="/identifiers/")
+        assert res.status_code == 400
+        assert res.json == {
+            "description": "name is required",
+            "title": "400 Bad Request",
+        }
+
+        res = client.simulate_get(path="/identifiers")
+        assert res.status_code == 200
+        assert len(res.json) == 2
+        aid = res.json[0]
+        assert aid["name"] == "aid1"
+        assert aid["prefix"] == "EHgwVwQT15OJvilVvW57HE4w0-GPs_Stj2OFoAHZSysY"
+        ss = aid[Algos.salty]
+        assert ss["pidx"] == 0
+
+        aid = res.json[1]
+        assert aid["name"] == "aid2"
+        assert aid["prefix"] == "ECL8abFVW_0RTZXFhiiA4rkRobNvjTfJ6t-T8UdBRV1e"
+        ss = aid[Algos.salty]
+        assert ss["pidx"] == 1
+
+        # Rotate aid1
+        salter = core.Salter(raw=salt)
+        creator = keeping.SaltyCreator(
+            salt=salter.qb64, stem="signify:aid", tier=coring.Tiers.low
+        )
+
+        signers = creator.create(
+            pidx=0, ridx=1, tier=coring.Tiers.low, temp=False, count=1
+        )
+        nsigners = creator.create(
+            pidx=0, ridx=2, tier=coring.Tiers.low, temp=False, count=1
+        )
+
+        keys = [signer.verfer.qb64 for signer in signers]
+        ndigs = [coring.Diger(ser=nsigner.verfer.qb64b) for nsigner in nsigners]
+        signer1 = signers[0]
+        diger1 = ndigs[0]
+
+        serder = eventing.rotate(
+            pre=res.json[0]["prefix"],
+            keys=keys,
+            dig=res.json[0]["prefix"],
+            ndigs=[diger.qb64 for diger in ndigs],
+        )
+        sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
+        body = {
+            "rot": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 0,
+                "tier": "low",
+                "sxlt": sxlt,
+                "transferable": True,
+                "kidx": 1,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+        res = client.simulate_post(
+            path="/identifiers/aid1/events", body=json.dumps(body)
+        )
+        assert res.status_code == 200
+
+        # Try with missing arguments
+        body = {
+            "rot": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 0,
+                "tier": "low",
+                "sxlt": sxlt,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+        res = client.simulate_post(
+            path="/identifiers/aid1/events", body=json.dumps(body)
+        )
+        assert res.status_code == 500
+
+        # Test with witnesses
+        url = "http://127.0.0.1:9999"
+        agent.hby.db.locs.put(
+            keys=("BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha", kering.Schemes.http),
+            val=basing.LocationRecord(url=url),
+        )
+        agent.hby.db.locs.put(
+            keys=("BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM", kering.Schemes.http),
+            val=basing.LocationRecord(url=url),
+        )
+        agent.hby.db.locs.put(
+            keys=("BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX", kering.Schemes.http),
+            val=basing.LocationRecord(url=url),
+        )
+        serder, signers = helpers.incept(
+            salt,
+            "signify:aid",
+            pidx=3,
+            wits=[
+                "BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha",
+                "BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM",
+                "BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX",
+            ],
+            toad="2",
+        )
+        sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
+
+        body = {
+            "name": "aid3",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 3,
+                "tier": "low",
+                "sxlt": sxlt,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 202
+
+        op = res.json
+        name = op["name"]
+
+        res = client.simulate_get(path=f"/operations/{name}")
+        assert res.status_code == 200
+        assert res.json["done"] is False
+
+        # Modify sequence number to test invalid sn
+        op = agent.monitor.opr.ops.get(keys=(name,))
+        op.metadata["sn"] = 4
+        agent.monitor.opr.ops.pin(keys=(name,), val=op)
+
+        res = client.simulate_get(path=f"/operations/{name}")
+        assert res.status_code == 200
+        assert res.json["done"] is False
+
+        assert len(agent.witners) == 1
+        res = client.simulate_get(path="/identifiers")
+        assert res.status_code == 200
+        assert len(res.json) == 3
+        aid = res.json[2]
+        assert aid["name"] == "aid3"
+        assert aid["prefix"] == serder.pre
+        ss = aid[Algos.salty]
+        assert ss["pidx"] == 3
+
+        # Reset sn
+        op.metadata["sn"] = 0
+        agent.monitor.opr.ops.pin(keys=(name,), val=op)
+
+        # Add fake witness receipts to test satified witnessing
+        dgkey = dbing.dgKey(serder.preb, serder.preb)
+        agent.hby.db.putWigs(dgkey, vals=[b"A", b"B", b"C"])
+        res = client.simulate_get(path=f"/operations/{name}")
+        assert res.status_code == 200
+        assert res.json["done"] is True
+
+        res = client.simulate_get(path="/identifiers/aid1")
+        mhab = res.json
+        agent0 = mhab["state"]
+
+        # Try to resubmit with the proper endpoint, w/ witnesses
+        submitBody = {"submit": "aid3"}
+        res = client.simulate_post(
+            path=f"/identifiers/{body['name']}/submit", body=json.dumps(submitBody)
+        )
+        assert res.status_code == 200
+        assert res.json["metadata"]["alias"] == "aid3"
+        assert res.json["metadata"]["sn"] == 0
+        assert res.json["name"] == "submit.EIsavDv6zpJDPauh24RSCx00jGc6VMe3l84Y8pPS8p-1"
+
+        # rotate aid3
+        salter = core.Salter(raw=salt)
+        creator = keeping.SaltyCreator(
+            salt=salter.qb64, stem="signify:aid", tier=coring.Tiers.low
+        )
+
+        signers = creator.create(
+            pidx=3, ridx=1, tier=coring.Tiers.low, temp=False, count=1
+        )
+        nsigners = creator.create(
+            pidx=3, ridx=2, tier=coring.Tiers.low, temp=False, count=1
+        )
+
+        keys = [signer.verfer.qb64 for signer in signers]
+        ndigs = [coring.Diger(ser=nsigner.verfer.qb64b) for nsigner in nsigners]
+
+        serder = eventing.rotate(
+            pre=aid["prefix"],
+            keys=keys,
+            dig=aid["prefix"],
+            ndigs=[diger.qb64 for diger in ndigs],
+            wits=[
+                "BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha",
+                "BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM",
+                "BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX",
+            ],
+            toad="2",
+        )
+        sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
+        body = {
+            "rot": serder.ked,
+            "sigs": sigers,
+            "salty": {
+                "stem": "signify:aid",
+                "pidx": 0,
+                "tier": "low",
+                "sxlt": sxlt,
+                "transferable": True,
+                "kidx": 3,
+                "icodes": [MtrDex.Ed25519_Seed],
+                "ncodes": [MtrDex.Ed25519_Seed],
+            },
+        }
+        res = client.simulate_post(
+            path="/identifiers/aid3/events", body=json.dumps(body)
+        )
+        assert res.status_code == 200
+
+        # rename aid3
+        res = client.simulate_put(
+            path="/identifiers/aid3", body=json.dumps({"name": "aid3Renamed"})
+        )
+        assert res.status_code == 200
+        aid = res.json
+        assert aid["name"] == "aid3Renamed"
+
+        # create member habs for group AID
+        p1 = p1hby.makeHab(name="p1")
+        assert p1.pre == "EBPtjiAY9ITdvScWFGeeCu3Pf6_CFFr57siQqffVt9Of"
+        p2 = p2hby.makeHab(name="p2")
+        assert p2.pre == "EMYBtOuBKVdp3KdW_QM__pi-UAWfrewlDyiqGcbIbopR"
+
+        agentKvy = eventing.Kevery(db=agent.hby.db)
+        psr = parsing.Parser(kvy=agentKvy)
+        psr.parseOne(p1.makeOwnInception())
+        psr.parseOne(p2.makeOwnInception())
+
+        assert p1.pre in agent.hby.kevers
+        assert p2.pre in agent.hby.kevers
+
+        # Test Group Multisig
+        keys = [
+            signer0.verfer.qb64,
+            p1.kever.verfers[0].qb64,
+            p2.kever.verfers[0].qb64,
+        ]
+        ndigs = [diger0.qb64, p1.kever.ndigers[0].qb64, p2.kever.ndigers[0].qb64]
+
+        serder = eventing.incept(
+            keys=keys,
+            isith="2",
+            nsith="2",
+            ndigs=ndigs,
+            code=coring.MtrDex.Blake3_256,
+            toad=0,
+            wits=[],
+        )
+
+        # Send in all signatures as if we are joining the inception event
+        sigers = [
+            signer0.sign(ser=serder.raw, index=0).qb64,
+            p1.sign(ser=serder.raw, indices=[1])[0].qb64,
+            p2.sign(ser=serder.raw, indices=[2])[0].qb64,
+        ]
+        states = [agent0, asdict(p1.kever.state()), asdict(p2.kever.state())]
+        smids = rmids = [state["i"] for state in states if "i" in state]
+
+        body = {
+            "name": "multisig",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "smids": smids,
+            "rmids": rmids,
+            "group": {"keys": keys, "ndigs": ndigs},
+        }
+        # Try without mhab
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {
+            "description": 'required field "mhab" missing from body.group',
+            "title": "400 Bad Request",
+        }
+
+        bad = dict(mhab)
+        bad["prefix"] = "12345"
+        body = {
+            "name": "multisig",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "smids": smids,
+            "rmids": rmids,
+            "group": {"mhab": bad, "keys": keys, "ndigs": ndigs},
+        }
+        # Try with bad mhab
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {
+            "description": "signing member 12345 not a local AID",
+            "title": "400 Bad Request",
+        }
+
+        body = {
+            "name": "multisig",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "smids": smids,
+            "rmids": rmids,
+            "group": {"mhab": mhab, "ndigs": ndigs},
+        }
+        # Try without keys
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {
+            "description": 'required field "keys" missing from body.group',
+            "title": "400 Bad Request",
+        }
+
+        body = {
+            "name": "multisig",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "smids": smids,
+            "rmids": rmids,
+            "group": {
+                "mhab": mhab,
+                "keys": keys,
+            },
+        }
+
+        # Try without ndigs
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {
+            "description": 'required field "ndigs" missing from body.group',
+            "title": "400 Bad Request",
+        }
+
+        body = {
+            "name": "multisig",
+            "icp": serder.ked,
+            "sigs": sigers,
+            "smids": smids,
+            "rmids": rmids,
+            "group": {"mhab": mhab, "keys": keys, "ndigs": ndigs},
+        }
+
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 202
+
+        # Resubmit to get an error
+        res = client.simulate_post(path="/identifiers", body=json.dumps(body))
+        assert res.status_code == 400
+        assert res.json == {"title": "AID with name multisig already incepted"}
+
+        # Try renaming after inception event has already been accepted
+        # This hoses wallet, no calls to /identifiers succeed afterwards
+        # all return 500
+        res = client.simulate_post(path="/identifiers", body=json.dumps({**body, **{"name": "foo"}}))
+        assert res.status_code == 500
+        # assert res.json == {"title": "AID with name multisig already incepted"}
+
+        res = client.simulate_get(path="/identifiers")
+        assert res.status_code == 200
