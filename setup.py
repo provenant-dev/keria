@@ -83,6 +83,7 @@ setup(
     ],
     python_requires='>=3.12.2',
     install_requires=[
+        'lmdb==1.6.2',
         'hio==0.6.14',
         'keri==1.2.6',
         'mnemonic==0.21',
