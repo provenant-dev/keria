@@ -130,3 +130,5 @@ dmypy.json
 
 # IntelliJ files
 .idea/
+
+.tags

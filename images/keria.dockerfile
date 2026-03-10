@@ -1,4 +1,4 @@
-FROM python:3.12.8-alpine3.21 AS builder
+FROM python:3.13-alpine AS builder
 
 RUN apk --no-cache add \
     curl \
@@ -21,7 +21,7 @@ RUN uv sync --locked --no-dev --no-editable
 COPY src/ src/
 RUN uv sync --locked --no-dev
 
-FROM python:3.12.8-alpine3.21
+FROM builder
 WORKDIR /keria
 
 RUN apk --no-cache add \
