@@ -36,6 +36,8 @@ dependencies = [
     "apispec==6.10.0",
     "marshmallow_dataclass==8.7.1",
     "deprecation==2.1.0",
+    "blake3==1.0.8",
+    "lmdb==1.6.2"
 ]
 
 [project.scripts]
