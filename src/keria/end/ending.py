@@ -6,6 +6,7 @@ keria.end.ending module
 ReST API endpoints
 
 """
+
 import falcon
 from keri import kering
 from keri.end import ending
@@ -20,7 +21,7 @@ def loadEnds(app, agency, default=None):
 
 
 class OOBIEnd:
-    """ REST API for OOBI endpoints
+    """REST API for OOBI endpoints
 
     Attributes:
         .hby (Habery): database access
@@ -28,7 +29,7 @@ class OOBIEnd:
     """
 
     def __init__(self, agency, default=None):
-        """  End point for responding to OOBIs
+        """End point for responding to OOBIs
 
         Parameters:
             default (str) qb64 AID of the 'self' of the node for
@@ -38,7 +39,7 @@ class OOBIEnd:
         self.default = default
 
     def on_get(self, _, rep, aid=None, role=None, eid=None):
-        """  GET endoint for OOBI resource
+        """GET endoint for OOBI resource
 
         Parameters:
             _: Falcon request object
@@ -46,7 +47,37 @@ class OOBIEnd:
             aid: qb64 identifier prefix of OOBI
             role: requested role for OOBI rpy message
             eid: qb64 identifier prefix of participant in role
-
+        ---
+        summary: Retrieve OOBI resource.
+        description: This endpoint retrieves the OOBI resource based on the provided aid, role, and eid.
+        tags:
+        - OOBI Resource
+        parameters:
+        - in: path
+          name: aid
+          schema:
+            type: string
+          required: false
+          description: The qb64 identifier prefix of OOBI.
+        - in: path
+          name: role
+          schema:
+            type: string
+          required: false
+          description: The requested role for OOBI rpy message.
+        - in: path
+          name: eid
+          schema:
+            type: string
+          required: false
+          description: The qb64 identifier prefix of participant in role.
+        responses:
+            200:
+                description: Successfully retrieved the OOBI resource.
+            400:
+                description: Bad request. This could be due to invalid or missing parameters.
+            404:
+                description: The requested OOBI resource was not found.
         """
         if not aid:
             if self.default is None:
@@ -65,7 +96,9 @@ class OOBIEnd:
         if kever.prefixer.qb64 in agent.hby.prefixes:  # One of our identifiers
             hab = agent.hby.habs[kever.prefixer.qb64]
         else:  # Not allowed to respond
-            raise falcon.HTTPNotAcceptable(description=f"{aid} is not a local identifier")
+            raise falcon.HTTPNotAcceptable(
+                description=f"{aid} is not a local identifier"
+            )
 
         eids = []
         if eid:

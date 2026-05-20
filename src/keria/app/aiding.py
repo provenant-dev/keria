@@ -4,21 +4,27 @@ KERIA
 keria.app.aiding module
 
 """
-import json
-from dataclasses import asdict
-from urllib.parse import urlparse, urljoin
 
 import falcon
+import json
+from dataclasses import asdict, dataclass, field
+from typing import Dict, Optional, List, Union
+from urllib.parse import urlparse, urljoin
 from keri import kering
+from keri import core
 from keri.app import habbing
 from keri.app.keeping import Algos
-from keri.core import coring, serdering
-from keri.core.coring import Ilks
+from keri.core import coring, serdering, eventing
 from keri.db import dbing
 from keri.help import ogler
 from mnemonic import mnemonic
+from keri.db import basing
+from marshmallow import fields
+from marshmallow_dataclass import class_schema
 
 from ..core import longrunning, httping
+from ..utils.openapi import namedtupleToEnum, dataclassFromFielddom
+from keri.core.serdering import Protocols, Vrsn_1_0, Vrsn_2_0, SerderKERI
 
 logger = ogler.getLogger()
 
@@ -29,9 +35,11 @@ def loadEnds(app, agency, authn):
 
     aidsEnd = IdentifierCollectionEnd()
     app.add_route("/identifiers", aidsEnd)
+
     aidEnd = IdentifierResourceEnd()
     app.add_route("/identifiers/{name}", aidEnd)
     app.add_route("/identifiers/{name}/events", aidEnd)
+    app.add_route("/identifiers/{name}/submit", aidEnd)
 
     aidOOBIsEnd = IdentifierOOBICollectionEnd()
     app.add_route("/identifiers/{name}/oobis", aidOOBIsEnd)
@@ -44,6 +52,9 @@ def loadEnds(app, agency, authn):
 
     endRoleEnd = EndRoleResourceEnd()
     app.add_route("/identifiers/{name}/endroles/{role}/{eid}", endRoleEnd)
+
+    locSchemesEnd = LocSchemeCollectionEnd()
+    app.add_route("/identifiers/{name}/locschemes", locSchemesEnd)
 
     rpyEscrowEnd = RpyEscrowCollectionEnd()
     app.add_route("/escrows/rpy", rpyEscrowEnd)
@@ -68,15 +79,104 @@ def loadEnds(app, agency, authn):
     return aidEnd
 
 
+@dataclass
+class Seal:
+    s: str
+    d: str
+    i: Optional[str] = field(
+        default=None, metadata={"marshmallow_field": fields.String(allow_none=False)}
+    )
+
+
+ixnFieldDomV1 = SerderKERI.Fields[Protocols.keri][Vrsn_1_0][coring.Ilks.ixn]
+IXN_V_1, IXNSchema_V_1 = dataclassFromFielddom("IXN_V_1", ixnFieldDomV1)
+ixnFieldDomV2 = SerderKERI.Fields[Protocols.keri][Vrsn_2_0][coring.Ilks.ixn]
+IXN_V_2, IXNSchema_V_2 = dataclassFromFielddom("IXN_V_2", ixnFieldDomV2)
+
+icpFieldDomV1 = SerderKERI.Fields[Protocols.keri][Vrsn_1_0][coring.Ilks.icp]
+ICP_V_1, ICPSchema_V_1 = dataclassFromFielddom("ICP_V_1", icpFieldDomV1)
+icpFieldDomV2 = SerderKERI.Fields[Protocols.keri][Vrsn_2_0][coring.Ilks.icp]
+ICP_V_2, ICPSchema_V_2 = dataclassFromFielddom("ICP_V_2", icpFieldDomV2)
+
+rotFieldDomV1 = SerderKERI.Fields[Protocols.keri][Vrsn_1_0][coring.Ilks.rot]
+ROT_V_1, ROTSchema_V_1 = dataclassFromFielddom("ROT_V_1", rotFieldDomV1)
+rotFieldDomV2 = SerderKERI.Fields[Protocols.keri][Vrsn_2_0][coring.Ilks.rot]
+ROT_V_2, ROTSchema_V_2 = dataclassFromFielddom("ROT_V_2", rotFieldDomV2)
+
+dipFieldDomV1 = SerderKERI.Fields[Protocols.keri][Vrsn_1_0][coring.Ilks.dip]
+DIP_V_1, DIPSchema_V_1 = dataclassFromFielddom("DIP_V_1", dipFieldDomV1)
+dipFieldDomV2 = SerderKERI.Fields[Protocols.keri][Vrsn_2_0][coring.Ilks.dip]
+DIP_V_2, DIPSchema_V_2 = dataclassFromFielddom("DIP_V_2", dipFieldDomV2)
+
+drtFieldDomV1 = SerderKERI.Fields[Protocols.keri][Vrsn_1_0][coring.Ilks.drt]
+DRT_V_1, DRTSchema_V_1 = dataclassFromFielddom("DRT_V_1", drtFieldDomV1)
+drtFieldDomV2 = SerderKERI.Fields[Protocols.keri][Vrsn_2_0][coring.Ilks.drt]
+DRT_V_2, DRTSchema_V_2 = dataclassFromFielddom("DRT_V_2", drtFieldDomV2)
+
+
+@dataclass
+class KeyStateRecord(basing.KeyStateRecord):
+    k: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    n: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    b: list = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    c: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    ee: basing.StateEERecord = field(
+        default_factory=basing.StateEERecord,
+        metadata={
+            "marshmallow_field": fields.Nested(
+                class_schema(basing.StateEERecord), required=True
+            )
+        },
+    )
+    kt: Union[str, list[str]]
+    nt: Union[str, list[str]]
+
+
+@dataclass
+class Controller:
+    state: KeyStateRecord
+    ee: Union[
+        "ICP_V_1",
+        "ICP_V_2",
+        "ROT_V_1",
+        "ROT_V_2",
+        "DIP_V_1",
+        "DIP_V_2",
+        "DRT_V_1",
+        "DRT_V_2",
+    ]  # type: ignore
+
+
+@dataclass
+class AgentResourceResult:
+    agent: KeyStateRecord
+    controller: Controller
+    pidx: int
+    ridx: Optional[int] = None
+    sxlt: Optional[str] = None
+
+
 class AgentResourceEnd:
-    """ Resource class for getting agent specific launch information """
+    """Resource class for getting agent specific launch information"""
 
     def __init__(self, agency, authn):
         self.agency = agency
         self.authn = authn
 
     def on_get(self, _, rep, caid):
-        """ GET endpoint for Keystores
+        """GET endpoint for Keystores
 
         Get keystore status
 
@@ -85,31 +185,62 @@ class AgentResourceEnd:
             rep: falcon.Response HTTP response
             caid(str): qb64 identifier prefix of Controller
 
+        ---
+        summary: Retrieve key state record of an agent by controller AID.
+        description: This endpoint retrieves the key state record for a given controller of an agent.
+        tags:
+        - Agent
+        parameters:
+        - in: path
+          name: caid
+          schema:
+            type: string
+          required: true
+          description: The qb64 identifier prefix of Controller.
+        responses:
+          200:
+            description: Successfully retrieved the key state record.
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/AgentResourceResult'
+          400:
+            description: Bad request. This could be due to an invalid agent or controller configuration.
+          404:
+            description: The requested controller or agent was not found.
         """
         agent = self.agency.get(caid)
         if agent is None:
-            raise falcon.HTTPNotFound(description=f"not agent found for controller {caid}")
+            raise falcon.HTTPNotFound(
+                description=f"not agent found for controller {caid}"
+            )
 
         if agent.pre not in agent.hby.kevers:
-            raise falcon.HTTPBadRequest(description=f"invalid agent configuration, {agent.pre} not found")
+            raise falcon.HTTPBadRequest(
+                description=f"invalid agent configuration, {agent.pre} not found"
+            )
 
         if agent.caid not in agent.hby.kevers:
-            raise falcon.HTTPBadRequest(description=f"invalid controller configuration, {agent.caid} not found")
+            raise falcon.HTTPBadRequest(
+                description=f"invalid controller configuration, {agent.caid} not found"
+            )
 
-        pidx = agent.hby.db.habs.cntAll()
+        pidx = 0
+        for name, _ in agent.hby.db.names.getItemIter():
+            if name[0] != "agent":
+                pidx += 1
+
+        # pidx = agent.hby.db.habs.cntAll()
 
         state = asdict(agent.hby.kevers[agent.caid].state())
-        key = dbing.dgKey(state['i'], state['ee']['d'])  # digest key
+        key = dbing.dgKey(state["i"], state["ee"]["d"])  # digest key
         msg = agent.hby.db.getEvt(key)
         eserder = serdering.SerderKERI(raw=bytes(msg))
 
         body = dict(
             agent=asdict(agent.hby.kevers[agent.pre].state()),
-            controller=dict(
-                state=state,
-                ee=eserder.ked
-            ),
-            pidx=pidx
+            controller=dict(state=state, ee=eserder.ked),
+            pidx=pidx,
         )
 
         if (sxlt := agent.mgr.sxlt) is not None:
@@ -127,6 +258,53 @@ class AgentResourceEnd:
             rep (Response): falcon.Response HTTP response
             caid(str): qb64 identifier prefix of Controller
 
+        ---
+        summary: Update agent configuration by controller AID.
+        description: This endpoint updates the agent configuration based on the provided request parameters and body.
+        tags:
+        - Agent
+        parameters:
+        - in: path
+          name: caid
+          schema:
+            type: string
+          required: true
+          description: The qb64 identifier prefix of Controller.
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                    - rot
+                    - sigs
+                    - sxlt
+                    - kyes
+                  properties:
+                    rot:
+                      type: object
+                      description: The rotation event.
+                    sigs:
+                      type: array
+                      items:
+                          type: string
+                      description: The signatures.
+                    sxlt:
+                      type: string
+                      description: The salty parameters.
+                    keys:
+                      type: object
+                      description: The keys.
+        responses:
+            204:
+              description: Successfully updated the agent configuration.
+            400:
+              description: Bad request. This could be due to missing or invalid parameters.
+            404:
+              description: The requested agent was not found.
+            500:
+              description: Internal server error. This could be due to an issue with updating the agent configuration.
         """
         agent = self.agency.get(caid)
         if agent is None:
@@ -141,26 +319,34 @@ class AgentResourceEnd:
         body = req.get_media()
 
         if "rot" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'rot' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'rot' missing from body"
+            )
 
         if "sigs" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'sigs' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'sigs' missing from body"
+            )
 
         if "sxlt" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'sxlt' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'sxlt' missing from body"
+            )
 
         if "keys" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'keys' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'keys' missing from body"
+            )
 
         rot = serdering.SerderKERI(sad=body["rot"])
         sigs = body["sigs"]
 
         ctrlHab = agent.hby.habByName(caid, ns="agent")
-        ctrlHab.rotate(serder=rot, sigers=[coring.Siger(qb64=sig) for sig in sigs])
+        ctrlHab.rotate(serder=rot, sigers=[core.Siger(qb64=sig) for sig in sigs])
 
         if not self.authn.verify(req):
             raise falcon.HTTPForbidden(description="invalid signature on request")
-        
+
         sxlt = body["sxlt"]
         agent.mgr.sxlt = sxlt
 
@@ -168,12 +354,18 @@ class AgentResourceEnd:
         for pre, val in keys.items():
             if "sxlt" in val:
                 if (sp := agent.mgr.rb.sprms.get(pre)) is None:
-                    raise ValueError("Attempt to update sxlt for nonexistent or invalid pre={}.".format(pre))
+                    raise ValueError(
+                        "Attempt to update sxlt for nonexistent or invalid pre={}.".format(
+                            pre
+                        )
+                    )
 
                 sp.sxlt = val["sxlt"]
 
                 if not agent.mgr.rb.sprms.pin(pre, val=sp):
-                    raise ValueError("Unable to update sxlt prms for pre={}.".format(pre))
+                    raise ValueError(
+                        "Unable to update sxlt prms for pre={}.".format(pre)
+                    )
 
             elif "prxs" in val:
                 hab = agent.hby.habs[pre]
@@ -182,16 +374,18 @@ class AgentResourceEnd:
                 prxs = val["prxs"]
 
                 for idx, prx in enumerate(prxs):
-                    cipher = coring.Cipher(qb64=prx)
+                    cipher = core.Cipher(qb64=prx)
                     agent.mgr.rb.prxs.put(keys=verfers[idx].qb64b, val=cipher)
 
                 if "nxts" in val:
                     nxts = val["nxts"]
                     if len(nxts) != len(digers):
-                        raise ValueError("If encrypted private next keys are provided, must match digers")
+                        raise ValueError(
+                            "If encrypted private next keys are provided, must match digers"
+                        )
 
                     for idx, prx in enumerate(nxts):
-                        cipher = coring.Cipher(qb64=prx)
+                        cipher = core.Cipher(qb64=prx)
                         agent.mgr.rb.nxts.put(keys=digers[idx].qb64b, val=cipher)
 
         agent.mgr.delete_sxlt()
@@ -203,15 +397,19 @@ class AgentResourceEnd:
         body = req.get_media()
 
         if "ixn" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'ixn' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'ixn' missing from body"
+            )
 
         if "sigs" not in body:
-            raise falcon.HTTPBadRequest(description="required field 'sigs' missing from body")
+            raise falcon.HTTPBadRequest(
+                description="required field 'sigs' missing from body"
+            )
 
-        ked = body['ixn']
-        sigs = body['sigs']
+        ked = body["ixn"]
+        sigs = body["sigs"]
         ixn = serdering.SerderKERI(sad=ked)
-        sigers = [coring.Siger(qb64=sig) for sig in sigs]
+        sigers = [core.Siger(qb64=sig) for sig in sigs]
 
         ctrlHab = agent.hby.habByName(caid, ns="agent")
 
@@ -228,11 +426,11 @@ class AgentResourceEnd:
         if len(a) == 0:
             return
 
-        delegator = coring.Saider(qb64=ixn.ked['d'])
-        delegatorsn = coring.Seqner(snh=ixn.ked['s'])
+        delegator = coring.Saider(qb64=ixn.ked["d"])
+        delegatorsn = coring.Seqner(snh=ixn.ked["s"])
 
         seal = a[0]
-        prefixer = coring.Prefixer(qb64=seal['i'])
+        prefixer = coring.Prefixer(qb64=seal["i"])
         saider = coring.Saider(qb64=seal["d"])
 
         couple = delegatorsn.qb64b + delegator.qb64b
@@ -240,8 +438,98 @@ class AgentResourceEnd:
         agent.hby.db.setAes(dgkey, couple)  # authorizer event seal (delegator/issuer)
 
 
+@dataclass
+class RandyKeyState:
+    prxs: List[str]
+    nxts: List[str]
+
+
+@dataclass
+class ExternState:
+    extern_type: str
+    pidx: int
+    # Override the schema to force additionalProperties=True
+
+
+Tier = namedtupleToEnum(coring.Tiers, "Tier")
+
+
+@dataclass
+class SaltyState:
+    tier: Tier  # type: ignore
+    sxlt: str = ""
+    pidx: int = 0
+    kidx: int = 0
+    stem: str = ""
+    dcode: str = ""
+    icodes: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    ncodes: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    transferable: bool = False
+
+
+@dataclass
+class GroupKeyState:
+    """Data class for group key state"""
+
+    mhab: "HabState"
+    keys: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+    ndigs: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+
+
+@dataclass
+class HabStateBase:
+    """Base data class for identifier state (minimal)"""
+
+    name: str
+    prefix: str
+    icp_dt: str
+    # One of salty, randy, group, or extern must be present
+    # Patch to ensure only one of these is set in specing
+
+    def __post_init__(self):
+        present = [self.salty, self.randy, self.group, self.extern]
+        if sum(x is not None for x in present) != 1:
+            raise ValueError(
+                "Exactly one of salty, randy, group, or extern must be present."
+            )
+
+
+@dataclass
+class HabState(HabStateBase):
+    """Data class for identifier resource result (full state)"""
+
+    state: KeyStateRecord = field(
+        default_factory=KeyStateRecord,
+        metadata={
+            "marshmallow_field": fields.Nested(
+                class_schema(KeyStateRecord), required=False
+            )
+        },
+    )
+    transferable: bool = field(
+        default=False,
+        metadata={"marshmallow_field": fields.Boolean(required=False)},
+    )
+    windexes: list[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=False)},
+    )
+
+
 class IdentifierCollectionEnd:
-    """ Resource class for creating and managing identifiers """
+    """Resource class for creating and managing identifiers"""
 
     @staticmethod
     def on_options(req, rep):
@@ -250,12 +538,36 @@ class IdentifierCollectionEnd:
 
     @staticmethod
     def on_get(req, rep):
-        """ Identifier List GET endpoint
+        """Identifier List GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
             rep: falcon.Response HTTP response
 
+        ---
+        summary: Retrieve a list of identifiers associated with the agent.
+        description: This endpoint retrieves a list of identifiers associated with the agent.
+                     It supports pagination through the 'Range' header.
+        tags:
+          - Identifier
+        parameters:
+        - in: header
+          name: Range
+          schema:
+            type: string
+          required: false
+          description: The 'Range' header is used for pagination. The default range is 0-9.
+        responses:
+            200:
+                description: Successfully retrieved identifiers.
+                content:
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/HabStateBase'
+            206:
+                description: Successfully retrieved identifiers within the specified range.
         """
         agent = req.context.agent
         res = []
@@ -270,19 +582,18 @@ class IdentifierCollectionEnd:
             start, end = httping.parseRangeHeader(rng, "aids")
 
         count = agent.hby.db.habs.cntAll()
-        it = agent.hby.db.habs.getItemIter()
+        it = agent.hby.db.names.getItemIter()
         for _ in range(start):
             try:
                 next(it)
             except StopIteration:
                 break
 
-        for name, habord in it:
-            name = ".".join(name)  # detupleize the database key name
-
-            hab = agent.hby.habByName(name)
-            if hab is None:
+        for (ns, name), pre in it:
+            if ns == "agent":
                 continue
+
+            hab = agent.hby.habs[pre]
             data = info(hab, agent.mgr)
             res.append(data)
 
@@ -291,18 +602,65 @@ class IdentifierCollectionEnd:
 
         end = start + (len(res) - 1) if len(res) > 0 else 0
         rep.set_header("Accept-Ranges", "aids")
-        rep.set_header("Content-Range", f"aids {start}-{end}/{count}")
+        rep.set_header("Content-Range", f"aids {start}-{end}/{count - 1}")
         rep.content_type = "application/json"
         rep.data = json.dumps(res).encode("utf-8")
 
     @staticmethod
     def on_post(req, rep):
-        """ Inception event POST endpoint
+        """Inception event POST endpoint
 
         Parameters:
             req (Request): falcon.Request HTTP request object
             rep (Response): falcon.Response HTTP response object
 
+        ---
+        summary: Create an identifier.
+        description: This endpoint creates an identifier with the provided inception event, name, and signatures.
+        tags:
+        - Identifier
+        requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    icp:
+                      type: object
+                      description: The inception event for the identifier.
+                    name:
+                      type: string
+                      description: The name of the identifier.
+                    sigs:
+                      type: array
+                      items:
+                          type: string
+                      description: The signatures for the inception event.
+                    group:
+                      type: object
+                      description: Multisig group information.
+                    salty:
+                      type: object
+                      description: Salty parameters.
+                    randy:
+                      type: object
+                      description: Randomly generated materials.
+                    extern:
+                      type: object
+                      description: External parameters.
+        responses:
+            202:
+                description: Identifier creation is in progress. The response is a long running operation.
+                content:
+                  application/json:
+                    schema:
+                      oneOf:
+                        - $ref: '#/components/schemas/GroupOperation'
+                        - $ref: '#/components/schemas/WitnessOperation'
+                        - $ref: '#/components/schemas/DelegationOperation'
+                        - $ref: '#/components/schemas/DoneOperation'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
         """
         agent = req.context.agent
         try:
@@ -313,59 +671,96 @@ class IdentifierCollectionEnd:
 
             serder = serdering.SerderKERI(sad=icp)
 
-            sigers = [coring.Siger(qb64=sig) for sig in sigs]
+            sigers = [core.Siger(qb64=sig) for sig in sigs]
 
             if agent.hby.habByName(name) is not None:
-                raise falcon.HTTPBadRequest(title=f"AID with name {name} already incepted")
+                raise falcon.HTTPBadRequest(
+                    title=f"AID with name {name} already incepted"
+                )
 
-            if 'b' in icp:
-                for wit in icp['b']:
+            if "b" in icp:
+                for wit in icp["b"]:
                     urls = agent.agentHab.fetchUrls(eid=wit, scheme=kering.Schemes.http)
                     if not urls and wit not in agent.hby.kevers:
-                        raise falcon.HTTPBadRequest(description=f'unknown witness {wit}')
+                        raise falcon.HTTPBadRequest(
+                            description=f"unknown witness {wit}"
+                        )
 
-            if 'di' in icp and icp["di"] not in agent.hby.kevers:
-                raise falcon.HTTPBadRequest(description=f'unknown delegator {icp["di"]}')
+            if "di" in icp and icp["di"] not in agent.hby.kevers:
+                raise falcon.HTTPBadRequest(
+                    description=f"unknown delegator {icp['di']}"
+                )
 
             # client is requesting agent to join multisig group
             if "group" in body:
                 group = body["group"]
 
                 if "mhab" not in group:
-                    raise falcon.HTTPBadRequest(description=f'required field "mhab" missing from body.group')
+                    raise falcon.HTTPBadRequest(
+                        description='required field "mhab" missing from body.group'
+                    )
                 mpre = group["mhab"]["prefix"]
 
                 if mpre not in agent.hby.habs:
-                    raise falcon.HTTPBadRequest(description=f'signing member {mpre} not a local AID')
+                    raise falcon.HTTPBadRequest(
+                        description=f"signing member {mpre} not a local AID"
+                    )
                 mhab = agent.hby.habs[mpre]
 
                 if "keys" not in group:
-                    raise falcon.HTTPBadRequest(description=f'required field "keys" missing from body.group')
+                    raise falcon.HTTPBadRequest(
+                        description='required field "keys" missing from body.group'
+                    )
                 keys = group["keys"]
                 verfers = [coring.Verfer(qb64=key) for key in keys]
 
                 if mhab.kever.fetchLatestContribTo(verfers=verfers) is None:
-                    raise falcon.HTTPBadRequest(description=f"Member hab={mhab.pre} not a participant in "
-                                                            f"event for this group hab.")
+                    raise falcon.HTTPBadRequest(
+                        description=f"Member hab={mhab.pre} not a participant in "
+                        f"event for this group hab."
+                    )
 
                 if "ndigs" not in group:
-                    raise falcon.HTTPBadRequest(description=f'required field "ndigs" missing from body.group')
+                    raise falcon.HTTPBadRequest(
+                        description='required field "ndigs" missing from body.group'
+                    )
                 ndigs = group["ndigs"]
                 digers = [coring.Diger(qb64=ndig) for ndig in ndigs]
 
-                smids = httping.getRequiredParam(body, "smids")
-                rmids = httping.getRequiredParam(body, "rmids")
+                states = httping.getRequiredParam(body, "smids")
+                rstates = httping.getRequiredParam(body, "rmids")
 
-                hab = agent.hby.makeSignifyGroupHab(name, mhab=mhab, serder=serder, sigers=sigers)
+                hab = agent.hby.makeSignifyGroupHab(
+                    name,
+                    mhab=mhab,
+                    smids=states,
+                    rmids=rstates,
+                    serder=serder,
+                    sigers=sigers,
+                )
                 try:
-                    agent.inceptGroup(pre=serder.pre, mpre=mhab.pre, verfers=verfers, digers=digers)
+                    agent.inceptGroup(
+                        pre=serder.pre, mpre=mhab.pre, verfers=verfers, digers=digers
+                    )
                 except ValueError as e:
                     agent.hby.deleteHab(name=name)
                     raise falcon.HTTPInternalServerError(description=f"{e.args[0]}")
 
                 # Generate response, a long running operaton indicator for the type
-                agent.groups.append(dict(pre=hab.pre, serder=serder, sigers=sigers, smids=smids, rmids=rmids))
-                op = agent.monitor.submit(serder.pre, longrunning.OpTypes.group, metadata=dict(sn=0))
+                agent.groups.append(
+                    dict(
+                        pre=hab.pre,
+                        serder=serder,
+                        sigers=sigers,
+                        smids=states,
+                        rmids=rstates,
+                    )
+                )
+                op = agent.monitor.submit(
+                    serder.pre,
+                    longrunning.OpTypes.group,
+                    metadata=dict(pre=hab.pre, sn=0),
+                )
 
                 rep.content_type = "application/json"
                 rep.status = falcon.HTTP_202
@@ -387,7 +782,12 @@ class IdentifierCollectionEnd:
                     rand = body[Algos.randy]
                     hab = agent.hby.makeSignifyHab(name, serder=serder, sigers=sigers)
                     try:
-                        agent.inceptRandy(pre=serder.pre, verfers=serder.verfers, digers=serder.ndigers, **rand)
+                        agent.inceptRandy(
+                            pre=serder.pre,
+                            verfers=serder.verfers,
+                            digers=serder.ndigers,
+                            **rand,
+                        )
                     except ValueError as e:
                         agent.hby.deleteHab(name=name)
                         raise falcon.HTTPInternalServerError(description=f"{e.args[0]}")
@@ -396,36 +796,51 @@ class IdentifierCollectionEnd:
                     extern = body[Algos.extern]
                     hab = agent.hby.makeSignifyHab(name, serder=serder, sigers=sigers)
                     try:
-                        agent.inceptExtern(pre=serder.pre, verfers=serder.verfers, digers=serder.ndigers, **extern)
+                        agent.inceptExtern(
+                            pre=serder.pre,
+                            verfers=serder.verfers,
+                            digers=serder.ndigers,
+                            **extern,
+                        )
                     except ValueError as e:
                         agent.hby.deleteHab(name=name)
                         raise falcon.HTTPInternalServerError(description=f"{e.args[0]}")
 
                 else:
                     raise falcon.HTTPBadRequest(
-                        description="invalid request: one of group, rand or salt field required")
+                        description="invalid request: one of group, rand or salt field required"
+                    )
 
                 # create Hab and incept the key store (if any)
                 # Generate response, either the serder or a long running operaton indicator for the type
                 rep.content_type = "application/json"
-                if hab.kever.delegator:
+                if hab.kever.delpre:
                     agent.anchors.append(dict(pre=hab.pre, sn=0))
-                    op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.delegation,
-                                              metadata=dict(pre=hab.pre, sn=0))
+                    op = agent.monitor.submit(
+                        hab.kever.prefixer.qb64,
+                        longrunning.OpTypes.delegation,
+                        metadata=dict(pre=hab.pre, sn=0),
+                    )
                     rep.status = falcon.HTTP_202
                     rep.data = op.to_json().encode("utf-8")
 
                 elif hab.kever.wits:
                     agent.witners.append(dict(serder=serder))
-                    op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.witness,
-                                              metadata=dict(sn=0))
+                    op = agent.monitor.submit(
+                        hab.kever.prefixer.qb64,
+                        longrunning.OpTypes.witness,
+                        metadata=dict(pre=hab.pre, sn=0),
+                    )
                     rep.status = falcon.HTTP_202
                     rep.data = op.to_json().encode("utf-8")
 
                 else:
                     rep.status = falcon.HTTP_202
-                    op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.done,
-                                              metadata=dict(response=serder.ked))
+                    op = agent.monitor.submit(
+                        hab.kever.prefixer.qb64,
+                        longrunning.OpTypes.done,
+                        metadata=dict(pre=hab.pre, response=serder.ked),
+                    )
                     rep.data = op.to_json().encode("utf-8")
 
         except (kering.AuthError, ValueError) as e:
@@ -433,25 +848,54 @@ class IdentifierCollectionEnd:
 
 
 class IdentifierResourceEnd:
-    """ Resource class for updating and deleting identifiers """
+    """Resource class for updating and deleting identifiers"""
 
     @staticmethod
     def on_get(req, rep, name):
-        """ Identifier GET endpoint
+        """Identifier GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
             rep: falcon.Response HTTP response
-            name (str): human readable name for Hab to GET
+            name (str): human-readable name for Hab to GET
 
+        ---
+        summary: Retrieve an identifier.
+        description: This endpoint retrieves an identifier by its prefix or human-readable name.
+        tags:
+        - Identifier
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        responses:
+            200:
+                description: Successfully retrieved the identifier details.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/HabState'
+            400:
+                description: Bad request. This could be due to a missing or invalid name parameter.
+            404:
+                description: The requested identifier was not found.
         """
         if not name:
             raise falcon.HTTPBadRequest(description="name is required")
 
         agent = req.context.agent
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
-            raise falcon.HTTPNotFound(description=f"{name} is not a valid identifier name")
+            raise falcon.HTTPNotFound(
+                description=f"{name} is not a valid identifier name or prefix"
+            )
 
         data = info(hab, agent.mgr, full=True)
         rep.status = falcon.HTTP_200
@@ -459,27 +903,79 @@ class IdentifierResourceEnd:
         rep.data = json.dumps(data).encode("utf-8")
 
     def on_put(self, req, rep, name):
-        """ Identifier rename endpoint
+        """Identifier rename endpoint
 
         Parameters:
             req (Request): falcon.Request HTTP request object
             rep (Response): falcon.Response HTTP response object
-            name (str): human readable name for Hab to rename
+            name (str): human readable name for Hab to rename or its prefix
 
+        ---
+        summary: Rename an identifier.
+        description: This endpoint renames an identifier with the provided new name.
+        tags:
+        - Identifier
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The current human-readable name of the identifier or its prefix.
+        requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The new human-readable name for the identifier.
+                  required:
+                  - name
+        responses:
+            200:
+              description: Successfully renamed the identifier and returns the updated information.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/HabState'
+            400:
+              description: Bad request. This could be due to a missing or invalid name parameter.
+            404:
+              description: The requested identifier was not found.
         """
         if not name:
             raise falcon.HTTPBadRequest(description="name is required")
-        agent = req.context.agent
-        hab = agent.hby.habByName(name)
 
-        if hab is None:
-            raise falcon.HTTPNotFound(title=f"No AID with name {name} found")
         body = req.get_media()
         newName = body.get("name")
-        habord = hab.db.habs.get(keys=name)
-        hab.db.habs.put(keys=newName,
-                            val=habord)
-        hab.db.habs.rem(keys=name)
+
+        if not newName:
+            raise falcon.HTTPBadRequest(description="new name is required")
+
+        agent = req.context.agent
+
+        if agent.hby.habByName(newName) is not None:
+            raise falcon.HTTPBadRequest(
+                title=f"AID with name {newName} already incepted"
+            )
+
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
+
+        if hab is None:
+            raise falcon.HTTPNotFound(title=f"No AID with name or prefix {name} found")
+
+        habord = hab.db.habs.get(keys=(hab.pre,))
+        oldName = habord.name
+        habord.name = newName
+        hab.db.habs.pin(keys=(hab.pre,), val=habord)
+        hab.db.names.pin(keys=("", newName), val=hab.pre)
+        hab.db.names.rem(keys=("", oldName))
         hab.name = newName
         hab = agent.hby.habByName(newName)
         data = info(hab, agent.mgr, full=True)
@@ -488,13 +984,61 @@ class IdentifierResourceEnd:
         rep.data = json.dumps(data).encode("utf-8")
 
     def on_post(self, req, rep, name):
-        """ Identifier events endpoint
+        """Identifier events endpoint
 
         Parameters:
             req (Request): falcon.Request HTTP request object
             rep (Response): falcon.Response HTTP response object
-            name (str): human readable name for Hab to rotate or interact
+            name (str): human-readable name or prefix for Hab to rotate or interact
 
+        ---
+        summary: Process identifier events.
+        description: This endpoint handles the 'rot' or 'ixn' events of an identifier, or the request to resubmit the KEL, based on the provided request.
+        tags:
+        - Identifier
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    rot:
+                      type: object
+                      description: The rotation event details.
+                    ixn:
+                      type: object
+                      description: The interaction event details.
+                    submit:
+                      type: object
+                      description: The request to resubmit event details to witnesses.
+                  oneOf:
+                  - required:
+                    - rot
+                  - required:
+                    - ixn
+                  - required:
+                    - submit
+        responses:
+            200:
+              description: Successfully processed the identifier's event.
+              content:
+                application/json:
+                  schema:
+                      oneOf:
+                        - $ref: '#/components/schemas/GroupOperation'
+                        - $ref: '#/components/schemas/WitnessOperation'
+                        - $ref: '#/components/schemas/DelegationOperation'
+                        - $ref: '#/components/schemas/DoneOperation'
+                        - $ref: '#/components/schemas/SubmitOperation'
+            400:
+              description: Bad request. This could be due to missing or invalid parameters.
         """
         if not name:
             raise falcon.HTTPBadRequest(description="name is required")
@@ -505,9 +1049,13 @@ class IdentifierResourceEnd:
                 op = self.rotate(agent, name, body)
             elif body.get("ixn") is not None:
                 op = self.interact(agent, name, body)
+            elif body.get("submit") is not None:
+                op = self.submit_id(agent, name, body)
             else:
-                raise falcon.HTTPBadRequest(title="invalid request",
-                                        description=f"required field 'rot' or 'ixn' missing from request")
+                raise falcon.HTTPBadRequest(
+                    title="invalid request",
+                    description="required field 'rot' or 'ixn' missing from request",
+                )
 
             rep.status = falcon.HTTP_200
             rep.content_type = "application/json"
@@ -518,32 +1066,46 @@ class IdentifierResourceEnd:
 
     @staticmethod
     def rotate(agent, name, body):
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
-            raise falcon.HTTPNotFound(title=f"No AID with name {name} found")
-               
+            raise falcon.HTTPNotFound(title=f"No AID with name or prefix {name} found")
+
         rot = body.get("rot")
         if rot is None:
-            raise falcon.HTTPBadRequest(title="invalid rotation",
-                                        description=f"required field 'rot' missing from request")
+            raise falcon.HTTPBadRequest(
+                title="invalid rotation",
+                description="required field 'rot' missing from request",
+            )
+        serder = serdering.SerderKERI(sad=rot)
+        logger.info(
+            "[%s | %s]: Rotation event sn=%s SAID=%s",
+            hab.name,
+            hab.pre,
+            serder.sn,
+            serder.said,
+        )
 
-        if 'ba' in rot:
-            for wit in rot['ba']:
+        if "ba" in rot:
+            for wit in rot["ba"]:
                 urls = agent.agentHab.fetchUrls(eid=wit, scheme=kering.Schemes.http)
                 if not urls and wit not in agent.hby.kevers:
-                    raise falcon.HTTPBadRequest(description=f'unknown witness {wit}')
+                    raise falcon.HTTPBadRequest(description=f"unknown witness {wit}")
 
         sigs = body.get("sigs")
         if sigs is None or len(sigs) == 0:
-            raise falcon.HTTPBadRequest(title="invalid rotation",
-                                        description=f"required field 'sigs' missing from request")
-
-        serder = serdering.SerderKERI(sad=rot)
-        sigers = [coring.Siger(qb64=sig) for sig in sigs]
-
-        hab.rotate(serder=serder, sigers=sigers)
+            raise falcon.HTTPBadRequest(
+                title="invalid rotation",
+                description="required field 'sigs' missing from request",
+            )
+        sigers = [core.Siger(qb64=sig) for sig in sigs]
 
         if Algos.salty in body:
+            hab.rotate(serder=serder, sigers=sigers)
+
             salt = body[Algos.salty]
             keeper = agent.mgr.get(Algos.salty)
 
@@ -554,76 +1116,146 @@ class IdentifierResourceEnd:
                 raise falcon.HTTPInternalServerError(description=f"{e.args[0]}")
 
         elif Algos.randy in body:
+            hab.rotate(serder=serder, sigers=sigers)
+
             rand = body[Algos.randy]
             keeper = agent.mgr.get(Algos.randy)
 
-            keeper.rotate(pre=serder.pre, verfers=serder.verfers, digers=serder.ndigers, **rand)
+            keeper.rotate(
+                pre=serder.pre, verfers=serder.verfers, digers=serder.ndigers, **rand
+            )
 
         elif Algos.group in body:
+            smids = httping.getRequiredParam(body, "smids")
+            rmids = httping.getRequiredParam(body, "rmids")
+
+            hab.rotate(serder=serder, sigers=sigers, smids=smids, rmids=rmids)
+
             keeper = agent.mgr.get(Algos.group)
 
             keeper.rotate(pre=serder.pre, verfers=serder.verfers, digers=serder.ndigers)
 
-            smids = httping.getRequiredParam(body, "smids")
-            rmids = httping.getRequiredParam(body, "rmids")
-
-            agent.groups.append(dict(pre=hab.pre, serder=serder, sigers=sigers, smids=smids, rmids=rmids))
-            op = agent.monitor.submit(serder.pre, longrunning.OpTypes.group, metadata=dict(sn=serder.sn))
+            agent.groups.append(
+                dict(
+                    pre=hab.pre, serder=serder, sigers=sigers, smids=smids, rmids=rmids
+                )
+            )
+            op = agent.monitor.submit(
+                serder.said,
+                longrunning.OpTypes.group,
+                metadata=dict(pre=hab.pre, sn=serder.sn),
+            )
 
             return op
 
-        if hab.kever.delegator:
+        if hab.kever.delpre:
             agent.anchors.append(dict(alias=name, pre=hab.pre, sn=serder.sn))
-            op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.delegation,
-                                      metadata=dict(pre=hab.pre, sn=serder.sn))
+            op = agent.monitor.submit(
+                serder.said,
+                longrunning.OpTypes.delegation,
+                metadata=dict(pre=hab.pre, sn=serder.sn),
+            )
             return op
 
         if hab.kever.wits:
             agent.witners.append(dict(serder=serder))
-            op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.witness,
-                                      metadata=dict(sn=serder.sn))
+            op = agent.monitor.submit(
+                serder.said,
+                longrunning.OpTypes.witness,
+                metadata=dict(pre=hab.pre, sn=serder.sn),
+            )
             return op
 
-        op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.done,
-                                  metadata=dict(response=serder.ked))
+        op = agent.monitor.submit(
+            serder.said,
+            longrunning.OpTypes.done,
+            metadata=dict(response=serder.ked),
+        )
         return op
 
     @staticmethod
     def interact(agent, name, body):
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
             raise falcon.HTTPNotFound(title=f"No AID {name} found")
 
         ixn = body.get("ixn")
         if ixn is None:
-            raise falcon.HTTPBadRequest(title="invalid interaction",
-                                        description=f"required field 'ixn' missing from request")
+            raise falcon.HTTPBadRequest(
+                title="invalid interaction",
+                description="required field 'ixn' missing from request",
+            )
+        serder = serdering.SerderKERI(sad=ixn)
+        logger.info(
+            "[%s | %s] Interaction event sn=%s SAID=%s",
+            hab.name,
+            hab.pre,
+            serder.sn,
+            serder.said,
+        )
 
         sigs = body.get("sigs")
         if sigs is None or len(sigs) == 0:
-            raise falcon.HTTPBadRequest(title="invalid interaction",
-                                        description=f"required field 'sigs' missing from request")
+            raise falcon.HTTPBadRequest(
+                title="invalid interaction",
+                description="required field 'sigs' missing from request",
+            )
 
-        serder = serdering.SerderKERI(sad=ixn)
-        sigers = [coring.Siger(qb64=sig) for sig in sigs]
+        sigers = [core.Siger(qb64=sig) for sig in sigs]
 
         hab.interact(serder=serder, sigers=sigers)
 
         if "group" in body:
             agent.groups.append(dict(pre=hab.pre, serder=serder, sigers=sigers))
-            op = agent.monitor.submit(serder.pre, longrunning.OpTypes.group, metadata=dict(sn=serder.sn))
+            op = agent.monitor.submit(
+                serder.said,
+                longrunning.OpTypes.group,
+                metadata=dict(pre=hab.pre, sn=serder.sn),
+            )
 
             return op
 
         if hab.kever.wits:
             agent.witners.append(dict(serder=serder))
-            op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.witness,
-                                      metadata=dict(sn=serder.sn))
+            op = agent.monitor.submit(
+                serder.said,
+                longrunning.OpTypes.witness,
+                metadata=dict(pre=hab.pre, sn=serder.sn),
+            )
             return op
 
-        op = agent.monitor.submit(hab.kever.prefixer.qb64, longrunning.OpTypes.done,
-                                  metadata=dict(response=serder.ked))
+        op = agent.monitor.submit(
+            serder.said,
+            longrunning.OpTypes.done,
+            metadata=dict(response=serder.ked),
+        )
         return op
+
+    @staticmethod
+    def submit_id(agent, name, body):
+        hab = agent.hby.habByName(name)
+        if hab is None:
+            raise falcon.HTTPNotFound(title=f"No AID {name} found")
+
+        code = body.get("code")
+        logger.info("[%s | %]: Resubmit event code=%s", name, hab.pre, code)
+
+        if hab.kever.wits:
+            agent.submits.append(dict(alias=name, code=code))
+            op = agent.monitor.submit(
+                hab.kever.prefixer.qb64,
+                longrunning.OpTypes.submit,
+                metadata=dict(alias=name, sn=hab.kever.sn),
+            )
+            return op
+
+        raise falcon.HTTPBadRequest(
+            title=f"invalid identifier submitted, {name} has no witnesses"
+        )
 
 
 def info(hab, rm, full=False):
@@ -632,13 +1264,21 @@ def info(hab, rm, full=False):
         prefix=hab.pre,
     )
 
-    if not isinstance(hab, habbing.SignifyHab) and not isinstance(hab, habbing.SignifyGroupHab):
-        raise kering.ConfigurationError(f"agent only allows SignifyHab instances, {type(hab)}")
+    if not isinstance(hab, habbing.SignifyHab) and not isinstance(
+        hab, habbing.SignifyGroupHab
+    ):
+        raise kering.ConfigurationError(
+            f"agent only allows SignifyHab instances, {type(hab)}"
+        )
 
     keeper = rm.get(pre=hab.pre)
     data.update(keeper.params(pre=hab.pre))
     if isinstance(hab, habbing.SignifyGroupHab):
         data["group"]["mhab"] = info(hab.mhab, rm, full)
+
+    data["icp_dt"] = bytes(hab.db.getDts(eventing.dgKey(hab.pre, hab.pre))).decode(
+        "utf-8"
+    )
 
     if hab.accepted and full:
         kever = hab.kevers[hab.pre]
@@ -646,34 +1286,80 @@ def info(hab, rm, full=False):
         data["state"] = asdict(kever.state())
         dgkey = dbing.dgKey(kever.prefixer.qb64b, kever.serder.saidb)
         wigs = hab.db.getWigs(dgkey)
-        data["windexes"] = [coring.Siger(qb64b=bytes(wig)).index for wig in wigs]
+        data["windexes"] = [core.Siger(qb64b=bytes(wig)).index for wig in wigs]
 
     return data
 
 
+Role = namedtupleToEnum(kering.Roles, "Role")
+
+
+@dataclass
+class OOBI:
+    """Data class for OOBI URLs"""
+
+    role: Role  # type: ignore
+    oobis: List[str] = field(
+        default_factory=list,
+        metadata={"marshmallow_field": fields.List(fields.String(), required=True)},
+    )
+
+
 class IdentifierOOBICollectionEnd:
     """
-      This class represents the OOBI subresource collection endpoint for identifiers
+    This class represents the OOBI subresource collection endpoint for identifiers
 
     """
 
     @staticmethod
     def on_get(req, rep, name):
-        """ Identifier GET endpoint
+        """Identifier GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
             rep: falcon.Response HTTP response
-            name (str): human readable name for Hab to GET
-
+            name (str): human-readable name or prefix for Hab to GET
+        ---
+        summary: Fetch OOBI URLs of an identifier.
+        description: This endpoint fetches the OOBI URLs for a specific role associated with an identifier.
+        tags:
+        - Identifier
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        - in: query
+          name: role
+          schema:
+            type: string
+          required: true
+          description: The role for which to fetch the OOBI URLs. Can be a witness, controller, agent, or mailbox.
+        responses:
+            200:
+              description: Successfully fetched the OOBI URLs. The response body contains the OOBI URLs.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/OOBI'
+            400:
+              description: Bad request. This could be due to missing or invalid parameters.
+            404:
+              description: The requested identifier was not found.
         """
         agent = req.context.agent
         if not name:
             raise falcon.HTTPBadRequest(description="name is required")
 
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if not hab:
-            raise falcon.HTTPNotFound(description="invalid alias {name}")
+            raise falcon.HTTPNotFound(description="invalid alias or prefix {name}")
 
         if "role" not in req.params:
             raise falcon.HTTPBadRequest(description="role parameter required")
@@ -684,28 +1370,48 @@ class IdentifierOOBICollectionEnd:
         if role in (kering.Roles.witness,):  # Fetch URL OOBIs for all witnesses
             oobis = []
             for wit in hab.kever.wits:
-                urls = hab.fetchUrls(eid=wit, scheme=kering.Schemes.http) or hab.fetchUrls(eid=wit, scheme=kering.Schemes.https)
+                urls = hab.fetchUrls(
+                    eid=wit, scheme=kering.Schemes.http
+                ) or hab.fetchUrls(eid=wit, scheme=kering.Schemes.https)
                 if not urls:
-                    raise falcon.HTTPNotFound(description=f"unable to query witness {wit}, no http endpoint")
+                    raise falcon.HTTPNotFound(
+                        description=f"unable to query witness {wit}, no http endpoint"
+                    )
 
-                url = urls[kering.Schemes.http] if kering.Schemes.http in urls else urls[kering.Schemes.https]
+                url = (
+                    urls[kering.Schemes.http]
+                    if kering.Schemes.http in urls
+                    else urls[kering.Schemes.https]
+                )
                 up = urlparse(url)
                 oobis.append(urljoin(up.geturl(), f"/oobi/{hab.pre}/witness/{wit}"))
             res["oobis"] = oobis
         elif role in (kering.Roles.controller,):  # Fetch any controller URL OOBIs
             oobis = []
-            urls = hab.fetchUrls(eid=hab.pre, scheme=kering.Schemes.http) or hab.fetchUrls(eid=hab.pre, scheme=kering.Schemes.https)
+            urls = hab.fetchUrls(
+                eid=hab.pre, scheme=kering.Schemes.http
+            ) or hab.fetchUrls(eid=hab.pre, scheme=kering.Schemes.https)
             if not urls:
-                raise falcon.HTTPNotFound(description=f"unable to query controller {hab.pre}, no http endpoint")
+                raise falcon.HTTPNotFound(
+                    description=f"unable to query controller {hab.pre}, no http endpoint"
+                )
 
-            url = urls[kering.Schemes.http] if kering.Schemes.http in urls else urls[kering.Schemes.https]
+            url = (
+                urls[kering.Schemes.http]
+                if kering.Schemes.http in urls
+                else urls[kering.Schemes.https]
+            )
             up = urlparse(url)
             oobis.append(urljoin(up.geturl(), f"/oobi/{hab.pre}/controller"))
             res["oobis"] = oobis
         elif role in (kering.Roles.agent,):  # Fetch URL OOBIs for all witnesses
-            roleUrls = hab.fetchRoleUrls(cid=hab.pre, role=kering.Roles.agent, scheme=kering.Schemes.http) or hab.fetchRoleUrls(cid=hab.pre, role=kering.Roles.agent, scheme=kering.Schemes.https)
+            roleUrls = hab.fetchRoleUrls(
+                cid=hab.pre, role=kering.Roles.agent, scheme=kering.Schemes.http
+            ) or hab.fetchRoleUrls(
+                cid=hab.pre, role=kering.Roles.agent, scheme=kering.Schemes.https
+            )
             if kering.Roles.agent not in roleUrls:
-                res['oobis'] = []
+                res["oobis"] = []
             else:
                 aoobis = roleUrls[kering.Roles.agent]
 
@@ -720,14 +1426,19 @@ class IdentifierOOBICollectionEnd:
                             urls.extend(murl.naball(kering.Schemes.https))
                         for url in urls:
                             up = urlparse(url)
-                            oobis.append(urljoin(up.geturl(), f"/oobi/{hab.pre}/agent/{agent}"))
+                            oobis.append(
+                                urljoin(up.geturl(), f"/oobi/{hab.pre}/agent/{agent}")
+                            )
 
                 res["oobis"] = oobis
         elif role in (kering.Roles.mailbox,):  # Fetch URL OOBIs for all witnesses
-            roleUrls = (hab.fetchRoleUrls(cid=hab.pre, role=kering.Roles.mailbox, scheme=kering.Schemes.http) or
-                        hab.fetchRoleUrls(cid=hab.pre, role=kering.Roles.mailbox, scheme=kering.Schemes.https))
+            roleUrls = hab.fetchRoleUrls(
+                cid=hab.pre, role=kering.Roles.mailbox, scheme=kering.Schemes.http
+            ) or hab.fetchRoleUrls(
+                cid=hab.pre, role=kering.Roles.mailbox, scheme=kering.Schemes.https
+            )
             if kering.Roles.mailbox not in roleUrls:
-                res['oobis'] = []
+                res["oobis"] = []
             else:
                 aoobis = roleUrls[kering.Roles.mailbox]
 
@@ -742,45 +1453,109 @@ class IdentifierOOBICollectionEnd:
                             urls.extend(murl.naball(kering.Schemes.https))
                         for url in urls:
                             up = urlparse(url)
-                            oobis.append(urljoin(up.geturl(), f"/oobi/{hab.pre}/mailbox/{mailbox}"))
+                            oobis.append(
+                                urljoin(
+                                    up.geturl(), f"/oobi/{hab.pre}/mailbox/{mailbox}"
+                                )
+                            )
 
                 res["oobis"] = oobis
         else:
-            raise falcon.HTTPBadRequest(description=f"unsupport role type {role} for oobi request")
+            raise falcon.HTTPBadRequest(
+                description=f"unsupport role type {role} for oobi request"
+            )
 
         rep.status = falcon.HTTP_200
         rep.content_type = "application/json"
         rep.data = json.dumps(res).encode("utf-8")
 
 
-class EndRoleCollectionEnd:
+@dataclass
+class EndRole:
+    """Data class for End Role"""
 
+    cid: str
+    role: str
+    eid: str
+
+
+class EndRoleCollectionEnd:
     @staticmethod
     def on_get(req, rep, name=None, aid=None, role=None):
-        """  GET endpoint for end role collection
+        """GET endpoint for end role collection
 
         Parameters:
             req (Request): falcon HTTP request object
             rep (Response): falcon HTTP response object
-            name (str): human readable alias for AID
+            name (str): human readable alias or prefix for AID
+            aid (str): aid to use instead of name
             aid (str): aid to use instead of name
             role (str): optional role to search for
 
+        ---
+        summary: Retrieve end roles.
+        description: This endpoint retrieves the end roles associated with an identifier prefix or human-readable name.
+                     It can also filter the end roles based on a specific role.
+        tags:
+        - End Role
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: false
+          description: The human-readable name of the identifier or its prefix.
+        - in: path
+          name: aid
+          schema:
+            type: string
+          required: false
+          description: The identifier (AID).
+        - in: path
+          name: role
+          schema:
+            type: string
+          required: false
+          description: The specific role to filter the end roles.
+        responses:
+            200:
+                description: Successfully retrieved the end roles. The response body contains the end roles.
+                content:
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/EndRole'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
+            404:
+                description: The requested identifier was not found.
         """
         agent = req.context.agent
 
         if name is not None:
-            hab = agent.hby.habByName(name)
+            hab = (
+                agent.hby.habs[name]
+                if name in agent.hby.habs
+                else agent.hby.habByName(name)
+            )
             if hab is None:
-                raise falcon.errors.HTTPNotFound(description=f"invalid alias {name}")
+                raise falcon.errors.HTTPNotFound(
+                    description=f"invalid alias or prefix {name}"
+                )
             pre = hab.pre
         elif aid is not None:
             pre = aid
         else:
-            raise falcon.HTTPBadRequest(description="either `aid` or `name` are required in the path")
+            raise falcon.HTTPBadRequest(
+                description="name or prefix is required in the path"
+            )
 
         if role is not None:
-            keys = (pre, role,)
+            keys = (
+                pre,
+                role,
+            )
         else:
             keys = (pre,)
 
@@ -794,15 +1569,58 @@ class EndRoleCollectionEnd:
 
     @staticmethod
     def on_post(req, rep, name, aid=None, role=None):
-        """ POST endpoint for end role collection
+        """POST endpoint for end role collection
 
         Args:
             req (Request): Falcon HTTP request object
             rep (Response): Falcon HTTP response object
-            name (str): human readable alias for AID
+            name (str): human readable alias or prefix for identifier
             aid (str): Not supported for POST.  If provided, a 404 is returned
             role (str): Not supported for POST.  If provided, a 404 is returned
 
+        ---
+        summary: Create an end role.
+        description: This endpoint creates an end role associated with a given identifier prefix or human-readable name.
+        tags:
+        - End Role
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        - in: path
+          name: aid
+          schema:
+            type: string
+          required: false
+          description: Not supported for POST. If provided, a 404 is returned.
+        requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    rpy:
+                      type: object
+                      description: The reply object.
+                    sigs:
+                      type: array
+                      items:
+                        type: string
+                      description: The signatures.
+        responses:
+            202:
+                description: Accepted. The end role creation is in progress.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/EndRoleOperation'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
+            404:
+                description: Not found. The requested identifier was not found.
         """
         if role is not None or aid is not None:
             raise falcon.HTTPNotFound(description="route not found")
@@ -814,28 +1632,46 @@ class EndRoleCollectionEnd:
         rsigs = httping.getRequiredParam(body, "sigs")
 
         rserder = serdering.SerderKERI(sad=rpy)
-        data = rserder.ked['a']
-        pre = data['cid']
-        role = data['role']
-        eid = data['eid']
+        data = rserder.ked["a"]
+        pre = data["cid"]
+        role = data["role"]
+        eid = data["eid"]
 
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
-            raise falcon.errors.HTTPNotFound(description=f"invalid alias {name}")
+            raise falcon.errors.HTTPNotFound(
+                description=f"invalid alias or prefix {name}"
+            )
 
         if pre != hab.pre:
             raise falcon.errors.HTTPBadRequest(
-                description=f"error trying to create end role for unknown local AID {pre}")
+                description=f"error trying to create end role for unknown local AID {pre}"
+            )
 
-        rsigers = [coring.Siger(qb64=rsig) for rsig in rsigs]
-        tsg = (hab.kever.prefixer, coring.Seqner(sn=hab.kever.sn), coring.Saider(qb64=hab.kever.serder.said), rsigers)
+        rsigers = [core.Siger(qb64=rsig) for rsig in rsigs]
+        tsg = (
+            hab.kever.prefixer,
+            coring.Seqner(sn=hab.kever.sn),
+            coring.Saider(qb64=hab.kever.serder.said),
+            rsigers,
+        )
         try:
             agent.hby.rvy.processReply(rserder, tsgs=[tsg])
         except kering.UnverifiedReplyError:
             pass
+        except kering.ValidationError:
+            raise falcon.HTTPBadRequest(
+                description="unable to verify end role reply message"
+            )
 
         oid = ".".join([pre, role, eid])
-        op = agent.monitor.submit(oid, longrunning.OpTypes.endrole, metadata=dict(cid=pre, role=role, eid=eid))
+        op = agent.monitor.submit(
+            oid, longrunning.OpTypes.endrole, metadata=dict(cid=pre, role=role, eid=eid)
+        )
 
         rep.content_type = "application/json"
         rep.status = falcon.HTTP_202
@@ -843,15 +1679,152 @@ class EndRoleCollectionEnd:
 
 
 class EndRoleResourceEnd:
-
     def on_delete(self, req, rep):
         pass
 
 
-class RpyEscrowCollectionEnd:
+class LocSchemeCollectionEnd:
+    @staticmethod
+    def on_post(req, rep, name):
+        """POST endpoint for loc scheme collection
 
+        Args:
+            req (Request): Falcon HTTP request object
+            rep (Response): Falcon HTTP response object
+            name (str): human readable alias or prefix for identifier
+
+        ---
+        summary: Authorises a new location scheme.
+        description: This endpoint authorises a new location scheme (endpoint) for a particular endpoint identifier.
+        tags:
+        - Loc Scheme
+        parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    rpy:
+                      type: object
+                      description: The reply object.
+                    sigs:
+                      type: array
+                      items:
+                        type: string
+                      description: The signatures.
+        responses:
+            202:
+                description: Accepted. The loc scheme authorisation is in progress.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LocSchemeOperation'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
+            404:
+                description: Not found. The requested identifier was not found.
+        """
+        agent = req.context.agent
+        body = req.get_media()
+
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
+        if hab is None:
+            raise falcon.errors.HTTPNotFound(
+                description=f"invalid alias or prefix {name}"
+            )
+
+        rpy = httping.getRequiredParam(body, "rpy")
+        rsigs = httping.getRequiredParam(body, "sigs")
+
+        rserder = serdering.SerderKERI(sad=rpy)
+        data = rserder.ked["a"]
+        eid = data["eid"]
+        scheme = data["scheme"]
+        url = data["url"]
+
+        rsigers = [core.Siger(qb64=rsig) for rsig in rsigs]
+        tsg = (
+            hab.kever.prefixer,
+            coring.Seqner(sn=hab.kever.sn),
+            coring.Saider(qb64=hab.kever.serder.said),
+            rsigers,
+        )
+        try:
+            agent.hby.rvy.processReply(rserder, tsgs=[tsg])
+        except kering.UnverifiedReplyError:
+            pass
+        except kering.ValidationError:
+            raise falcon.HTTPBadRequest(
+                description="unable to verify end role reply message"
+            )
+
+        oid = ".".join([eid, scheme])
+        op = agent.monitor.submit(
+            oid,
+            longrunning.OpTypes.locscheme,
+            metadata=dict(eid=eid, scheme=scheme, url=url),
+        )
+
+        rep.content_type = "application/json"
+        rep.status = falcon.HTTP_202
+        rep.data = op.to_json().encode("utf-8")
+
+
+rpyFieldDomV1 = serdering.SerderKERI.Fields[kering.Protocols.keri][kering.Vrsn_1_0][
+    kering.Ilks.rpy
+]
+RPY_V_1, RpySchema_V_1 = dataclassFromFielddom("RPY_V_1", rpyFieldDomV1)
+rpyFieldDomV2 = serdering.SerderKERI.Fields[kering.Protocols.keri][kering.Vrsn_2_0][
+    kering.Ilks.rpy
+]
+RPY_V_2, RpySchema_V_2 = dataclassFromFielddom("RPY_V_2", rpyFieldDomV2)
+
+
+class RpyEscrowCollectionEnd:
     @staticmethod
     def on_get(req, rep):
+        """
+        GET endpoint for reply escrow collection
+
+        Parameters:
+            req (falcon.Request): The request object.
+            rep (falcon.Response): The response object.
+
+        ---
+        summary: Retrieve reply escrows.
+        description: This endpoint retrieves the reply escrows and can filter the collection based on a specific route.
+        tags:
+        - Reply Escrow
+        parameters:
+        - in: query
+          name: route
+          schema:
+            type: string
+          required: false
+          description: The specific route to filter the reply escrow collection.
+        responses:
+            200:
+                description: Successfully retrieved the reply escrows.
+                content:
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Rpy'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
+        """
         agent = req.context.agent
 
         # Optional Route parameter
@@ -867,12 +1840,26 @@ class RpyEscrowCollectionEnd:
         rep.data = json.dumps(events).encode("utf-8")
 
 
+@dataclass
+class Challenge:
+    """Challenge data class"""
+
+    words: list[str]
+    dt: str = field(metadata={"marshmallow_field": fields.String(required=False)})
+    said: str = field(
+        default=None, metadata={"marshmallow_field": fields.String(required=False)}
+    )
+    authenticated: bool = field(
+        default=False, metadata={"marshmallow_field": fields.Boolean(required=False)}
+    )
+
+
 class ChallengeCollectionEnd:
-    """ Resource for Challenge/Response Endpoints """
+    """Resource for Challenge/Response Endpoints"""
 
     @staticmethod
     def on_get(req, rep):
-        """ Challenge GET endpoint
+        """Challenge GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -887,7 +1874,7 @@ class ChallengeCollectionEnd:
            - in: query
              name: strength
              schema:
-                type: int
+                type: integer
              description:  cryptographic strength of word list
              required: false
         responses:
@@ -896,17 +1883,10 @@ class ChallengeCollectionEnd:
               content:
                   application/json:
                     schema:
-                        description: Random word list
-                        type: object
-                        properties:
-                            words:
-                                type: array
-                                description: random challenge word list
-                                items:
-                                    type: string
+                        $ref: '#/components/schemas/Challenge'
 
         """
-        mnem = mnemonic.Mnemonic(language='english')
+        mnem = mnemonic.Mnemonic(language="english")
         s = req.params.get("strength")
         strength = int(s) if s is not None else 128
 
@@ -918,16 +1898,16 @@ class ChallengeCollectionEnd:
 
 
 class ChallengeResourceEnd:
-    """ Resource for Challenge/Response Endpoints """
+    """Resource for Challenge/Response Endpoints"""
 
     @staticmethod
     def on_post(req, rep, name):
-        """ Challenge POST endpoint
+        """Challenge POST endpoint
 
         Parameters:
             req: falcon.Request HTTP request
             rep: falcon.Response HTTP response
-            name: human readable name of identifier to use to sign the challenge/response
+            name: human readable name or prefix of identifier to use to sign the challenge/response
 
         ---
         summary:  Sign challenge message and forward to peer identifier
@@ -937,11 +1917,11 @@ class ChallengeResourceEnd:
            - Challenge/Response
         parameters:
           - in: path
-            name: name
+            name: name or prefix
             schema:
               type: string
             required: true
-            description: Human readable alias for the identifier to create
+            description: Human readable alias or prefix for the identifier to create
         requestBody:
             required: true
             content:
@@ -962,13 +1942,21 @@ class ChallengeResourceEnd:
               description: Success submission of signed challenge/response
         """
         agent = req.context.agent
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
-            raise falcon.HTTPBadRequest(description="no matching Hab for alias {name}")
+            raise falcon.HTTPBadRequest(
+                description="no matching Hab for alias or prefix {name}"
+            )
 
         body = req.get_media()
         if "exn" not in body or "sig" not in body or "recipient" not in body:
-            raise falcon.HTTPBadRequest(description="challenge response requires 'words', 'sig' and 'recipient'")
+            raise falcon.HTTPBadRequest(
+                description="challenge response requires 'words', 'sig' and 'recipient'"
+            )
 
         exn = body["exn"]
         sig = body["sig"]
@@ -980,17 +1968,19 @@ class ChallengeResourceEnd:
 
         agent.hby.psr.parseOne(ims=bytearray(ims))
 
-        agent.exchanges.append(dict(said=serder.said, pre=hab.pre, rec=recpt, topic='challenge'))
+        agent.exchanges.append(
+            dict(said=serder.said, pre=hab.pre, rec=recpt, topic="challenge")
+        )
 
         rep.status = falcon.HTTP_202
 
 
 class ChallengeVerifyResourceEnd:
-    """ Resource for Challenge/Response Verification Endpoints """
+    """Resource for Challenge/Response Verification Endpoints"""
 
     @staticmethod
     def on_post(req, rep, source):
-        """ Challenge POST endpoint
+        """Challenge POST endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -1005,7 +1995,7 @@ class ChallengeVerifyResourceEnd:
            - Challenge/Response
         parameters:
           - in: path
-            name: name
+            name: source
             schema:
               type: string
             required: true
@@ -1028,13 +2018,19 @@ class ChallengeVerifyResourceEnd:
         responses:
            202:
               description: Success submission of signed challenge/response
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ChallengeOperation'
         """
         agent = req.context.agent
 
         body = req.get_media()
         words = httping.getRequiredParam(body, "words")
         if source not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description=f"challenge response source={source} not found")
+            raise falcon.HTTPNotFound(
+                description=f"challenge response source={source} not found"
+            )
 
         meta = dict(words=words)
         op = agent.monitor.submit(source, longrunning.OpTypes.challenge, metadata=meta)
@@ -1046,7 +2042,7 @@ class ChallengeVerifyResourceEnd:
 
     @staticmethod
     def on_put(req, rep, source):
-        """ Challenge PUT accept endpoint
+        """Challenge PUT accept endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -1059,12 +2055,12 @@ class ChallengeVerifyResourceEnd:
         tags:
            - Challenge/Response
         parameters:
-          - in: path
-            name: name
-            schema:
-              type: string
-            required: true
-            description: Human readable alias for the identifier to create
+        - in: path
+          name: source
+          schema:
+            type: string
+          required: true
+          description: Human readable alias for the identifier to create
         requestBody:
             required: true
             content:
@@ -1087,10 +2083,14 @@ class ChallengeVerifyResourceEnd:
         agent = req.context.agent
         body = req.get_media()
         if "said" not in body:
-            raise falcon.HTTPBadRequest(description="challenge response acceptance requires 'aid' and 'said'")
+            raise falcon.HTTPBadRequest(
+                description="challenge response acceptance requires 'aid' and 'said'"
+            )
 
         if source not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description=f"challenge response source={source} not found")
+            raise falcon.HTTPNotFound(
+                description=f"challenge response source={source} not found"
+            )
 
         said = body["said"]
         saider = coring.Saider(qb64=said)
@@ -1099,10 +2099,67 @@ class ChallengeVerifyResourceEnd:
         rep.status = falcon.HTTP_202
 
 
-class ContactCollectionEnd:
+@dataclass
+class WellKnown:
+    """Data class for Well Known URLs"""
 
+    url: str = field(metadata={"marshmallow_field": fields.String(required=True)})
+    dt: str = field(metadata={"marshmallow_field": fields.String(required=True)})
+
+
+@dataclass
+class MemberEnds:
+    agent: Optional[Dict[str, str]] = None
+    controller: Optional[Dict[str, str]] = None
+    witness: Optional[Dict[str, str]] = None
+    registrar: Optional[Dict[str, str]] = None
+    watcher: Optional[Dict[str, str]] = None
+    judge: Optional[Dict[str, str]] = None
+    juror: Optional[Dict[str, str]] = None
+    peer: Optional[Dict[str, str]] = None
+    mailbox: Optional[Dict[str, str]] = None
+
+
+@dataclass
+class Contact:
+    id: str = field(metadata={"marshmallow_field": fields.String(required=True)})
+    alias: str = field(
+        default=None, metadata={"marshmallow_field": fields.String(required=False)}
+    )
+    oobi: str = field(
+        default=None, metadata={"marshmallow_field": fields.String(required=False)}
+    )
+    ends: MemberEnds = field(
+        default=None,
+        metadata={
+            "marshmallow_field": fields.Nested(
+                class_schema(MemberEnds), allow_none=False
+            )
+        },
+    )
+    challenges: List[Challenge] = field(
+        default=None,
+        metadata={
+            "marshmallow_field": fields.List(
+                fields.Nested(class_schema(Challenge), allow_none=False)
+            )
+        },
+    )
+    wellKnowns: List[WellKnown] = field(
+        default=None,
+        metadata={
+            "marshmallow_field": fields.List(
+                fields.Nested(class_schema(WellKnown), allow_none=False)
+            )
+        },
+    )
+
+    # override this in spec to add additional fields
+
+
+class ContactCollectionEnd:
     def on_get(self, req, rep):
-        """ Contact plural GET endpoint
+        """Contact plural GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -1135,6 +2192,12 @@ class ContactCollectionEnd:
         responses:
            200:
               description: List of contact information for remote identifiers
+              content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Contact'
         """
         # TODO:  Add support for sorting
         agent = req.context.agent
@@ -1156,7 +2219,9 @@ class ContactCollectionEnd:
         elif field is not None:
             val = req.params.get("filter_value")
             if val is None:
-                raise falcon.HTTPBadRequest(description="filter_value if required if field_field is specified")
+                raise falcon.HTTPBadRequest(
+                    description="filter_value if required if field_field is specified"
+                )
 
             contacts = agent.org.find(field=field, val=val)
             self.authn(agent, contacts)
@@ -1179,15 +2244,25 @@ class ContactCollectionEnd:
     @staticmethod
     def authn(agent, contacts):
         for contact in contacts:
-            aid = contact['id']
+            aid = contact["id"]
+
+            ends = agent.agentHab.endsFor(aid)
+            contact["ends"] = ends
+
             accepted = [saider.qb64 for saider in agent.hby.db.chas.get(keys=(aid,))]
             received = [saider.qb64 for saider in agent.hby.db.reps.get(keys=(aid,))]
 
             challenges = []
             for said in received:
                 exn = agent.hby.db.exns.get(keys=(said,))
-                challenges.append(dict(dt=exn.ked['dt'], words=exn.ked['a']['words'], said=said,
-                                       authenticated=said in accepted))
+                challenges.append(
+                    dict(
+                        dt=exn.ked["dt"],
+                        words=exn.ked["a"]["words"],
+                        said=said,
+                        authenticated=said in accepted,
+                    )
+                )
 
             contact["challenges"] = challenges
 
@@ -1200,7 +2275,6 @@ class ContactCollectionEnd:
 
 
 class ContactImageResourceEnd:
-
     @staticmethod
     def on_post(req, rep, prefix):
         """
@@ -1239,7 +2313,9 @@ class ContactImageResourceEnd:
         """
         agent = req.context.agent
         if prefix not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description=f"{prefix} is not a known identifier.")
+            raise falcon.HTTPNotFound(
+                description=f"{prefix} is not a known identifier."
+            )
 
         if req.content_length > 1000000:
             raise falcon.HTTPBadRequest(description="image too big to save")
@@ -1249,83 +2325,90 @@ class ContactImageResourceEnd:
 
     @staticmethod
     def on_get(req, rep, prefix):
-        """ Contact image GET endpoint
+        """Contact image GET endpoint
 
-        Parameters:
-            req: falcon.Request HTTP request
-            rep: falcon.Response HTTP response
-            prefix: qb64 identifier prefix of contact information to get
+         Parameters:
+             req: falcon.Request HTTP request
+             rep: falcon.Response HTTP response
+             prefix: qb64 identifier prefix of contact information to get
 
-       ---
-        summary:  Get contact image for identifer prefix
-        description:  Get contact image for identifer prefix
-        tags:
-           - Contacts
-        parameters:
-          - in: path
-            name: prefix
-            schema:
-              type: string
-            required: true
-            description: qb64 identifier prefix of contact image to get
-        responses:
-           200:
-              description: Contact information successfully retrieved for prefix
-              content:
-                  image/jpg:
-                    schema:
-                        description: Image
-                        type: binary
-           404:
-              description: No contact information found for prefix
+        ---
+         summary:  Get contact image for identifer prefix
+         description:  Get contact image for identifer prefix
+         tags:
+            - Contacts
+         parameters:
+           - in: path
+             name: prefix
+             schema:
+               type: string
+             required: true
+             description: qb64 identifier prefix of contact image to get
+         responses:
+            200:
+               description: Contact information successfully retrieved for prefix
+               content:
+                   image/jpg:
+                     schema:
+                         description: Image
+                         type: binary
+            404:
+               description: No contact information found for prefix
         """
         agent = req.context.agent
         if prefix not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description=f"{prefix} is not a known identifier.")
+            raise falcon.HTTPNotFound(
+                description=f"{prefix} is not a known identifier."
+            )
 
         data = agent.org.getImgData(pre=prefix)
         if data is None:
             raise falcon.HTTPNotFound(description=f"no image available for {prefix}.")
 
         rep.status = falcon.HTTP_200
-        rep.set_header('Content-Type', data["type"])
-        rep.set_header('Content-Length', data["length"])
+        rep.set_header("Content-Type", data["type"])
+        rep.set_header("Content-Length", data["length"])
         rep.stream = agent.org.getImg(pre=prefix)
 
 
 class ContactResourceEnd:
-
     @staticmethod
     def on_get(req, rep, prefix):
-        """ Contact GET endpoint
+        """Contact GET endpoint
 
-        Parameters:
-            req: falcon.Request HTTP request
-            rep: falcon.Response HTTP response
-            prefix: qb64 identifier prefix of contact information to get
+         Parameters:
+             req: falcon.Request HTTP request
+             rep: falcon.Response HTTP response
+             prefix: qb64 identifier prefix of contact information to get
 
-       ---
-        summary:  Get contact information associated with single remote identifier
-        description:  Get contact information associated with single remote identifier.  All
-                      information is meta-data and kept in local storage only
-        tags:
-           - Contacts
-        parameters:
-          - in: path
-            name: prefix
-            schema:
-              type: string
-            required: true
-            description: qb64 identifier prefix of contact to get
-        responses:
-           200:
-              description: Contact information successfully retrieved for prefix
-           404:
-              description: No contact information found for prefix
+        ---
+         summary:  Get contact information associated with single remote identifier
+         description:  Get contact information associated with single remote identifier.  All
+                       information is meta-data and kept in local storage only
+         tags:
+            - Contacts
+         parameters:
+           - in: path
+             name: prefix
+             schema:
+               type: string
+             required: true
+             description: qb64 identifier prefix of contact to get
+         responses:
+            200:
+               description: Contact information successfully retrieved for prefix
+               content:
+                 application/json:
+                   schema:
+                     $ref: '#/components/schemas/Contact'
+            404:
+               description: No contact information found for prefix
         """
         agent = req.context.agent
         if prefix not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description=f"{prefix} is not a known identifier.")
+            raise falcon.HTTPNotFound(
+                description=f"{prefix} is not a known identifier."
+            )
 
         contact = agent.org.get(prefix)
         if contact is None:
@@ -1336,57 +2419,67 @@ class ContactResourceEnd:
 
     @staticmethod
     def on_post(req, rep, prefix):
-        """ Contact plural GET endpoint
+        """Contact plural GET endpoint
 
-        Parameters:
-            req: falcon.Request HTTP request
-            rep: falcon.Response HTTP response
-            prefix: human readable name of identifier to replace contact information
+         Parameters:
+             req: falcon.Request HTTP request
+             rep: falcon.Response HTTP response
+             prefix: human readable name of identifier to replace contact information
 
-       ---
-        summary:  Create new contact information for an identifier
-        description:  Creates new information for an identifier, overwriting all existing
-                      information for that identifier
-        tags:
-           - Contacts
-        parameters:
-          - in: path
-            name: prefix
-            schema:
-              type: string
-            required: true
-            description: qb64 identifier prefix to add contact metadata to
-        requestBody:
-            required: true
-            content:
-              application/json:
-                schema:
-                    description: Contact information
-                    type: object
+        ---
+         summary:  Create new contact information for an identifier
+         description:  Creates new information for an identifier, overwriting all existing
+                       information for that identifier
+         tags:
+            - Contacts
+         parameters:
+           - in: path
+             name: prefix
+             schema:
+               type: string
+             required: true
+             description: qb64 identifier prefix to add contact metadata to
+         requestBody:
+             required: true
+             content:
+               application/json:
+                 schema:
+                     description: Contact information
+                     type: object
 
-        responses:
-           200:
-              description: Updated contact information for remote identifier
-           400:
-              description: Invalid identifier used to update contact information
-           404:
-              description: Prefix not found in identifier contact information
+         responses:
+            200:
+               description: Updated contact information for remote identifier
+               content:
+                 application/json:
+                   schema:
+                     $ref: '#/components/schemas/Contact'
+            400:
+               description: Invalid identifier used to update contact information
+            404:
+               description: Prefix not found in identifier contact information
         """
         agent = req.context.agent
         body = req.get_media()
         if prefix not in agent.hby.kevers:
-            raise falcon.HTTPNotFound(description="{prefix} is not a known identifier.  oobi required before contact "
-                                                  "information")
+            raise falcon.HTTPNotFound(
+                description="{prefix} is not a known identifier.  oobi required before contact "
+                "information"
+            )
 
         if prefix in agent.hby.prefixes:
-            raise falcon.HTTPBadRequest(description=f"{prefix} is a local identifier, contact information only for "
-                                                    f"remote identifiers")
+            raise falcon.HTTPBadRequest(
+                description=f"{prefix} is a local identifier, contact information only for "
+                f"remote identifiers"
+            )
 
         if "id" in body:
             del body["id"]
 
         if agent.org.get(prefix):
-            raise falcon.HTTPBadRequest(description=f"contact data for {prefix} already exists")
+            raise falcon.HTTPBadRequest(
+                description=f"contact data for {prefix} already exists"
+            )
 
         agent.org.replace(prefix, body)
         contact = agent.org.get(prefix)
@@ -1396,7 +2489,7 @@ class ContactResourceEnd:
 
     @staticmethod
     def on_put(req, rep, prefix):
-        """ Contact PUT endpoint
+        """Contact PUT endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -1427,6 +2520,10 @@ class ContactResourceEnd:
         responses:
            200:
               description: Updated contact information for remote identifier
+              content:
+                  application/json:
+                     schema:
+                        $ref: '#/components/schemas/Contact'
            400:
               description: Invalid identifier used to update contact information
            404:
@@ -1436,11 +2533,13 @@ class ContactResourceEnd:
         body = req.get_media()
         if prefix not in agent.hby.kevers:
             raise falcon.HTTPNotFound(
-                description=f"{prefix} is not a known identifier.  oobi required before contact information")
+                description=f"{prefix} is not a known identifier.  oobi required before contact information"
+            )
 
         if prefix in agent.hby.prefixes:
             raise falcon.HTTPBadRequest(
-                description=f"{prefix} is a local identifier, contact information only for remote identifiers")
+                description=f"{prefix} is a local identifier, contact information only for remote identifiers"
+            )
 
         if "id" in body:
             del body["id"]
@@ -1453,7 +2552,7 @@ class ContactResourceEnd:
 
     @staticmethod
     def on_delete(req, rep, prefix):
-        """ Contact plural GET endpoint
+        """Contact plural GET endpoint
 
         Parameters:
             req: falcon.Request HTTP request
@@ -1481,23 +2580,75 @@ class ContactResourceEnd:
         agent = req.context.agent
         deleted = agent.org.rem(prefix)
         if not deleted:
-            raise falcon.HTTPNotFound(description=f"no contact information to delete for {prefix}")
+            raise falcon.HTTPNotFound(
+                description=f"no contact information to delete for {prefix}"
+            )
 
         rep.status = falcon.HTTP_202
 
 
-class GroupMemberCollectionEnd:
+@dataclass
+class AidRecord:
+    aid: str
+    ends: MemberEnds
 
+
+@dataclass
+class GroupMember:
+    signing: List[AidRecord]
+    rotation: List[AidRecord]
+
+
+class GroupMemberCollectionEnd:
     @staticmethod
     def on_get(req, rep, name):
+        """
+        GET endpoint for group members
+        Parameters:
+            req (falcon.Request): The request object.
+            rep (falcon.Response): The response object.
+            name (str): The human-readable name or prefix of the identifier.
+
+        ---
+        summary: Fetch group member information.
+        description: This endpoint retrieves the signing and rotation members for a specific group associated with an identifier.
+        tags:
+        - Group Member
+        parameters:
+        - in: path
+          name: name or prefix
+          schema:
+            type: string
+          required: true
+          description: The human-readable name of the identifier or its prefix.
+        responses:
+            200:
+                description: Successfully fetched the group member information.
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GroupMember'
+            400:
+                description: Bad request. This could be due to missing or invalid parameters.
+            404:
+                description: The requested identifier was not found.
+        """
         agent = req.context.agent
 
-        hab = agent.hby.habByName(name)
+        hab = (
+            agent.hby.habs[name]
+            if name in agent.hby.habs
+            else agent.hby.habByName(name)
+        )
         if hab is None:
-            raise falcon.errors.HTTPNotFound(description=f"invalid alias {name}")
+            raise falcon.errors.HTTPNotFound(
+                description=f"invalid alias or prefix {name}"
+            )
 
         if not isinstance(hab, habbing.SignifyGroupHab):
-            raise falcon.HTTPBadRequest(description="members endpoint only available for group AIDs")
+            raise falcon.HTTPBadRequest(
+                description="members endpoint only available for group AIDs"
+            )
 
         smids = hab.db.signingMembers(hab.pre)
         rmids = hab.db.rotationMembers(hab.pre)

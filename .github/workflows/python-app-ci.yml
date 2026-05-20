@@ -1,13 +1,12 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-
 name: GitHub Actions for KERIA
 on:
   push:
     branches:
-      - 'main'
-      - 'development'
+      - "main"
+      - "development"
   pull_request:
   workflow_dispatch:
 
@@ -17,44 +16,57 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
+        os: [macos-15, ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10.4
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12.8
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.10.4
+          python-version: 3.12.8
+      - name: Config libsodium
+        if: runner.os == 'macOS'
+        run: |
+          echo "SODIUM_INSTALL=system" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.9.5"
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install flake8 pytest hio
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        run: make install-dev
       - name: Lint changes
-        run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --ignore=E7,F841,E301,E302,E303 --max-complexity=10 --max-line-length=127 --statistics
-      - name: Run core KERI tests
-        run: |
-          pytest tests/
+        run: make lint
+      - name: Check formatting
+        run: make format-check
+      - name: Run core KERIA tests
+        run: make test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run docker container
+        # Ensure that the image can be built and started
+        run: docker compose up --build --wait
 
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10.4
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12.8
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.10.4
+          python-version: 3.12.8
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.9.5"
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest pytest-cov hio
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        run: make install-dev
       - name: Run core KERIA tests
-        run: |
-          pytest --cov=./ --cov-report=xml
+        run: make test-coverage
       - name: Upload
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

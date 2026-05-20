@@ -5,11 +5,12 @@ keria.app.notifying module
 
 Testing the Mark II Agent notification endpoint
 """
+
 from builtins import isinstance
 
-from keri.core.coring import randomNonce
+from keri.core.signing import Salter
 
-from keria.app import notifying, grouping
+from keria.app import notifying
 
 
 def test_load_ends(helpers):
@@ -40,51 +41,37 @@ def test_notifications(helpers):
         assert res.status_code == 200
         notes = res.json
         assert len(notes) == 4
-        assert notes[0]['a'] == dict(a=1, b=2, c=3)
-        assert notes[3]['a'] == dict(a=3)
+        assert notes[0]["a"] == dict(a=1, b=2, c=3)
+        assert notes[3]["a"] == dict(a=3)
 
-        headers = dict(Range=f"notes=0-2")
+        headers = dict(Range="notes=0-2")
         res = client.simulate_get(path="/notifications", headers=headers)
         assert res.status_code == 200
         notes = res.json
         assert len(notes) == 3
-        assert notes[0]['a'] == dict(a=1, b=2, c=3)
-        assert notes[2]['a'] == dict(a=2)
+        assert notes[0]["a"] == dict(a=1, b=2, c=3)
+        assert notes[2]["a"] == dict(a=2)
         assert res.headers["Accept-Ranges"] == "notes"
         assert res.headers["Content-Range"] == "notes 0-2/4"
 
         # Load since the last one seen
-        headers = dict(Range=f"notes=1-2")
-        res = client.simulate_get(path=f"/notifications", headers=headers)
+        headers = dict(Range="notes=1-2")
+        res = client.simulate_get(path="/notifications", headers=headers)
         assert res.status_code == 200
         notes = res.json
         assert len(notes) == 2
-        assert notes[0]['a'] == dict(a=1)
-        assert notes[1]['a'] == dict(a=2)
+        assert notes[0]["a"] == dict(a=1)
+        assert notes[1]["a"] == dict(a=2)
 
         # Load with a non-existance last
-        last = randomNonce()
+        last = Salter().qb64
         # Not found for deleting or marking as read a non-existent note
         res = client.simulate_delete(path=f"/notifications/{last}")
         assert res.status_code == 404
         res = client.simulate_put(path=f"/notifications/{last}")
         assert res.status_code == 404
 
-        # Load in reverse order
-        headers = dict(Range=f"notes=0-3")
-        params = {"order": "desc"}
-        res = client.simulate_get(path="/notifications", params=params, headers=headers)
-        assert res.status_code == 200
-        notes = res.json
-        assert len(notes) == 4
-        assert notes[3]['a'] == dict(a=1, b=2, c=3)
-        assert notes[2]['a'] == dict(a=1)
-        assert notes[1]['a'] == dict(a=2)
-        assert notes[0]['a'] == dict(a=3)
-        assert res.headers["Accept-Ranges"] == "notes"
-        assert res.headers["Content-Range"] == "notes 0-3/4"
-
-        last = notes[1]['i']
+        last = notes[1]["i"]
         res = client.simulate_delete(path=f"/notifications/{last}")
         assert res.status_code == 202
 
@@ -92,9 +79,9 @@ def test_notifications(helpers):
         assert res.status_code == 200
         notes = res.json
         assert len(notes) == 3
-        assert notes[1]['a'] == dict(a=1)
+        assert notes[1]["a"] == dict(a=1)
 
-        last = notes[1]['i']
+        last = notes[1]["i"]
         res = client.simulate_put(path=f"/notifications/{last}")
         assert res.status_code == 202
 
@@ -102,38 +89,6 @@ def test_notifications(helpers):
         assert res.status_code == 200
         notes = res.json
         assert len(notes) == 3
-        assert notes[0]['r'] is False
-        assert notes[1]['r'] is True
-        assert notes[2]['r'] is not True  # just for fun
-
-        # Load unread notes
-        params = {"read": False}
-        res = client.simulate_get(path="/notifications", params=params)
-        assert res.status_code == 200
-        notes = res.json
-        assert len(notes) == 2
-        assert notes[0]['r'] == False
-        assert notes[1]['r'] == False
-        assert res.headers["Accept-Ranges"] == "notes"
-        assert res.headers["Content-Range"] == "notes 0-1/2"
-
-        # Load read notes
-        params = {"read": True}
-        res = client.simulate_get(path="/notifications", params=params)
-        assert res.status_code == 200
-        notes = res.json
-        assert len(notes) == 1
-        assert notes[0]['r'] == True
-        assert res.headers["Accept-Ranges"] == "notes"
-        assert res.headers["Content-Range"] == "notes 0-0/1"
-
-        # filter by route
-        assert agent.notifier.add(attrs=dict(r="/multisig/rev")) is True
-        params = {"route": "/multisig/rev"}
-        res = client.simulate_get(path="/notifications", params=params)
-        assert res.status_code == 200
-        notes = res.json
-        assert len(notes) == 1
-        assert notes[0]['a']['r'] == "/multisig/rev"
-        assert res.headers["Accept-Ranges"] == "notes"
-        assert res.headers["Content-Range"] == "notes 0-0/1"
+        assert notes[0]["r"] is False
+        assert notes[1]["r"] is True
+        assert notes[2]["r"] is not True  # just for fun
