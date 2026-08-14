@@ -428,6 +428,184 @@ def test_issue_credential(helpers, seeder):
             doist.recur(deeds=deeds)
 
 
+def _pinChainedSchema(db):
+    """ Pin a base schema and a derived schema into db.schema, where the
+    derived schema's top-level allOf[0].$ref is the base schema's bare SAID
+    (no "did:" scheme prefix). The base schema requires attribute "z"; the
+    derived schema separately requires its own attribute "m", so tests can
+    independently prove each half of the chain is enforced.
+
+    Returns:
+        tuple(str, str): (base schema SAID, derived schema SAID)
+    """
+    basesad = {
+        "$id": "",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Base",
+        "type": "object",
+        "required": ["v", "d", "i", "s", "a"],
+        "properties": {
+            "v": {"type": "string"},
+            "d": {"type": "string"},
+            "i": {"type": "string"},
+            "s": {"type": "string"},
+            "a": {
+                "type": "object",
+                "additionalProperties": True,
+                "required": ["d", "z"],
+                "properties": {
+                    "d": {"type": "string"},
+                    "z": {"type": "string"},
+                },
+            },
+        },
+    }
+    _, basesad = coring.Saider.saidify(basesad, label=coring.Saids.dollar)
+    baseschemer = scheming.Schemer(sed=basesad)
+    db.schema.pin(keys=(baseschemer.said,), val=baseschemer)
+
+    derivedsad = {
+        "$id": "",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Derived",
+        "allOf": [
+            {"$ref": ""},
+            {
+                "type": "object",
+                "additionalProperties": True,
+                "required": ["ri"],
+                "properties": {
+                    "ri": {"type": "string"},
+                    "a": {
+                        "type": "object",
+                        "additionalProperties": True,
+                        "required": ["m"],
+                        "properties": {"m": {"type": "string"}},
+                    },
+                },
+            },
+        ],
+    }
+    derivedsad["allOf"][0]["$ref"] = baseschemer.said
+    _, derivedsad = coring.Saider.saidify(derivedsad, label=coring.Saids.dollar)
+    derivedschemer = scheming.Schemer(sed=derivedsad)
+    db.schema.pin(keys=(derivedschemer.said,), val=derivedschemer)
+
+    return baseschemer.said, derivedschemer.said
+
+
+def test_issue_credential_chained_schema(helpers):
+    """ keria.app.credentialing.Credentialer.validate() -- a separate
+    implementation from keri.vdr.credentialing.Credentialer.validate(),
+    reused here via KERIA's own Credentialer class -- must succeed for a
+    credential issued against a schema that inherits from a base schema via
+    a bare-SAID $ref, and must still enforce requirements contributed by
+    either half of the chain. This is the same $ref-resolution bug fixed in
+    keripy's Credentialer.validate() (keripy commit 051549c4), reproduced
+    here through the actual POST /identifiers/{name}/credentials path so it
+    would have caught the reported error: "Credential schema validation
+    failed for ...: Credential Exception: Unresolvable: ...".
+    """
+    with helpers.openKeria() as (agency, agent, app, client):
+        idResEnd = aiding.IdentifierResourceEnd()
+        app.add_route("/identifiers/{name}", idResEnd)
+        registryEnd = credentialing.RegistryCollectionEnd(idResEnd)
+        app.add_route("/identifiers/{name}/registries", registryEnd)
+        credEnd = credentialing.CredentialCollectionEnd(idResEnd)
+        app.add_route("/identifiers/{name}/credentials", credEnd)
+        opEnd = longrunning.OperationResourceEnd()
+        app.add_route("/operations/{name}", opEnd)
+        end = aiding.IdentifierCollectionEnd()
+        app.add_route("/identifiers", end)
+
+        basesaid, derivedsaid = _pinChainedSchema(agent.hby.db)
+
+        serverDoer = helpers.server(agency)
+
+        tock = 0.03125
+        limit = 1.0
+        doist = doing.Doist(limit=limit, tock=tock, real=True)
+        deeds = doist.enter(doers=[agent, serverDoer])
+
+        isalt = b"0123456789abcdef"
+        registry, issuer = helpers.createRegistry(client, agent, isalt, doist, deeds)
+
+        iaid = issuer["prefix"]
+        idig = issuer["state"]["d"]
+
+        dt = "2021-01-01T00:00:00.000000+00:00"
+
+        # satisfies both the base-contributed requirement (a.z) and the
+        # derived-only requirement (a.m)
+        goodData = dict(dt=dt, z="zval", m="mval")
+        creder = proving.credential(
+            issuer=iaid,
+            schema=derivedsaid,
+            data=goodData,
+            status=registry["regk"],
+        )
+
+        csigers = helpers.sign(bran=isalt, pidx=0, ridx=0, ser=creder.raw)
+        regser = eventing.issue(vcdig=creder.said, regk=registry["regk"], dt=dt)
+        anchor = dict(i=regser.ked["i"], s=regser.ked["s"], d=regser.said)
+        serder, sigers = helpers.interact(
+            pre=iaid, bran=isalt, pidx=0, ridx=0, dig=idig, sn="2", data=[anchor]
+        )
+        pather = coring.Pather(path=[])
+        body = dict(
+            iss=regser.ked,
+            ixn=serder.ked,
+            sigs=sigers,
+            acdc=creder.sad,
+            csigs=csigers,
+            path=pather.qb64,
+        )
+
+        result = client.simulate_post(
+            path="/identifiers/issuer/credentials",
+            body=json.dumps(body).encode("utf-8"),
+        )
+        assert result.status_code == 200
+        op = result.json
+        assert op["metadata"]["ced"] == creder.sad
+
+        while not agent.credentialer.complete(creder.said):
+            doist.recur(deeds=deeds)
+
+        assert agent.credentialer.complete(creder.said) is True
+
+        # missing the base-contributed requirement (a.z) -- must still be
+        # rejected, proving the fix resolves and enforces the base schema's
+        # constraints rather than just making $ref "always pass"
+        badData = dict(dt=dt, m="mval")
+        badCreder = proving.credential(
+            issuer=iaid,
+            schema=derivedsaid,
+            data=badData,
+            status=registry["regk"],
+        )
+        badCsigers = helpers.sign(bran=isalt, pidx=0, ridx=0, ser=badCreder.raw)
+        badRegser = eventing.issue(vcdig=badCreder.said, regk=registry["regk"], dt=dt)
+        badAnchor = dict(i=badRegser.ked["i"], s=badRegser.ked["s"], d=badRegser.said)
+        badSerder, badSigers = helpers.interact(
+            pre=iaid, bran=isalt, pidx=0, ridx=0, dig=serder.said, sn="3", data=[badAnchor]
+        )
+        badBody = dict(
+            iss=badRegser.ked,
+            ixn=badSerder.ked,
+            sigs=badSigers,
+            acdc=badCreder.sad,
+            csigs=badCsigers,
+            path=pather.qb64,
+        )
+        result = client.simulate_post(
+            path="/identifiers/issuer/credentials",
+            body=json.dumps(badBody).encode("utf-8"),
+        )
+        assert result.status_code == 400
+        assert "Credential schema validation failed" in result.text
+
+
 def test_credentialing_ends(helpers, seeder):
     salt = b"0123456789abcdef"
 
