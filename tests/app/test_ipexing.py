@@ -69,15 +69,16 @@ def test_ipex_admit(helpers, mockHelpingNowIso8601):
                                                recipient=pre1,
                                                date=helping.nowIso8601())
         assert admitSerder.ked == {'a': {'i': 'EFnYGvF_ENKJ_4PGsWsvfd_R6m5cN-3KYsz_0mAuNpCm'},
-                                   'd': 'EBrMlfQbJRS9RYuP90t2PPPV24Qynmtu7BefWAqWzb0Q',
+                                   'd': 'ECtgcMApydnBamRW1-Li5Y1ChMR3lI01TzkfBhLQqjvr',
                                    'dt': '2021-06-27T21:26:21.233257+00:00',
                                    'e': {},
                                    'i': 'EHgwVwQT15OJvilVvW57HE4w0-GPs_Stj2OFoAHZSysY',
                                    'p': 'EB_Lr3fHezn1ygn-wbBT5JjzaCMxTmhUoegXeZzWC2eT',
                                    'q': {},
                                    'r': '/ipex/admit',
+                                   'rp': '',
                                    't': 'exn',
-                                   'v': 'KERI10JSON00013d_'}
+                                   'v': 'KERI10JSON000145_'}
         assert end == b''
         sigs = ["AAAa70b4QnTOtGOsMqcezMtVzCFuRJHGeIMkWYHZ5ZxGIXM0XDVAzkYdCeadfPfzlKC6dkfiwuJ0IzLOElaanUgH"]
 
@@ -228,7 +229,7 @@ def test_ipex_grant(helpers, mockHelpingNowIso8601, seeder):
                                        recipient=verifier['i'],
                                        date=helping.nowIso8601())
         assert exn.ked == {'a': {'i': 'EEtaMHCGi83N3IJN05DRDhkpIo5S03LOX5_8IgdvMaVq'},
-                           'd': 'EHwjDEsub6XT19ISLft1m1xMNvVXnSfH0IsDGllox4Y8',
+                           'd': 'EP72hF65ah9JK-vhQZ-rvBl9Ai4qC1Lxhf9n72asJhkm',
                            'dt': '2021-06-27T21:26:21.233257+00:00',
                            'e': {'acdc': {'a': {'LEI': '78I9GKEFM361IFY3PIN0',
                                                 'd': 'ELJ7Emhi0Bhxz3s7HyhZ45qcsgpvsT8p8pxwWkG362n3',
@@ -260,8 +261,9 @@ def test_ipex_grant(helpers, mockHelpingNowIso8601, seeder):
                            'p': '',
                            'q': {},
                            'r': '/ipex/grant',
+                           'rp': '',
                            't': 'exn',
-                           'v': 'KERI10JSON000517_'}
+                           'v': 'KERI10JSON00051f_'}
         assert end == (b'-LAg4AACA-e-acdc-IABEBg1YzKmwZIDzZsMslTFwQARB6nUN85sRJF5oywlJr3N'
                        b'0AAAAAAAAAAAAAAAAAAAAAAAEO83mwXWqiGxovpTXE6QQUBP05xkP9c1xc88xvMw'
                        b'kWWZ-LAW5AACAA-e-iss-VAS-GAB0AAAAAAAAAAAAAAAAAAAAAACEKZtbklUNPLO'
@@ -300,7 +302,7 @@ def test_ipex_grant(helpers, mockHelpingNowIso8601, seeder):
         assert res.status_code == 200
         assert res.json == {'done': False,
                             'error': None,
-                            'metadata': {'said': 'EHwjDEsub6XT19ISLft1m1xMNvVXnSfH0IsDGllox4Y8'},
+                            'metadata': {'said': 'EP72hF65ah9JK-vhQZ-rvBl9Ai4qC1Lxhf9n72asJhkm'},
                             'name': 'exchange.EFnYGvF_ENKJ_4PGsWsvfd_R6m5cN-3KYsz_0mAuNpCm',
                             'response': None}
         assert len(agent.exchanges) == 1

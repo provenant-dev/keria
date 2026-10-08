@@ -249,6 +249,7 @@ def test_identifier_collection_end(helpers):
         resend = aiding.IdentifierResourceEnd()
         app.add_route("/identifiers", end)
         app.add_route("/identifiers/{name}", resend)
+        app.add_route("/identifiers/{name}/events", resend)
 
         groupEnd = aiding.GroupMemberCollectionEnd()
         app.add_route("/identifiers/{name}/members", groupEnd)
@@ -362,7 +363,7 @@ def test_identifier_collection_end(helpers):
             'salty': {'stem': 'signify:aid', 'pidx': 0, 'tier': 'low', 'sxlt': sxlt, 'transferable': True, 'kidx': 1,
                       'icodes': [MtrDex.Ed25519_Seed], 'ncodes': [MtrDex.Ed25519_Seed]}
         }
-        res = client.simulate_put(path="/identifiers/aid1", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/aid1/events", body=json.dumps(body))
         assert res.status_code == 200
 
         # Try with missing arguments
@@ -467,8 +468,14 @@ def test_identifier_collection_end(helpers):
             'salty': {'stem': 'signify:aid', 'pidx': 0, 'tier': 'low', 'sxlt': sxlt, 'transferable': True, 'kidx': 3,
                       'icodes': [MtrDex.Ed25519_Seed], 'ncodes': [MtrDex.Ed25519_Seed]}
         }
-        res = client.simulate_put(path="/identifiers/aid3", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/aid3/events", body=json.dumps(body))
         assert res.status_code == 200
+
+        # rename aid3
+        res = client.simulate_put(path="/identifiers/aid3", body=json.dumps({"name": "aid3Renamed"}))
+        assert res.status_code == 200
+        aid = res.json
+        assert aid["name"] == "aid3Renamed"
 
         # create member habs for group AID
         p1 = p1hby.makeHab(name="p1")
@@ -651,6 +658,7 @@ def test_identifier_collection_end(helpers):
         resend = aiding.IdentifierResourceEnd()
         app.add_route("/identifiers", end)
         app.add_route("/identifiers/{name}", resend)
+        app.add_route("/identifiers/{name}/events", resend)
         eventsEnd = agenting.KeyEventCollectionEnd()
         app.add_route("/events", eventsEnd)
 
@@ -719,7 +727,7 @@ def test_identifier_collection_end(helpers):
                     "transferable": True,
                 }
                 }
-        res = client.simulate_put(path="/identifiers/randy1", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 200
         assert res.json["response"] == serder.ked
         res = client.simulate_get(path="/identifiers")
@@ -737,7 +745,7 @@ def test_identifier_collection_end(helpers):
         body = {'ixn': serder.ked,
                 'sigs': sigers
                 }
-        res = client.simulate_put(path="/identifiers/randy1?type=ixn", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 200
         assert res.json["response"] == serder.ked
 
@@ -748,17 +756,17 @@ def test_identifier_collection_end(helpers):
         assert events[2] == serder.ked
 
         # Bad interactions
-        res = client.simulate_put(path="/identifiers/badrandy?type=ixn", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/badrandy/events", body=json.dumps(body))
         assert res.status_code == 404
         assert res.json == {'title': 'No AID badrandy found'}
 
         body = {'sigs': sigers}
-        res = client.simulate_put(path="/identifiers/randy1?type=ixn", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 400
-        assert res.json == {'description': "required field 'ixn' missing from request", 'title': 'invalid interaction'}
+        assert res.json == {'description': "required field 'rot' or 'ixn' missing from request", 'title': 'invalid request'}
 
         body = {'ixn': serder.ked}
-        res = client.simulate_put(path="/identifiers/randy1?type=ixn", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 400
         assert res.json == {'description': "required field 'sigs' missing from request", 'title': 'invalid interaction'}
 
@@ -771,7 +779,7 @@ def test_identifier_collection_end(helpers):
                     "transferable": True,
                 }
                 }
-        res = client.simulate_put(path="/identifiers/randybad?type=rot", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randybad/events", body=json.dumps(body))
         assert res.status_code == 404
         assert res.json == {'title': 'No AID with name randybad found'}
 
@@ -783,9 +791,9 @@ def test_identifier_collection_end(helpers):
                 "transferable": True,
             }
         }
-        res = client.simulate_put(path="/identifiers/randy1", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 400
-        assert res.json == {'description': "required field 'rot' missing from request", 'title': 'invalid rotation'}
+        assert res.json == {'description': "required field 'rot' or 'ixn' missing from request", 'title': 'invalid request'}
 
         # rotate to unknown witness
         serder = eventing.rotate(keys=keys,
@@ -809,7 +817,7 @@ def test_identifier_collection_end(helpers):
                     "transferable": True,
                 }
                 }
-        res = client.simulate_put(path="/identifiers/randy1", body=json.dumps(body))
+        res = client.simulate_post(path="/identifiers/randy1/events", body=json.dumps(body))
         assert res.status_code == 400
         assert res.json == {'description': "unknown witness EJJR2nmwyYAZAoTNZH3ULvaU6Z-i0d8fSVPzhzS6b5CM",
                             'title': '400 Bad Request'}
@@ -820,6 +828,7 @@ def test_identifier_collection_end(helpers):
         resend = aiding.IdentifierResourceEnd()
         app.add_route("/identifiers", end)
         app.add_route("/identifiers/{name}", resend)
+        app.add_route("/identifiers/{name}/events", resend)
         eventsEnd = agenting.KeyEventCollectionEnd()
         app.add_route("/events", eventsEnd)
 
@@ -868,11 +877,12 @@ def test_identifier_collection_end(helpers):
         serder, signers = helpers.inceptExtern(count=1)
         sigers = [signer.sign(ser=serder.raw, index=0).qb64 for signer in signers]
 
+        # the extern body is splatted into ExternKeeper.incept(), which accepts
+        # only pidx and transferable -- no stem
         body = {'name': 'randy1',
                 'icp': serder.ked,
                 'sigs': sigers,
                 'extern': {
-                    "stem": "test-fake-stem",
                     "transferable": True,
                 }
                 }

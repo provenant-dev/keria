@@ -100,16 +100,6 @@ def test_agency():
         # Create non-temp Agency and test reload of agent from disk
         base = "keria-temp"
 
-        # Clean up afterwards
-        if os.path.exists(f'/usr/local/var/keri/db/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/db/{base}')
-        if os.path.exists(f'/usr/local/var/keri/ks/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/ks/{base}')
-        if os.path.exists(f'/usr/local/var/keri/ks/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/ks/{base}')
-        if os.path.exists(f'/usr/local/var/keri/adb/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/adb/{base}')
-
         agency = agenting.Agency(name="agency", base=base, bran=None, configFile="keria",
                                  configDir="scripts")
         assert agency.cf is not None
@@ -131,16 +121,6 @@ def test_agency():
 
         agent = agency.get(caid)
         assert agent.pre == "EEXekkGu9IAzav6pZVJhkLnjtjM5v3AcyA-pdKUcaGei"
-
-        # Clean up afterwards
-        if os.path.exists(f'/usr/local/var/keri/db/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/db/{base}')
-        if os.path.exists(f'/usr/local/var/keri/ks/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/ks/{base}')
-        if os.path.exists(f'/usr/local/var/keri/ks/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/ks/{base}')
-        if os.path.exists(f'/usr/local/var/keri/adb/{base}'):
-            shutil.rmtree(f'/usr/local/var/keri/adb/{base}')
 
 
 def test_boot_ends(helpers):
