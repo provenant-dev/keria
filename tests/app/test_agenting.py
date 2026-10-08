@@ -60,21 +60,6 @@ def test_load_ends(helpers):
         assert isinstance(end, agenting.QueryCollectionEnd)
 
 
-def removeKeriBaseDirs(base):
-    """ Remove leftover LMDB directories for the given non-temp `base`
-
-    keripy's Filer falls back from its HeadDirPath (/usr/local/var) to its
-    AltHeadDirPath (~) when the former is not writable, so both locations have
-    to be swept.  Otherwise the test leaves state behind and the next run fails
-    with "Already incepted pre=...".
-    """
-    for head, tail in (('/usr/local/var', 'keri'), (os.path.expanduser('~'), '.keri')):
-        for sub in ('adb', 'cf', 'db', 'ks', 'reg', 'rks'):
-            path = os.path.join(head, tail, sub, base)
-            if os.path.exists(path):
-                shutil.rmtree(path)
-
-
 def test_agency():
     salt = b'0123456789abcdef'
     salter = coring.Salter(raw=salt)
@@ -115,9 +100,6 @@ def test_agency():
         # Create non-temp Agency and test reload of agent from disk
         base = "keria-temp"
 
-        # Clean up afterwards
-        removeKeriBaseDirs(base)
-
         agency = agenting.Agency(name="agency", base=base, bran=None, configFile="keria",
                                  configDir="scripts")
         assert agency.cf is not None
@@ -139,9 +121,6 @@ def test_agency():
 
         agent = agency.get(caid)
         assert agent.pre == "EEXekkGu9IAzav6pZVJhkLnjtjM5v3AcyA-pdKUcaGei"
-
-        # Clean up afterwards
-        removeKeriBaseDirs(base)
 
 
 def test_boot_ends(helpers):
