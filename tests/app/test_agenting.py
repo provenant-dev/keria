@@ -289,16 +289,6 @@ def test_agency():
         # Create non-temp Agency and test reload of agent from disk
         base = "keria-temp"
 
-        # Clean up afterwards
-        if os.path.exists(f"/usr/local/var/keri/db/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/db/{base}")
-        if os.path.exists(f"/usr/local/var/keri/ks/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/ks/{base}")
-        if os.path.exists(f"/usr/local/var/keri/ks/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/ks/{base}")
-        if os.path.exists(f"/usr/local/var/keri/adb/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/adb/{base}")
-
         agency = agenting.Agency(
             name="agency",
             base=base,
@@ -318,6 +308,13 @@ def test_agency():
         agent = agency.create(caid, salt=salter.qb64)
         assert agent.pre == "EBtONOpwylm2krDPNyvfN8F1dlbAxpGcKBcY7WRzs3aq"
 
+        # Close the first agency and its agent before reopening the same LMDB
+        # paths below.  py-lmdb >= 2.0 refuses to open an environment that is
+        # already open in the same process, so the reload-from-disk check has
+        # to release the databases first.
+        agency.shut(agent)
+        agency.adb.close(clear=False)
+
         # Rcreate the agency to see if agent is reloaded from disk
         agency = agenting.Agency(
             name="agency",
@@ -331,19 +328,12 @@ def test_agency():
         agent = agency.get(caid)
         assert agent.pre == "EBtONOpwylm2krDPNyvfN8F1dlbAxpGcKBcY7WRzs3aq"
 
-        # Clean up afterwards
-        if os.path.exists(f"/usr/local/var/keri/db/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/db/{base}")
-        if os.path.exists(f"/usr/local/var/keri/ks/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/ks/{base}")
-        if os.path.exists(f"/usr/local/var/keri/ks/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/ks/{base}")
-        if os.path.exists(f"/usr/local/var/keri/adb/{base}"):
-            shutil.rmtree(f"/usr/local/var/keri/adb/{base}")
-
         agency.shut(agent)
         assert caid not in agency.agents
         assert len(agent.doers) == 0
+
+        # Clean up afterwards
+        agency.adb.close(clear=False)
 
 
 def test_agency_without_config_file():
