@@ -9,7 +9,6 @@ Testing the Mark II Agent (KERIA)
 import json
 import multiprocessing
 import os
-import shutil
 import signal
 import time
 from base64 import b64encode
@@ -85,7 +84,12 @@ def test_shutdown_signals():
     )
 
     # Test SIGTERM
-    agency_process = multiprocessing.Process(target=agenting.runAgency, args=[config])
+    # temp=True so the child process keeps its databases in a tempfile directory.
+    # The keriHeadDirPath fixture only redirects paths in this process, not in a
+    # spawned one, so without it the Agency would persist under ~/.keri.
+    agency_process = multiprocessing.Process(
+        target=agenting.runAgency, args=[config, True]
+    )
     agency_process.start()
     assert wait_for_server(config.bootPort), "Agency did not start as expected."
 
@@ -101,7 +105,9 @@ def test_shutdown_signals():
     )
 
     # Test SIGINT
-    agency_process = multiprocessing.Process(target=agenting.runAgency, args=[config])
+    agency_process = multiprocessing.Process(
+        target=agenting.runAgency, args=[config, True]
+    )
     agency_process.start()
     assert wait_for_server(config.bootPort), "Agency did not start as expected."
 
