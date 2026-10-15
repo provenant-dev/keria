@@ -579,7 +579,7 @@ requires-dist = [
     { name = "falcon", specifier = "==4.0.2" },
     { name = "http-sfv", specifier = "==0.9.9" },
     { name = "keri", git = "https://github.com/provenant-dev/keripy.git?rev=v1.2.13-pr1" },
-    { name = "lmdb", specifier = ">=1.6.2" },
+    { name = "lmdb", specifier = "~=2.3.0" },
     { name = "marshmallow-dataclass", specifier = "==8.7.1" },
     { name = "mnemonic", specifier = "==0.21" },
     { name = "multicommand", specifier = ">=1.0.0" },
