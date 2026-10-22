@@ -12,6 +12,7 @@ OOBI over the network again, which is what makes onboarding many controllers
 at once cheap.
 """
 
+import http.client
 import logging
 import os
 import urllib.error
@@ -168,7 +169,12 @@ class SchemaCache:
             try:
                 with urllib.request.urlopen(url, timeout=timeout) as rep:
                     raw = rep.read()
-            except (urllib.error.URLError, OSError, ValueError) as ex:
+            except (
+                urllib.error.URLError,
+                http.client.HTTPException,  # e.g. IncompleteRead on a truncated response
+                OSError,
+                ValueError,
+            ) as ex:
                 logger.warning("Could not fetch schema OOBI %s: %s", url, ex)
                 continue
 
