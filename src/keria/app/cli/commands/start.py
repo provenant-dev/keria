@@ -158,6 +158,8 @@ def launch(args):
             curls=getListVariable("KERIA_CURLS"),
             iurls=getListVariable("KERIA_IURLS"),
             durls=getListVariable("KERIA_DURLS"),
+            schemaDir=os.getenv("KERIA_SCHEMA_DIR"),
+            surls=getListVariable("KERIA_SURLS"),
             bootPassword=args.bootPassword,
             bootUsername=args.bootUsername,
         )

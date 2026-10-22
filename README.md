@@ -69,6 +69,7 @@ services:
             KERI_AGENT_CORS: 1
             KERIA_CURLS: http://<keria-hostname>:3902/
             KERIA_IURLS: http://<witness-demo-hostname>:5642/oobi/BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha;http://<witness-demo-hostname>:5643/oobi/BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM
+            KERIA_SURLS: http://<schema-server-hostname>:7723/oobi/EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao
         ports:
             - 3901:3901
             - 3902:3902
@@ -76,6 +77,23 @@ services:
 ```
 
 You can see a [working example here](https://github.com/WebOfTrust/signify-ts/blob/main/docker-compose.yaml).
+
+#### Agency-wide schema cache
+
+ACDC schemas are content addressed, so the agency keeps a single in-memory cache of
+validated schemas shared by every agent. A schema OOBI (`.../oobi/{said}`) posted to
+`/oobis` whose schema is already cached is satisfied immediately: the schema is written
+to the agent database, the OOBI is recorded as resolved and the operation completes on
+its first status check, without a network round trip. Schemas resolved the usual way by
+any agent are added to the cache, so only the first agent to ask for a schema pays for
+the fetch. New agents also get every cached schema copied into their database when they
+are created.
+
+The cache can be warmed up at startup with either or both of:
+
+* `KERIA_SCHEMA_DIR`: a directory of schema JSON files (`*.json`) loaded at startup.
+* `KERIA_SURLS`: schema OOBI URLs, separated by `;`, fetched once at startup. A URL that
+  cannot be fetched is skipped and its schema is resolved on demand as before.
 
 ### Running Tests
 

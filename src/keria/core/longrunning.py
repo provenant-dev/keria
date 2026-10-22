@@ -150,6 +150,7 @@ class Monitor:
         submitter=None,
         opr=None,
         temp=False,
+        schemas=None,
     ):
         """Create long running operation monitor
 
@@ -157,9 +158,11 @@ class Monitor:
             hby (Habery): identifier database environment
             swain(Anchorer): Delegation processes tracker
             opr (Operator): long running operations database
+            schemas (SchemaCache): agency-wide schema cache fed with schemas resolved by this agent
 
         """
         self.hby = hby
+        self.schemas = schemas
         self.swain = swain
         self.counselor = counselor
         self.registrar = registrar
@@ -308,6 +311,9 @@ class Monitor:
                 done = False
             elif obr.state == Result.resolved:
                 done = True
+                if self.schemas is not None:
+                    # share a freshly resolved schema with the rest of the agency
+                    self.schemas.harvest(self.hby.db, oobi)
                 if obr.cid and obr.cid in self.hby.kevers:
                     kever = self.hby.kevers[obr.cid]
                     response = asdict(kever.state())
