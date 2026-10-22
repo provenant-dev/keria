@@ -6,6 +6,7 @@ keria.app.schemaing module
 Testing the agency-wide schema cache
 """
 
+import http.client
 import json
 import urllib.error
 from unittest import mock
@@ -120,13 +121,22 @@ def test_schema_cache_load_urls():
     good = makeSchema("url-good")
     wrong = makeSchema("url-wrong-said")
     down = makeSchema("url-down")
+    truncated = makeSchema("url-truncated")
+    after = makeSchema("url-after-truncated")
 
     responses = {
         oobiFor(good): good.raw,
         oobiFor(wrong): good.raw,  # served content does not match the SAID in the URL
+        oobiFor(after): after.raw,
     }
 
     def fakeUrlopen(url, timeout=None):
+        if url == oobiFor(truncated):
+            # server closed the connection before sending the advertised Content-Length
+            rep = mock.MagicMock()
+            rep.read.side_effect = http.client.IncompleteRead(b"{", 100)
+            rep.__enter__.return_value = rep
+            return rep
         if url not in responses:
             raise urllib.error.URLError("connection refused")
         rep = mock.MagicMock()
@@ -138,17 +148,21 @@ def test_schema_cache_load_urls():
         oobiFor(good),
         oobiFor(wrong),
         oobiFor(down),
+        oobiFor(truncated),
         "http://127.0.0.1:5642/oobi/EAID/witness/BEID",  # not a schema OOBI
+        oobiFor(after),  # loading continues after every failure above
     ]
     with mock.patch(
         "keria.app.schemaing.urllib.request.urlopen", side_effect=fakeUrlopen
     ):
-        assert cache.loadUrls(urls) == 1
+        assert cache.loadUrls(urls) == 2
 
     assert good.said in cache
+    assert after.said in cache
     assert wrong.said not in cache
     assert down.said not in cache
-    assert len(cache) == 1
+    assert truncated.said not in cache
+    assert len(cache) == 2
 
 
 def test_load_schema_cache(tmp_path):
