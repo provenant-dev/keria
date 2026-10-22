@@ -179,14 +179,46 @@ class SchemaCache:
         return count
 
     def preload(self, db):
-        """Copy every cached schema missing from an agent database into it. Returns the number copied."""
+        """Sync an agent database with the cache, in both directions.
+
+        - Every cached schema missing from the agent database is copied into it.
+        - Every schema the agent already has (for example resolved through its
+          config ``durls`` before the cache existed) is added to the cache.
+        - Every schema OOBI still queued in the agent ``oobis`` table (the config
+          ``durls`` are queued again each time the Habery is opened) whose schema
+          is cached is recorded as resolved and removed from the queue, so the
+          Oobiery never fetches it.
+
+        Returns the number of schemas copied into the agent database.
+        """
+        for said, schemer in db.schema.getItemIter():
+            self.add(schemer)
+
         count = 0
         for said, schemer in self.schemers.items():
             if db.schema.get(keys=(said,)) is None:
                 db.schema.pin(keys=(said,), val=schemer)
                 count += 1
 
+        for (url,), obr in list(db.oobis.getItemIter()):
+            said = saidFromOobi(url)
+            if said is None or said not in self.schemers:
+                continue
+            self._markResolved(db, url, said)
+            db.oobis.rem(keys=(url,))
+
         return count
+
+    @staticmethod
+    def _markResolved(db, url, said):
+        obr = db.roobi.get(keys=(url,))
+        if obr is None or obr.state != Result.resolved:
+            obr = basing.OobiRecord(
+                said=said,
+                date=helping.toIso8601(helping.nowUTC()),
+                state=Result.resolved,
+            )
+            db.roobi.pin(keys=(url,), val=obr)
 
     def resolve(self, db, url):
         """Satisfy a schema OOBI for an agent without touching the network, when possible.
@@ -210,15 +242,7 @@ class SchemaCache:
         elif db.schema.get(keys=(said,)) is None:
             db.schema.pin(keys=(said,), val=schemer)
 
-        obr = db.roobi.get(keys=(url,))
-        if obr is None or obr.state != Result.resolved:
-            obr = basing.OobiRecord(
-                said=said,
-                date=helping.toIso8601(helping.nowUTC()),
-                state=Result.resolved,
-            )
-            db.roobi.pin(keys=(url,), val=obr)
-
+        self._markResolved(db, url, said)
         return True
 
     def harvest(self, db, url):

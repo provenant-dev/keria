@@ -13,12 +13,12 @@ from unittest import mock
 import falcon
 from hio.base import doing
 from keri import core
+from keri.app import configing
 from keri.app.oobiing import Result
 from keri.core import coring, scheming
 
 from keria.app import agenting, schemaing
 from keria.core import longrunning
-from keria.testing.testing_helper import SCRIPTS_DIR
 
 
 def makeSchema(title):
@@ -177,6 +177,33 @@ def test_schema_cache_preload_resolve_harvest(helpers):
         assert db.schema.get(keys=(cached.said,)).said == cached.said
         assert cache.preload(db) == 0
 
+        # preload also picks up schemas the agent already had (e.g. from config durls)
+        owned = makeSchema("owned")
+        db.schema.pin(keys=(owned.said,), val=owned)
+        assert owned.said not in cache
+        assert cache.preload(db) == 0
+        assert owned.said in cache
+
+        # and settles schema OOBIs still queued for the Oobiery when the schema is cached
+        queued = oobiFor(cached)
+        witness = "http://127.0.0.1:5642/oobi/EAID/witness/BEID"
+        notCached = oobiFor(makeSchema("not-cached"))
+        for u in (queued, witness, notCached):
+            db.oobis.pin(
+                keys=(u,),
+                val=agenting.OobiRecord(date="2021-01-01T00:00:00.000000+00:00"),
+            )
+        assert cache.preload(db) == 0
+        assert db.oobis.get(keys=(queued,)) is None
+        assert db.roobi.get(keys=(queued,)).state == Result.resolved
+        assert db.roobi.get(keys=(queued,)).said == cached.said
+        assert (
+            db.oobis.get(keys=(witness,)) is not None
+        )  # not a schema OOBI, left alone
+        assert db.oobis.get(keys=(notCached,)) is not None  # unknown schema, left alone
+        for u in (witness, notCached):
+            db.oobis.rem(keys=(u,))
+
         # resolve: not a schema OOBI
         assert (
             cache.resolve(db, "http://127.0.0.1:5642/oobi/EAID/witness/BEID") is False
@@ -306,13 +333,20 @@ def test_agency_preloads_schemas_into_new_agents():
     cache = schemaing.SchemaCache()
     cache.add(schemer)
 
+    # schema durls, as rendered by the deployment from SCHEMA_URLS: one cached, one not
+    cachedUrl = oobiFor(schemer)
+    uncachedUrl = oobiFor(makeSchema("agency-uncached"))
+
+    # a config with "dt" is what makes keripy queue the iurls/durls of a new Habery
+    cf = configing.Configer(name="agency-schemas", temp=True, reopen=True, clear=True)
+    cf.put(dict(dt="2025-01-03T16:08:30.123456+00:00", durls=[cachedUrl, uncachedUrl]))
+
     agency = agenting.Agency(
         name="agency",
         base="",
         bran=None,
         temp=True,
-        configFile="keria",
-        configDir=SCRIPTS_DIR,
+        cf=cf,
         schemas=cache,
     )
     assert agency.schemas is cache
@@ -324,6 +358,13 @@ def test_agency_preloads_schemas_into_new_agents():
     agent = agency.create(caid, salt=salter.qb64)
     assert agent.hby.db.schema.get(keys=(schemer.said,)).said == schemer.said
     assert agent.monitor.schemas is cache
+
+    # config durls were queued by the Habery on open; the cached one is settled
+    # from the cache instead of fetched, the unknown one is left for the Oobiery
+    assert cachedUrl in agent.hby.cf.get()["durls"]
+    assert agent.hby.db.oobis.get(keys=(cachedUrl,)) is None
+    assert agent.hby.db.roobi.get(keys=(cachedUrl,)).state == Result.resolved
+    assert agent.hby.db.oobis.get(keys=(uncachedUrl,)) is not None
 
     agency.shut(agent)
     agency.adb.close(clear=True)

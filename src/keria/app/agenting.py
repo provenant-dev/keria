@@ -370,8 +370,9 @@ class Agency(doing.DoDoer):
             temp=self.temp,
             salt=salt,
         )
-        self.schemas.preload(agentHby.db)
         agentHab = agentHby.makeHab(habName, ns="agent", transferable=True, delpre=caid)
+        # after makeHab: that is when the Habery queues the config iurls/durls
+        self.schemas.preload(agentHby.db)
         agentRgy = Regery(
             hby=agentHby, name=agentHab.name, base=self.base, temp=self.temp
         )

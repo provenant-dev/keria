@@ -87,7 +87,8 @@ to the agent database, the OOBI is recorded as resolved and the operation comple
 its first status check, without a network round trip. Schemas resolved the usual way by
 any agent are added to the cache, so only the first agent to ask for a schema pays for
 the fetch. New agents also get every cached schema copied into their database when they
-are created.
+are created, and schema OOBIs queued from the config file `durls` whose schema is cached
+are settled from the cache instead of fetched.
 
 The cache can be warmed up at startup with either or both of:
 
