@@ -1,0 +1,14 @@
+# Opt-in deep-dive overlay. Use ON TOP of compose.profiling.yaml to turn on the
+# line/function-level profiler (deepdive/sitecustomize.py) inside KERIA:
+#
+#   docker compose -f compose.profiling.yaml -f compose.deepdive.yaml up -d --force-recreate keria
+#
+# It prepends the deepdive dir to PYTHONPATH (so Python auto-imports sitecustomize)
+# and sets KERIA_DEEPDIVE=1 (so it starts cProfile/yappi). Dump a snapshot with:
+#   docker compose -f compose.profiling.yaml exec keria sh -c 'kill -USR2 $(pgrep -f bin/keria|head -1)'
+# Snapshots land in ./profiles/deepdive-*.{pstats|callgrind}.
+services:
+    keria:
+        environment:
+            PYTHONPATH: /src/keria/profiling/deepdive:/src/keria/src:/src/keripy/src
+            KERIA_DEEPDIVE: "1"

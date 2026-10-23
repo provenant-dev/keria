@@ -1,0 +1,2196 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="532" font-family="monospace" font-size="12">
+<rect width="1200" height="532" fill="#fafafa"/>
+<text x="6" y="16" font-size="13" font-weight="bold">kel-verify_rot_n200_w3_f1.cpu (6.8s total, merged stacks)</text>
+<g><title>&lt;module&gt; (keria:10) — 5.49s (81.1%)</title><rect x="0.0" y="476" width="972.6" height="15" fill="rgb(243,208,105)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="488" fill="#000">&lt;module&gt; (keria:10)</text>
+</g>
+<g><title>main (keria.py:22) — 5.49s (81.1%)</title><rect x="0.0" y="460" width="972.6" height="15" fill="rgb(238,203,90)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="472" fill="#000">main (keria.py:22)</text>
+</g>
+<g><title>&lt;lambda&gt; (start.py:21) — 5.49s (81.1%)</title><rect x="0.0" y="444" width="972.6" height="15" fill="rgb(243,89,102)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="456" fill="#000">&lt;lambda&gt; (start.py:21)</text>
+</g>
+<g><title>launch (start.py:140) — 5.49s (81.1%)</title><rect x="0.0" y="428" width="972.6" height="15" fill="rgb(223,176,59)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="440" fill="#000">launch (start.py:140)</text>
+</g>
+<g><title>runAgency (agenting.py:189) — 5.49s (81.1%)</title><rect x="0.0" y="412" width="972.6" height="15" fill="rgb(236,154,109)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="424" fill="#000">runAgency (agenting.py:189)</text>
+</g>
+<g><title>do (doing.py:156) — 5.19s (76.7%)</title><rect x="0.0" y="396" width="919.4" height="15" fill="rgb(233,105,86)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="408" fill="#000">do (doing.py:156)</text>
+</g>
+<g><title>recur (doing.py:275) — 5.13s (75.8%)</title><rect x="0.0" y="380" width="908.8" height="15" fill="rgb(219,144,50)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="392" fill="#000">recur (doing.py:275)</text>
+</g>
+<g><title>do (doing.py:568) — 2.64s (39.0%)</title><rect x="0.0" y="364" width="467.4" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="376" fill="#000">do (doing.py:568)</text>
+</g>
+<g><title>recur (serving.py:1359) — 2.62s (38.7%)</title><rect x="0.0" y="348" width="463.9" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="360" fill="#000">recur (serving.py:1359)</text>
+</g>
+<g><title>service (serving.py:849) — 2.16s (31.9%)</title><rect x="0.0" y="332" width="382.4" height="15" fill="rgb(237,141,95)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="344" fill="#000">service (serving.py:849)</text>
+</g>
+<g><title>serviceReps (serving.py:830) — 2.12s (31.3%)</title><rect x="0.0" y="316" width="375.3" height="15" fill="rgb(237,88,54)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="328" fill="#000">serviceReps (serving.py:830)</text>
+</g>
+<g><title>service (serving.py:470) — 2.06s (30.4%)</title><rect x="0.0" y="300" width="364.6" height="15" fill="rgb(227,150,77)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="312" fill="#000">service (serving.py:470)</text>
+</g>
+<g><title>on_post (agenting.py:1707) — 0.79s (11.7%)</title><rect x="0.0" y="284" width="139.5" height="15" fill="rgb(231,125,50)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="296" fill="#000">on_post (agenting.py…</text>
+</g>
+<g><title>create (agenting.py:365) — 0.44s (6.5%)</title><rect x="0.0" y="268" width="77.5" height="15" fill="rgb(234,207,82)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="280" fill="#000">create (age…</text>
+</g>
+<g><title>makeHab (habbing.py:400) — 0.44s (6.5%)</title><rect x="0.0" y="252" width="77.5" height="15" fill="rgb(213,87,108)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="264" fill="#000">makeHab (ha…</text>
+</g>
+<g><title>make (habbing.py:2256) — 0.44s (6.5%)</title><rect x="0.0" y="236" width="77.5" height="15" fill="rgb(241,91,104)" stroke="#fff" stroke-width="0.3"/>
+<text x="2.0" y="248" fill="#000">make (habbi…</text>
+</g>
+<g><title>incept (keeping.py:1025) — 0.22s (3.2%)</title><rect x="0.0" y="220" width="38.5" height="15" fill="rgb(231,150,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (keeping.py:543) — 0.22s (3.2%)</title><rect x="0.0" y="204" width="38.5" height="15" fill="rgb(218,118,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>signer (signing.py:466) — 0.22s (3.2%)</title><rect x="0.0" y="188" width="38.5" height="15" fill="rgb(226,167,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>stretch (signing.py:443) — 0.22s (3.2%)</title><rect x="0.0" y="172" width="38.5" height="15" fill="rgb(226,198,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:62) — 0.22s (3.2%)</title><rect x="0.0" y="156" width="38.5" height="15" fill="rgb(222,83,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:92) — 0.22s (3.2%)</title><rect x="0.0" y="140" width="38.5" height="15" fill="rgb(205,141,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_pwhash (__init__.py:1376) — 0.22s (3.2%)</title><rect x="0.0" y="124" width="38.5" height="15" fill="rgb(219,180,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>incept (keeping.py:1014) — 0.21s (3.1%)</title><rect x="39.0" y="220" width="36.7" height="15" fill="rgb(239,130,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (keeping.py:543) — 0.21s (3.1%)</title><rect x="39.0" y="204" width="36.7" height="15" fill="rgb(218,118,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>signer (signing.py:466) — 0.21s (3.1%)</title><rect x="39.0" y="188" width="36.7" height="15" fill="rgb(226,167,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>stretch (signing.py:443) — 0.21s (3.1%)</title><rect x="39.0" y="172" width="36.7" height="15" fill="rgb(226,198,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:62) — 0.21s (3.1%)</title><rect x="39.0" y="156" width="36.7" height="15" fill="rgb(222,83,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:92) — 0.21s (3.1%)</title><rect x="39.0" y="140" width="36.7" height="15" fill="rgb(205,141,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_pwhash (__init__.py:1376) — 0.21s (3.1%)</title><rect x="39.0" y="124" width="36.7" height="15" fill="rgb(219,180,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>incept (keeping.py:1071) — 0.01s (0.1%)</title><rect x="76.2" y="220" width="1.3" height="15" fill="rgb(212,114,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (koming.py:292) — 0.01s (0.1%)</title><rect x="76.2" y="204" width="1.3" height="15" fill="rgb(248,139,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.01s (0.1%)</title><rect x="76.2" y="188" width="1.3" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (agenting.py:356) — 0.26s (3.8%)</title><rect x="78.0" y="268" width="45.6" height="15" fill="rgb(254,188,82)" stroke="#fff" stroke-width="0.3"/>
+<text x="80.0" y="280" fill="#000">create…</text>
+</g>
+<g><title>__init__ (habbing.py:242) — 0.23s (3.4%)</title><rect x="78.0" y="252" width="40.3" height="15" fill="rgb(240,131,83)" stroke="#fff" stroke-width="0.3"/>
+<text x="80.0" y="264" fill="#000">__ini…</text>
+</g>
+<g><title>setup (habbing.py:314) — 0.23s (3.4%)</title><rect x="78.0" y="236" width="40.3" height="15" fill="rgb(239,142,93)" stroke="#fff" stroke-width="0.3"/>
+<text x="80.0" y="248" fill="#000">setup…</text>
+</g>
+<g><title>__init__ (habbing.py:821) — 0.23s (3.4%)</title><rect x="78.0" y="220" width="40.3" height="15" fill="rgb(233,157,50)" stroke="#fff" stroke-width="0.3"/>
+<text x="80.0" y="232" fill="#000">__ini…</text>
+</g>
+<g><title>make (habbing.py:2256) — 0.22s (3.2%)</title><rect x="78.0" y="204" width="38.5" height="15" fill="rgb(241,91,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>incept (keeping.py:1014) — 0.21s (3.1%)</title><rect x="78.0" y="188" width="36.7" height="15" fill="rgb(239,130,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (keeping.py:543) — 0.21s (3.1%)</title><rect x="78.0" y="172" width="36.7" height="15" fill="rgb(218,118,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>signer (signing.py:466) — 0.21s (3.1%)</title><rect x="78.0" y="156" width="36.7" height="15" fill="rgb(226,167,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>stretch (signing.py:443) — 0.21s (3.1%)</title><rect x="78.0" y="140" width="36.7" height="15" fill="rgb(226,198,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:62) — 0.21s (3.1%)</title><rect x="78.0" y="124" width="36.7" height="15" fill="rgb(222,83,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>wrapper (__init__.py:92) — 0.21s (3.1%)</title><rect x="78.0" y="108" width="36.7" height="15" fill="rgb(205,141,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_pwhash (__init__.py:1376) — 0.21s (3.1%)</title><rect x="78.0" y="92" width="36.7" height="15" fill="rgb(219,180,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>incept (keeping.py:1061) — 0.01s (0.1%)</title><rect x="115.2" y="188" width="1.3" height="15" fill="rgb(251,94,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (subing.py:1473) — 0.01s (0.1%)</title><rect x="115.2" y="172" width="1.3" height="15" fill="rgb(229,147,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.01s (0.1%)</title><rect x="115.2" y="156" width="1.3" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>make (habbing.py:2300) — 0.01s (0.1%)</title><rect x="117.0" y="204" width="1.3" height="15" fill="rgb(241,197,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEvent (eventing.py:3792) — 0.01s (0.1%)</title><rect x="117.0" y="188" width="1.3" height="15" fill="rgb(245,161,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (eventing.py:1589) — 0.01s (0.1%)</title><rect x="117.0" y="172" width="1.3" height="15" fill="rgb(238,108,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3182) — 0.01s (0.1%)</title><rect x="117.0" y="156" width="1.3" height="15" fill="rgb(205,204,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (subing.py:388) — 0.01s (0.1%)</title><rect x="117.0" y="140" width="1.3" height="15" fill="rgb(213,198,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.01s (0.1%)</title><rect x="117.0" y="124" width="1.3" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (habbing.py:212) — 0.03s (0.4%)</title><rect x="118.8" y="252" width="4.8" height="15" fill="rgb(207,204,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (basing.py:979) — 0.03s (0.4%)</title><rect x="118.8" y="236" width="4.8" height="15" fill="rgb(216,104,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.03s (0.4%)</title><rect x="118.8" y="220" width="4.8" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (filing.py:150) — 0.03s (0.4%)</title><rect x="118.8" y="204" width="4.8" height="15" fill="rgb(244,187,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (basing.py:1124) — 0.01s (0.1%)</title><rect x="118.8" y="188" width="1.3" height="15" fill="rgb(212,207,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:1354) — 0.01s (0.1%)</title><rect x="118.8" y="172" width="1.3" height="15" fill="rgb(212,132,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:938) — 0.01s (0.1%)</title><rect x="118.8" y="156" width="1.3" height="15" fill="rgb(237,170,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:822) — 0.01s (0.1%)</title><rect x="118.8" y="140" width="1.3" height="15" fill="rgb(249,201,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:1050) — 0.01s (0.1%)</title><rect x="118.8" y="124" width="1.3" height="15" fill="rgb(215,162,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:121) — 0.01s (0.1%)</title><rect x="118.8" y="108" width="1.3" height="15" fill="rgb(231,190,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (basing.py:1004) — 0.01s (0.1%)</title><rect x="120.5" y="188" width="1.3" height="15" fill="rgb(249,92,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:430) — 0.01s (0.1%)</title><rect x="120.5" y="172" width="1.3" height="15" fill="rgb(207,122,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (basing.py:1015) — 0.01s (0.1%)</title><rect x="122.3" y="188" width="1.3" height="15" fill="rgb(241,112,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (agenting.py:370) — 0.04s (0.6%)</title><rect x="124.1" y="268" width="6.6" height="15" fill="rgb(240,93,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (agenting.py:688) — 0.02s (0.3%)</title><rect x="124.1" y="252" width="3.0" height="15" fill="rgb(226,101,89)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (notifying.py:391) — 0.02s (0.3%)</title><rect x="124.1" y="236" width="3.0" height="15" fill="rgb(215,162,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (notifying.py:239) — 0.02s (0.3%)</title><rect x="124.1" y="220" width="3.0" height="15" fill="rgb(206,106,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.02s (0.3%)</title><rect x="124.1" y="204" width="3.0" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (filing.py:150) — 0.02s (0.3%)</title><rect x="124.1" y="188" width="3.0" height="15" fill="rgb(244,187,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (notifying.py:247) — 0.01s (0.1%)</title><rect x="124.1" y="172" width="1.3" height="15" fill="rgb(218,191,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:424) — 0.01s (0.1%)</title><rect x="124.1" y="156" width="1.3" height="15" fill="rgb(220,105,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (filing.py:189) — 0.01s (0.1%)</title><rect x="124.1" y="140" width="1.3" height="15" fill="rgb(241,130,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>remake (filing.py:313) — 0.01s (0.1%)</title><rect x="124.1" y="124" width="1.3" height="15" fill="rgb(230,92,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makedirs (&lt;frozen os&gt;:215) — 0.01s (0.1%)</title><rect x="124.1" y="108" width="1.3" height="15" fill="rgb(228,120,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makedirs (&lt;frozen os&gt;:225) — 0.01s (0.1%)</title><rect x="124.1" y="92" width="1.3" height="15" fill="rgb(239,139,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (notifying.py:250) — 0.01s (0.1%)</title><rect x="125.8" y="172" width="1.3" height="15" fill="rgb(212,206,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:357) — 0.01s (0.1%)</title><rect x="125.8" y="156" width="1.3" height="15" fill="rgb(232,143,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:121) — 0.01s (0.1%)</title><rect x="125.8" y="140" width="1.3" height="15" fill="rgb(231,190,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (agenting.py:672) — 0.01s (0.1%)</title><rect x="127.6" y="252" width="1.3" height="15" fill="rgb(229,208,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (storing.py:65) — 0.01s (0.1%)</title><rect x="127.6" y="236" width="1.3" height="15" fill="rgb(254,138,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.01s (0.1%)</title><rect x="127.6" y="220" width="1.3" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (filing.py:150) — 0.01s (0.1%)</title><rect x="127.6" y="204" width="1.3" height="15" fill="rgb(244,187,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (storing.py:73) — 0.01s (0.1%)</title><rect x="127.6" y="188" width="1.3" height="15" fill="rgb(234,192,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:436) — 0.01s (0.1%)</title><rect x="127.6" y="172" width="1.3" height="15" fill="rgb(243,125,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>version (dbing.py:467) — 0.01s (0.1%)</title><rect x="127.6" y="156" width="1.3" height="15" fill="rgb(252,94,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVer (dbing.py:507) — 0.01s (0.1%)</title><rect x="127.6" y="140" width="1.3" height="15" fill="rgb(230,185,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (agenting.py:731) — 0.01s (0.1%)</title><rect x="129.4" y="252" width="1.3" height="15" fill="rgb(245,206,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (longrunning.py:169) — 0.01s (0.1%)</title><rect x="129.4" y="236" width="1.3" height="15" fill="rgb(236,136,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (longrunning.py:114) — 0.01s (0.1%)</title><rect x="129.4" y="220" width="1.3" height="15" fill="rgb(226,167,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.01s (0.1%)</title><rect x="129.4" y="204" width="1.3" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (agenting.py:353) — 0.03s (0.4%)</title><rect x="131.2" y="268" width="4.8" height="15" fill="rgb(211,187,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (keeping.py:269) — 0.03s (0.4%)</title><rect x="131.2" y="252" width="4.8" height="15" fill="rgb(251,133,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.03s (0.4%)</title><rect x="131.2" y="236" width="4.8" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (filing.py:150) — 0.03s (0.4%)</title><rect x="131.2" y="220" width="4.8" height="15" fill="rgb(244,187,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (keeping.py:276) — 0.03s (0.4%)</title><rect x="131.2" y="204" width="4.8" height="15" fill="rgb(230,87,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:430) — 0.02s (0.3%)</title><rect x="131.2" y="188" width="3.0" height="15" fill="rgb(207,122,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:423) — 0.01s (0.1%)</title><rect x="134.7" y="188" width="1.3" height="15" fill="rgb(239,104,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>exists (filing.py:408) — 0.01s (0.1%)</title><rect x="134.7" y="172" width="1.3" height="15" fill="rgb(246,174,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>exists (&lt;frozen genericpath&gt;:19) — 0.01s (0.1%)</title><rect x="134.7" y="156" width="1.3" height="15" fill="rgb(234,144,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create (agenting.py:366) — 0.02s (0.3%)</title><rect x="136.5" y="268" width="3.0" height="15" fill="rgb(215,208,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (credentialing.py:40) — 0.02s (0.3%)</title><rect x="136.5" y="252" width="3.0" height="15" fill="rgb(222,169,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (viring.py:291) — 0.02s (0.3%)</title><rect x="136.5" y="236" width="3.0" height="15" fill="rgb(216,169,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (dbing.py:396) — 0.02s (0.3%)</title><rect x="136.5" y="220" width="3.0" height="15" fill="rgb(231,167,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (filing.py:150) — 0.02s (0.3%)</title><rect x="136.5" y="204" width="3.0" height="15" fill="rgb(244,187,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (viring.py:308) — 0.01s (0.1%)</title><rect x="136.5" y="188" width="1.3" height="15" fill="rgb(210,86,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (dbing.py:430) — 0.01s (0.1%)</title><rect x="136.5" y="172" width="1.3" height="15" fill="rgb(207,122,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reopen (viring.py:365) — 0.01s (0.1%)</title><rect x="138.3" y="188" width="1.3" height="15" fill="rgb(233,199,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:872) — 0.01s (0.1%)</title><rect x="138.3" y="172" width="1.3" height="15" fill="rgb(254,167,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:822) — 0.01s (0.1%)</title><rect x="138.3" y="156" width="1.3" height="15" fill="rgb(249,201,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:357) — 0.01s (0.1%)</title><rect x="138.3" y="140" width="1.3" height="15" fill="rgb(232,143,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (subing.py:121) — 0.01s (0.1%)</title><rect x="138.3" y="124" width="1.3" height="15" fill="rgb(231,190,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_post (aiding.py:1049) — 0.34s (5.0%)</title><rect x="140.0" y="284" width="59.8" height="15" fill="rgb(231,153,52)" stroke="#fff" stroke-width="0.3"/>
+<text x="142.0" y="296" fill="#000">on_post …</text>
+</g>
+<g><title>rotate (aiding.py:1107) — 0.25s (3.7%)</title><rect x="140.0" y="268" width="43.8" height="15" fill="rgb(225,173,84)" stroke="#fff" stroke-width="0.3"/>
+<text x="142.0" y="280" fill="#000">rotate…</text>
+</g>
+<g><title>rotate (habbing.py:2415) — 0.25s (3.7%)</title><rect x="140.0" y="252" width="43.8" height="15" fill="rgb(253,111,81)" stroke="#fff" stroke-width="0.3"/>
+<text x="142.0" y="264" fill="#000">rotate…</text>
+</g>
+<g><title>processEvent (habbing.py:2454) — 0.25s (3.7%)</title><rect x="140.0" y="236" width="43.8" height="15" fill="rgb(208,158,74)" stroke="#fff" stroke-width="0.3"/>
+<text x="142.0" y="248" fill="#000">proces…</text>
+</g>
+<g><title>processEvent (eventing.py:3890) — 0.25s (3.7%)</title><rect x="140.0" y="220" width="43.8" height="15" fill="rgb(224,106,92)" stroke="#fff" stroke-width="0.3"/>
+<text x="142.0" y="232" fill="#000">proces…</text>
+</g>
+<g><title>update (eventing.py:1978) — 0.21s (3.1%)</title><rect x="140.0" y="204" width="36.7" height="15" fill="rgb(237,180,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3138) — 0.07s (1.0%)</title><rect x="140.0" y="188" width="11.9" height="15" fill="rgb(236,111,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (subing.py:1070) — 0.06s (0.9%)</title><rect x="140.0" y="172" width="10.1" height="15" fill="rgb(222,102,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putIoSetVals (dbing.py:985) — 0.05s (0.7%)</title><rect x="140.0" y="156" width="8.4" height="15" fill="rgb(242,143,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putIoSetVals (dbing.py:992) — 0.01s (0.1%)</title><rect x="148.9" y="156" width="1.3" height="15" fill="rgb(210,161,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>suffix (dbing.py:232) — 0.01s (0.1%)</title><rect x="148.9" y="140" width="1.3" height="15" fill="rgb(249,147,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:3401) — 0.01s (0.1%)</title><rect x="150.7" y="172" width="1.3" height="15" fill="rgb(217,150,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3181) — 0.04s (0.6%)</title><rect x="152.4" y="188" width="6.6" height="15" fill="rgb(224,203,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setDts (basing.py:2106) — 0.04s (0.6%)</title><rect x="152.4" y="172" width="6.6" height="15" fill="rgb(243,206,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.04s (0.6%)</title><rect x="152.4" y="156" width="6.6" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3166) — 0.03s (0.4%)</title><rect x="159.5" y="188" width="4.8" height="15" fill="rgb(207,168,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (koming.py:292) — 0.03s (0.4%)</title><rect x="159.5" y="172" width="4.8" height="15" fill="rgb(248,139,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.03s (0.4%)</title><rect x="159.5" y="156" width="4.8" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3182) — 0.03s (0.4%)</title><rect x="164.8" y="188" width="4.8" height="15" fill="rgb(205,204,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (subing.py:388) — 0.03s (0.4%)</title><rect x="164.8" y="172" width="4.8" height="15" fill="rgb(213,198,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.03s (0.4%)</title><rect x="164.8" y="156" width="4.8" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3132) — 0.02s (0.3%)</title><rect x="170.2" y="188" width="3.0" height="15" fill="rgb(250,107,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putDts (basing.py:2097) — 0.02s (0.3%)</title><rect x="170.2" y="172" width="3.0" height="15" fill="rgb(233,170,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.02s (0.3%)</title><rect x="170.2" y="156" width="3.0" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3170) — 0.01s (0.1%)</title><rect x="173.7" y="188" width="1.3" height="15" fill="rgb(232,183,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>appendFe (basing.py:2047) — 0.01s (0.1%)</title><rect x="173.7" y="172" width="1.3" height="15" fill="rgb(243,136,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>appendOnVal (dbing.py:763) — 0.01s (0.1%)</title><rect x="173.7" y="156" width="1.3" height="15" fill="rgb(223,161,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3134) — 0.01s (0.1%)</title><rect x="175.5" y="188" width="1.3" height="15" fill="rgb(212,109,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putSigs (basing.py:2186) — 0.01s (0.1%)</title><rect x="175.5" y="172" width="1.3" height="15" fill="rgb(247,108,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVals (dbing.py:1306) — 0.01s (0.1%)</title><rect x="175.5" y="156" width="1.3" height="15" fill="rgb(208,140,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>update (eventing.py:2003) — 0.03s (0.4%)</title><rect x="177.3" y="204" width="4.8" height="15" fill="rgb(207,151,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (koming.py:307) — 0.02s (0.3%)</title><rect x="177.3" y="188" width="3.0" height="15" fill="rgb(249,176,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.02s (0.3%)</title><rect x="177.3" y="172" width="3.0" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>state (eventing.py:3457) — 0.01s (0.1%)</title><rect x="180.8" y="188" width="1.3" height="15" fill="rgb(233,103,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>state (eventing.py:557) — 0.01s (0.1%)</title><rect x="180.8" y="172" width="1.3" height="15" fill="rgb(237,163,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1782) — 0.01s (0.1%)</title><rect x="180.8" y="156" width="1.3" height="15" fill="rgb(217,121,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>update (eventing.py:1947) — 0.01s (0.1%)</title><rect x="182.6" y="204" width="1.3" height="15" fill="rgb(223,122,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sner (serdering.py:1687) — 0.01s (0.1%)</title><rect x="182.6" y="188" width="1.3" height="15" fill="rgb(248,85,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1779) — 0.01s (0.1%)</title><rect x="182.6" y="172" width="1.3" height="15" fill="rgb(223,106,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (aiding.py:1162) — 0.04s (0.6%)</title><rect x="184.3" y="268" width="6.6" height="15" fill="rgb(236,155,85)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>submit (longrunning.py:193) — 0.03s (0.4%)</title><rect x="184.3" y="252" width="4.8" height="15" fill="rgb(231,131,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (koming.py:307) — 0.03s (0.4%)</title><rect x="184.3" y="236" width="4.8" height="15" fill="rgb(249,176,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.03s (0.4%)</title><rect x="184.3" y="220" width="4.8" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>submit (longrunning.py:189) — 0.01s (0.1%)</title><rect x="189.7" y="252" width="1.3" height="15" fill="rgb(206,116,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>nowIso8601 (helping.py:211) — 0.01s (0.1%)</title><rect x="189.7" y="236" width="1.3" height="15" fill="rgb(218,116,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (aiding.py:1113) — 0.02s (0.3%)</title><rect x="191.4" y="268" width="3.0" height="15" fill="rgb(212,190,84)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (keeping.py:247) — 0.02s (0.3%)</title><rect x="191.4" y="252" width="3.0" height="15" fill="rgb(224,187,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (koming.py:328) — 0.02s (0.3%)</title><rect x="191.4" y="236" width="3.0" height="15" fill="rgb(205,175,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:565) — 0.01s (0.1%)</title><rect x="191.4" y="220" width="1.3" height="15" fill="rgb(248,201,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>datify (helping.py:81) — 0.01s (0.1%)</title><rect x="191.4" y="204" width="1.3" height="15" fill="rgb(210,162,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>fields (dataclasses.py:1293) — 0.01s (0.1%)</title><rect x="191.4" y="188" width="1.3" height="15" fill="rgb(245,134,85)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__deserializeJSON (koming.py:206) — 0.01s (0.1%)</title><rect x="193.2" y="220" width="1.3" height="15" fill="rgb(237,106,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>datify (helping.py:80) — 0.01s (0.1%)</title><rect x="193.2" y="204" width="1.3" height="15" fill="rgb(229,161,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>decode (decoder.py:338) — 0.01s (0.1%)</title><rect x="193.2" y="188" width="1.3" height="15" fill="rgb(223,198,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (aiding.py:1083) — 0.01s (0.1%)</title><rect x="195.0" y="268" width="1.3" height="15" fill="rgb(248,118,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:643) — 0.01s (0.1%)</title><rect x="195.0" y="252" width="1.3" height="15" fill="rgb(243,161,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.01s (0.1%)</title><rect x="195.0" y="236" width="1.3" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:772) — 0.01s (0.1%)</title><rect x="195.0" y="220" width="1.3" height="15" fill="rgb(250,129,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (aiding.py:1084) — 0.01s (0.1%)</title><rect x="196.8" y="268" width="1.3" height="15" fill="rgb(229,119,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sn (serdering.py:1696) — 0.01s (0.1%)</title><rect x="196.8" y="252" width="1.3" height="15" fill="rgb(217,183,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sner (serdering.py:1687) — 0.01s (0.1%)</title><rect x="196.8" y="236" width="1.3" height="15" fill="rgb(248,85,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rotate (aiding.py:1072) — 0.01s (0.1%)</title><rect x="198.5" y="268" width="1.3" height="15" fill="rgb(206,99,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>decode (decoder.py:342) — 0.01s (0.1%)</title><rect x="198.5" y="252" width="1.3" height="15" fill="rgb(248,83,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw_decode (decoder.py:354) — 0.01s (0.1%)</title><rect x="198.5" y="236" width="1.3" height="15" fill="rgb(254,106,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>process_request (authing.py:185) — 0.21s (3.1%)</title><rect x="200.3" y="284" width="36.7" height="15" fill="rgb(214,152,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:104) — 0.09s (1.3%)</title><rect x="200.3" y="268" width="15.5" height="15" fill="rgb(205,134,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (coring.py:3113) — 0.07s (1.0%)</title><rect x="200.3" y="252" width="11.9" height="15" fill="rgb(254,160,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_ed25519 (coring.py:3127) — 0.03s (0.4%)</title><rect x="200.3" y="236" width="4.8" height="15" fill="rgb(240,82,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_verify_detached (__init__.py:1261) — 0.03s (0.4%)</title><rect x="200.3" y="220" width="4.8" height="15" fill="rgb(231,120,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>&lt;lambda&gt; (&lt;string&gt;:1) — 0.02s (0.3%)</title><rect x="205.6" y="236" width="3.0" height="15" fill="rgb(249,163,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1006) — 0.01s (0.1%)</title><rect x="205.6" y="220" width="1.3" height="15" fill="rgb(216,89,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_exfil (coring.py:1427) — 0.01s (0.1%)</title><rect x="205.6" y="204" width="1.3" height="15" fill="rgb(224,138,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>designature (ending.py:260) — 0.01s (0.1%)</title><rect x="212.7" y="252" width="1.3" height="15" fill="rgb(227,142,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>designature (ending.py:257) — 0.01s (0.1%)</title><rect x="214.5" y="252" width="1.3" height="15" fill="rgb(233,127,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:3225) — 0.01s (0.1%)</title><rect x="214.5" y="236" width="1.3" height="15" fill="rgb(231,169,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1006) — 0.01s (0.1%)</title><rect x="214.5" y="220" width="1.3" height="15" fill="rgb(216,89,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_exfil (coring.py:1428) — 0.01s (0.1%)</title><rect x="214.5" y="204" width="1.3" height="15" fill="rgb(205,139,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:51) — 0.06s (0.9%)</title><rect x="216.2" y="268" width="10.1" height="15" fill="rgb(244,159,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>desiginput (ending.py:361) — 0.03s (0.4%)</title><rect x="216.2" y="252" width="4.8" height="15" fill="rgb(230,187,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse (util.py:58) — 0.02s (0.3%)</title><rect x="216.2" y="236" width="3.0" height="15" fill="rgb(241,117,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse_content (dictionary.py:31) — 0.02s (0.3%)</title><rect x="216.2" y="220" width="3.0" height="15" fill="rgb(210,98,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse_item_or_inner_list (list.py:70) — 0.01s (0.1%)</title><rect x="216.2" y="204" width="1.3" height="15" fill="rgb(219,115,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse_item_or_inner_list (list.py:72) — 0.01s (0.1%)</title><rect x="218.0" y="204" width="1.3" height="15" fill="rgb(231,116,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse (item.py:125) — 0.01s (0.1%)</title><rect x="218.0" y="188" width="1.3" height="15" fill="rgb(249,203,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>desiginput (ending.py:360) — 0.02s (0.3%)</title><rect x="221.6" y="252" width="3.0" height="15" fill="rgb(249,186,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>desiginput (ending.py:365) — 0.01s (0.1%)</title><rect x="225.1" y="252" width="1.3" height="15" fill="rgb(254,189,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:40) — 0.02s (0.3%)</title><rect x="226.9" y="268" width="3.0" height="15" fill="rgb(252,139,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:102) — 0.02s (0.3%)</title><rect x="230.4" y="268" width="3.0" height="15" fill="rgb(243,132,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>designature (ending.py:255) — 0.02s (0.3%)</title><rect x="230.4" y="252" width="3.0" height="15" fill="rgb(221,126,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:3225) — 0.01s (0.1%)</title><rect x="230.4" y="236" width="1.3" height="15" fill="rgb(231,169,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:98) — 0.01s (0.1%)</title><rect x="234.0" y="268" width="1.3" height="15" fill="rgb(205,111,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (authing.py:60) — 0.01s (0.1%)</title><rect x="235.7" y="268" width="1.3" height="15" fill="rgb(224,178,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>process_response (authing.py:221) — 0.19s (2.8%)</title><rect x="237.5" y="284" width="33.2" height="15" fill="rgb(241,178,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (authing.py:127) — 0.15s (2.2%)</title><rect x="237.5" y="268" width="26.1" height="15" fill="rgb(244,170,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>siginput (ending.py:340) — 0.12s (1.8%)</title><rect x="237.5" y="252" width="20.8" height="15" fill="rgb(212,163,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (habbing.py:1317) — 0.11s (1.6%)</title><rect x="237.5" y="236" width="19.0" height="15" fill="rgb(213,167,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (keeping.py:1410) — 0.05s (0.7%)</title><rect x="237.5" y="220" width="8.4" height="15" fill="rgb(219,153,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (signing.py:159) — 0.03s (0.4%)</title><rect x="237.5" y="204" width="4.8" height="15" fill="rgb(238,171,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (signing.py:107) — 0.02s (0.3%)</title><rect x="237.5" y="188" width="3.0" height="15" fill="rgb(214,94,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_seed_keypair (__init__.py:1221) — 0.02s (0.3%)</title><rect x="237.5" y="172" width="3.0" height="15" fill="rgb(252,102,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (signing.py:108) — 0.01s (0.1%)</title><rect x="241.1" y="188" width="1.3" height="15" fill="rgb(245,94,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_seed_keypair (__init__.py:1221) — 0.01s (0.1%)</title><rect x="241.1" y="172" width="1.3" height="15" fill="rgb(252,102,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (subing.py:1533) — 0.02s (0.3%)</title><rect x="242.8" y="204" width="3.0" height="15" fill="rgb(253,81,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (signing.py:107) — 0.02s (0.3%)</title><rect x="242.8" y="188" width="3.0" height="15" fill="rgb(214,94,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_seed_keypair (__init__.py:1221) — 0.02s (0.3%)</title><rect x="242.8" y="172" width="3.0" height="15" fill="rgb(252,102,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create_string_buffer (__init__.py:65) — 0.01s (0.1%)</title><rect x="242.8" y="156" width="1.3" height="15" fill="rgb(227,161,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>create_string_buffer (__init__.py:64) — 0.01s (0.1%)</title><rect x="244.6" y="156" width="1.3" height="15" fill="rgb(246,160,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (keeping.py:1366) — 0.05s (0.7%)</title><rect x="246.4" y="220" width="8.4" height="15" fill="rgb(219,177,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (subing.py:1533) — 0.03s (0.4%)</title><rect x="246.4" y="204" width="4.8" height="15" fill="rgb(253,81,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>transferable (coring.py:1210) — 0.01s (0.1%)</title><rect x="246.4" y="188" width="1.3" height="15" fill="rgb(234,188,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (subing.py:1529) — 0.02s (0.3%)</title><rect x="251.7" y="204" width="3.0" height="15" fill="rgb(228,196,89)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:565) — 0.01s (0.1%)</title><rect x="251.7" y="188" width="1.3" height="15" fill="rgb(248,201,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>itemise (item.py:221) — 0.01s (0.1%)</title><rect x="255.2" y="220" width="1.3" height="15" fill="rgb(217,117,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (habbing.py:1293) — 0.01s (0.1%)</title><rect x="257.0" y="236" width="1.3" height="15" fill="rgb(236,112,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>itemise (item.py:221) — 0.01s (0.1%)</title><rect x="257.0" y="220" width="1.3" height="15" fill="rgb(217,117,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>siginput (ending.py:325) — 0.01s (0.1%)</title><rect x="258.8" y="252" width="1.3" height="15" fill="rgb(245,127,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>siginput (ending.py:341) — 0.01s (0.1%)</title><rect x="260.6" y="252" width="1.3" height="15" fill="rgb(243,163,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>nowUTC (helping.py:197) — 0.01s (0.1%)</title><rect x="262.3" y="252" width="1.3" height="15" fill="rgb(253,108,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (authing.py:146) — 0.02s (0.3%)</title><rect x="264.1" y="268" width="3.0" height="15" fill="rgb(235,208,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>siginput (ending.py:348) — 0.02s (0.3%)</title><rect x="264.1" y="252" width="3.0" height="15" fill="rgb(210,168,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__str__ (dictionary.py:64) — 0.02s (0.3%)</title><rect x="264.1" y="236" width="3.0" height="15" fill="rgb(206,148,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__str__ (item.py:134) — 0.02s (0.3%)</title><rect x="264.1" y="220" width="3.0" height="15" fill="rgb(219,100,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (signing.py:159) — 0.02s (0.3%)</title><rect x="264.1" y="204" width="3.0" height="15" fill="rgb(238,171,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_ed25519 (signing.py:198) — 0.02s (0.3%)</title><rect x="264.1" y="188" width="3.0" height="15" fill="rgb(232,125,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_detached (__init__.py:1241) — 0.02s (0.3%)</title><rect x="264.1" y="172" width="3.0" height="15" fill="rgb(205,157,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sign (authing.py:137) — 0.01s (0.1%)</title><rect x="267.7" y="268" width="1.3" height="15" fill="rgb(205,190,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_get (longrunning.py:669) — 0.16s (2.4%)</title><rect x="271.2" y="284" width="27.9" height="15" fill="rgb(241,100,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (longrunning.py:202) — 0.11s (1.6%)</title><rect x="271.2" y="268" width="19.0" height="15" fill="rgb(206,82,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:277) — 0.07s (1.0%)</title><rect x="271.2" y="252" width="11.9" height="15" fill="rgb(216,84,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.04s (0.6%)</title><rect x="271.2" y="236" width="6.6" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.04s (0.6%)</title><rect x="271.2" y="220" width="6.6" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:766) — 0.02s (0.3%)</title><rect x="271.2" y="204" width="3.0" height="15" fill="rgb(213,113,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:119) — 0.01s (0.1%)</title><rect x="271.2" y="188" width="1.3" height="15" fill="rgb(247,133,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (serdering.py:1105) — 0.01s (0.1%)</title><rect x="274.7" y="204" width="1.3" height="15" fill="rgb(240,125,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (__init__.py:346) — 0.01s (0.1%)</title><rect x="274.7" y="188" width="1.3" height="15" fill="rgb(233,128,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:692) — 0.01s (0.1%)</title><rect x="276.5" y="204" width="1.3" height="15" fill="rgb(231,92,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:594) — 0.02s (0.3%)</title><rect x="278.3" y="236" width="3.0" height="15" fill="rgb(238,182,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:565) — 0.01s (0.1%)</title><rect x="278.3" y="220" width="1.3" height="15" fill="rgb(248,201,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:563) — 0.01s (0.1%)</title><rect x="280.1" y="220" width="1.3" height="15" fill="rgb(236,200,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getEvt (basing.py:1934) — 0.01s (0.1%)</title><rect x="281.8" y="236" width="1.3" height="15" fill="rgb(213,181,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVals (dbing.py:1360) — 0.01s (0.1%)</title><rect x="281.8" y="220" width="1.3" height="15" fill="rgb(253,107,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:265) — 0.01s (0.1%)</title><rect x="283.6" y="252" width="1.3" height="15" fill="rgb(243,193,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:275) — 0.01s (0.1%)</title><rect x="285.4" y="252" width="1.3" height="15" fill="rgb(254,82,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getWigs (basing.py:2221) — 0.01s (0.1%)</title><rect x="285.4" y="236" width="1.3" height="15" fill="rgb(234,174,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getIoDupValLast (dbing.py:1649) — 0.01s (0.1%)</title><rect x="285.4" y="220" width="1.3" height="15" fill="rgb(229,92,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:271) — 0.01s (0.1%)</title><rect x="287.1" y="252" width="1.3" height="15" fill="rgb(230,80,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dgKey (dbing.py:133) — 0.01s (0.1%)</title><rect x="287.1" y="236" width="1.3" height="15" fill="rgb(218,167,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_infil (coring.py:1309) — 0.01s (0.1%)</title><rect x="287.1" y="220" width="1.3" height="15" fill="rgb(225,137,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (longrunning.py:199) — 0.05s (0.7%)</title><rect x="290.7" y="268" width="8.4" height="15" fill="rgb(231,183,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (koming.py:328) — 0.04s (0.6%)</title><rect x="290.7" y="252" width="6.6" height="15" fill="rgb(205,175,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__deserializeJSON (koming.py:206) — 0.02s (0.3%)</title><rect x="290.7" y="236" width="3.0" height="15" fill="rgb(237,106,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:563) — 0.01s (0.1%)</title><rect x="294.2" y="236" width="1.3" height="15" fill="rgb(236,200,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_tokey (koming.py:110) — 0.01s (0.1%)</title><rect x="296.0" y="236" width="1.3" height="15" fill="rgb(247,98,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (coring.py:3113) — 0.01s (0.1%)</title><rect x="297.8" y="252" width="1.3" height="15" fill="rgb(254,160,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_ed25519 (coring.py:3127) — 0.01s (0.1%)</title><rect x="297.8" y="236" width="1.3" height="15" fill="rgb(240,82,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_verify_detached (__init__.py:1261) — 0.01s (0.1%)</title><rect x="297.8" y="220" width="1.3" height="15" fill="rgb(231,120,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_get (longrunning.py:675) — 0.08s (1.2%)</title><rect x="299.6" y="284" width="13.7" height="15" fill="rgb(228,117,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>to_json (api.py:37) — 0.08s (1.2%)</title><rect x="299.6" y="268" width="13.7" height="15" fill="rgb(221,194,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>to_dict (api.py:73) — 0.04s (0.6%)</title><rect x="299.6" y="252" width="6.6" height="15" fill="rgb(213,99,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_asdict (core.py:432) — 0.02s (0.3%)</title><rect x="299.6" y="236" width="3.0" height="15" fill="rgb(254,131,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_user_overrides_or_exts (core.py:75) — 0.01s (0.1%)</title><rect x="299.6" y="220" width="1.3" height="15" fill="rgb(217,144,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_user_overrides_or_exts (core.py:78) — 0.01s (0.1%)</title><rect x="301.3" y="220" width="1.3" height="15" fill="rgb(210,146,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_asdict (core.py:437) — 0.02s (0.3%)</title><rect x="303.1" y="236" width="3.0" height="15" fill="rgb(209,135,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_asdict (core.py:459) — 0.01s (0.1%)</title><rect x="303.1" y="220" width="1.3" height="15" fill="rgb(243,174,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_user_overrides_or_exts (core.py:91) — 0.01s (0.1%)</title><rect x="304.9" y="220" width="1.3" height="15" fill="rgb(215,180,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:252) — 0.01s (0.1%)</title><rect x="306.6" y="252" width="1.3" height="15" fill="rgb(239,172,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:586) — 0.01s (0.1%)</title><rect x="308.4" y="252" width="1.3" height="15" fill="rgb(219,200,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_delete (longrunning.py:713) — 0.05s (0.7%)</title><rect x="313.7" y="284" width="8.4" height="15" fill="rgb(240,90,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rem (longrunning.py:229) — 0.04s (0.6%)</title><rect x="313.7" y="268" width="6.6" height="15" fill="rgb(247,151,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rem (koming.py:362) — 0.04s (0.6%)</title><rect x="313.7" y="252" width="6.6" height="15" fill="rgb(237,132,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>delVal (dbing.py:580) — 0.04s (0.6%)</title><rect x="313.7" y="236" width="6.6" height="15" fill="rgb(248,135,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_get (aiding.py:900) — 0.05s (0.7%)</title><rect x="322.6" y="284" width="8.4" height="15" fill="rgb(208,208,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>info (aiding.py:1286) — 0.02s (0.3%)</title><rect x="322.6" y="268" width="3.0" height="15" fill="rgb(236,104,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>state (eventing.py:3457) — 0.01s (0.1%)</title><rect x="322.6" y="252" width="1.3" height="15" fill="rgb(233,103,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>state (eventing.py:557) — 0.01s (0.1%)</title><rect x="322.6" y="236" width="1.3" height="15" fill="rgb(237,163,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1782) — 0.01s (0.1%)</title><rect x="322.6" y="220" width="1.3" height="15" fill="rgb(217,121,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>state (eventing.py:3449) — 0.01s (0.1%)</title><rect x="324.4" y="252" width="1.3" height="15" fill="rgb(234,85,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>info (aiding.py:1275) — 0.01s (0.1%)</title><rect x="326.1" y="268" width="1.3" height="15" fill="rgb(244,84,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (keeping.py:171) — 0.01s (0.1%)</title><rect x="326.1" y="252" width="1.3" height="15" fill="rgb(239,143,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (koming.py:328) — 0.01s (0.1%)</title><rect x="326.1" y="236" width="1.3" height="15" fill="rgb(205,175,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__deserializeJSON (koming.py:206) — 0.01s (0.1%)</title><rect x="326.1" y="220" width="1.3" height="15" fill="rgb(237,106,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>datify (helping.py:80) — 0.01s (0.1%)</title><rect x="326.1" y="204" width="1.3" height="15" fill="rgb(229,161,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>decode (decoder.py:333) — 0.01s (0.1%)</title><rect x="326.1" y="188" width="1.3" height="15" fill="rgb(218,195,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw_decode (decoder.py:354) — 0.01s (0.1%)</title><rect x="326.1" y="172" width="1.3" height="15" fill="rgb(254,106,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>info (aiding.py:1274) — 0.01s (0.1%)</title><rect x="327.9" y="268" width="1.3" height="15" fill="rgb(213,84,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (keeping.py:165) — 0.01s (0.1%)</title><rect x="327.9" y="252" width="1.3" height="15" fill="rgb(252,126,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_delete (longrunning.py:708) — 0.03s (0.4%)</title><rect x="331.5" y="284" width="4.8" height="15" fill="rgb(234,204,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (longrunning.py:202) — 0.02s (0.3%)</title><rect x="331.5" y="268" width="3.0" height="15" fill="rgb(206,82,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>status (longrunning.py:277) — 0.02s (0.3%)</title><rect x="331.5" y="252" width="3.0" height="15" fill="rgb(216,84,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.02s (0.3%)</title><rect x="331.5" y="236" width="3.0" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.02s (0.3%)</title><rect x="331.5" y="220" width="3.0" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:750) — 0.01s (0.1%)</title><rect x="331.5" y="204" width="1.3" height="15" fill="rgb(216,90,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:119) — 0.01s (0.1%)</title><rect x="331.5" y="188" width="1.3" height="15" fill="rgb(247,133,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:779) — 0.01s (0.1%)</title><rect x="333.2" y="204" width="1.3" height="15" fill="rgb(217,134,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (longrunning.py:199) — 0.01s (0.1%)</title><rect x="335.0" y="268" width="1.3" height="15" fill="rgb(231,183,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>get (koming.py:328) — 0.01s (0.1%)</title><rect x="335.0" y="252" width="1.3" height="15" fill="rgb(205,175,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__deserializeJSON (koming.py:206) — 0.01s (0.1%)</title><rect x="335.0" y="236" width="1.3" height="15" fill="rgb(237,106,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>datify (helping.py:80) — 0.01s (0.1%)</title><rect x="335.0" y="220" width="1.3" height="15" fill="rgb(229,161,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>decode (decoder.py:342) — 0.01s (0.1%)</title><rect x="335.0" y="204" width="1.3" height="15" fill="rgb(248,83,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw_decode (decoder.py:357) — 0.01s (0.1%)</title><rect x="335.0" y="188" width="1.3" height="15" fill="rgb(247,108,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_post (agenting.py:2010) — 0.02s (0.3%)</title><rect x="336.8" y="284" width="3.0" height="15" fill="rgb(209,140,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>submit (longrunning.py:193) — 0.02s (0.3%)</title><rect x="336.8" y="268" width="3.0" height="15" fill="rgb(231,131,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (koming.py:307) — 0.02s (0.3%)</title><rect x="336.8" y="252" width="3.0" height="15" fill="rgb(249,176,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.02s (0.3%)</title><rect x="336.8" y="236" width="3.0" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>process_response (authing.py:220) — 0.02s (0.3%)</title><rect x="340.3" y="284" width="3.0" height="15" fill="rgb(210,178,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>to_json (api.py:37) — 0.01s (0.1%)</title><rect x="340.3" y="268" width="1.3" height="15" fill="rgb(221,194,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (__init__.py:234) — 0.01s (0.1%)</title><rect x="340.3" y="252" width="1.3" height="15" fill="rgb(219,101,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_post (aiding.py:1062) — 0.01s (0.1%)</title><rect x="343.9" y="284" width="1.3" height="15" fill="rgb(236,187,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>to_json (api.py:37) — 0.01s (0.1%)</title><rect x="343.9" y="268" width="1.3" height="15" fill="rgb(221,194,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>to_dict (api.py:73) — 0.01s (0.1%)</title><rect x="343.9" y="252" width="1.3" height="15" fill="rgb(213,99,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_asdict (core.py:445) — 0.01s (0.1%)</title><rect x="343.9" y="236" width="1.3" height="15" fill="rgb(208,153,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_user_overrides_or_exts (core.py:102) — 0.01s (0.1%)</title><rect x="343.9" y="220" width="1.3" height="15" fill="rgb(254,176,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>on_get (aiding.py:903) — 0.01s (0.1%)</title><rect x="345.6" y="284" width="1.3" height="15" fill="rgb(251,209,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (__init__.py:231) — 0.01s (0.1%)</title><rect x="345.6" y="268" width="1.3" height="15" fill="rgb(226,99,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>encode (encoder.py:200) — 0.01s (0.1%)</title><rect x="345.6" y="252" width="1.3" height="15" fill="rgb(245,180,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>iterencode (encoder.py:251) — 0.01s (0.1%)</title><rect x="345.6" y="236" width="1.3" height="15" fill="rgb(239,209,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:499) — 0.06s (0.9%)</title><rect x="365.1" y="300" width="10.1" height="15" fill="rgb(228,194,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>write (serving.py:381) — 0.05s (0.7%)</title><rect x="365.1" y="284" width="8.4" height="15" fill="rgb(252,147,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (serving.py:356) — 0.03s (0.4%)</title><rect x="365.1" y="268" width="4.8" height="15" fill="rgb(251,154,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (serving.py:350) — 0.01s (0.1%)</title><rect x="370.5" y="268" width="1.3" height="15" fill="rgb(215,151,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (serving.py:344) — 0.01s (0.1%)</title><rect x="372.2" y="268" width="1.3" height="15" fill="rgb(228,134,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:817) — 0.01s (0.1%)</title><rect x="375.8" y="316" width="1.3" height="15" fill="rgb(211,87,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:784) — 0.01s (0.1%)</title><rect x="377.5" y="316" width="1.3" height="15" fill="rgb(254,143,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reset (serving.py:314) — 0.01s (0.1%)</title><rect x="377.5" y="300" width="1.3" height="15" fill="rgb(218,181,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>quote (parse.py:911) — 0.01s (0.1%)</title><rect x="377.5" y="284" width="1.3" height="15" fill="rgb(207,94,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>quote_from_bytes (parse.py:950) — 0.01s (0.1%)</title><rect x="377.5" y="268" width="1.3" height="15" fill="rgb(213,97,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:810) — 0.01s (0.1%)</title><rect x="379.3" y="316" width="1.3" height="15" fill="rgb(244,82,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>buildEnviron (serving.py:740) — 0.01s (0.1%)</title><rect x="379.3" y="300" width="1.3" height="15" fill="rgb(207,138,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:848) — 0.19s (2.8%)</title><rect x="382.9" y="332" width="33.2" height="15" fill="rgb(206,141,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:801) — 0.11s (1.6%)</title><rect x="382.9" y="316" width="19.0" height="15" fill="rgb(214,194,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>info (__init__.py:1539) — 0.11s (1.6%)</title><rect x="382.9" y="300" width="19.0" height="15" fill="rgb(227,166,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_log (__init__.py:1682) — 0.06s (0.9%)</title><rect x="382.9" y="284" width="10.1" height="15" fill="rgb(237,95,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>findCaller (__init__.py:1643) — 0.02s (0.3%)</title><rect x="382.9" y="268" width="3.0" height="15" fill="rgb(205,117,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_is_internal_frame (__init__.py:202) — 0.01s (0.1%)</title><rect x="382.9" y="252" width="1.3" height="15" fill="rgb(224,143,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makeRecord (__init__.py:1652) — 0.02s (0.3%)</title><rect x="386.4" y="268" width="3.0" height="15" fill="rgb(214,146,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_is_internal_frame (__init__.py:202) — 0.01s (0.1%)</title><rect x="386.4" y="252" width="1.3" height="15" fill="rgb(224,143,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (__init__.py:366) — 0.01s (0.1%)</title><rect x="388.2" y="252" width="1.3" height="15" fill="rgb(206,174,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>findCaller (__init__.py:1632) — 0.01s (0.1%)</title><rect x="390.0" y="268" width="1.3" height="15" fill="rgb(213,97,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_log (__init__.py:1684) — 0.04s (0.6%)</title><rect x="393.5" y="284" width="6.6" height="15" fill="rgb(249,96,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>handle (__init__.py:1700) — 0.04s (0.6%)</title><rect x="393.5" y="268" width="6.6" height="15" fill="rgb(227,177,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (__init__.py:366) — 0.02s (0.3%)</title><rect x="393.5" y="252" width="3.0" height="15" fill="rgb(206,174,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (__init__.py:375) — 0.01s (0.1%)</title><rect x="397.0" y="252" width="1.3" height="15" fill="rgb(236,192,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (__init__.py:377) — 0.01s (0.1%)</title><rect x="398.8" y="252" width="1.3" height="15" fill="rgb(248,193,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:786) — 0.04s (0.6%)</title><rect x="402.4" y="316" width="6.6" height="15" fill="rgb(216,145,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse (httping.py:1037) — 0.02s (0.3%)</title><rect x="402.4" y="300" width="3.0" height="15" fill="rgb(249,114,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseMessage (httping.py:995) — 0.02s (0.3%)</title><rect x="402.4" y="284" width="3.0" height="15" fill="rgb(240,133,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseHead (serving.py:104) — 0.01s (0.1%)</title><rect x="402.4" y="268" width="1.3" height="15" fill="rgb(207,107,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (serving.py:766) — 0.01s (0.1%)</title><rect x="405.9" y="300" width="1.3" height="15" fill="rgb(223,119,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (serving.py:762) — 0.01s (0.1%)</title><rect x="407.7" y="300" width="1.3" height="15" fill="rgb(249,116,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (serving.py:725) — 0.01s (0.1%)</title><rect x="407.7" y="284" width="1.3" height="15" fill="rgb(226,153,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:807) — 0.03s (0.4%)</title><rect x="409.5" y="316" width="4.8" height="15" fill="rgb(250,197,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>buildEnviron (serving.py:728) — 0.02s (0.3%)</title><rect x="409.5" y="300" width="3.0" height="15" fill="rgb(233,104,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>isEnabledFor (__init__.py:1798) — 0.02s (0.3%)</title><rect x="409.5" y="284" width="3.0" height="15" fill="rgb(212,182,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>handle (__init__.py:1700) — 0.02s (0.3%)</title><rect x="409.5" y="268" width="3.0" height="15" fill="rgb(227,177,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>callHandlers (__init__.py:1771) — 0.01s (0.1%)</title><rect x="409.5" y="252" width="1.3" height="15" fill="rgb(224,168,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>handle (__init__.py:1028) — 0.01s (0.1%)</title><rect x="409.5" y="236" width="1.3" height="15" fill="rgb(210,80,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>emit (__init__.py:1163) — 0.01s (0.1%)</title><rect x="409.5" y="220" width="1.3" height="15" fill="rgb(235,152,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>format (__init__.py:999) — 0.01s (0.1%)</title><rect x="409.5" y="204" width="1.3" height="15" fill="rgb(253,107,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>format (__init__.py:720) — 0.01s (0.1%)</title><rect x="409.5" y="188" width="1.3" height="15" fill="rgb(215,206,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>usesTime (__init__.py:668) — 0.01s (0.1%)</title><rect x="409.5" y="172" width="1.3" height="15" fill="rgb(248,117,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>callHandlers (__init__.py:1762) — 0.01s (0.1%)</title><rect x="411.2" y="252" width="1.3" height="15" fill="rgb(244,149,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>handle (__init__.py:1028) — 0.01s (0.1%)</title><rect x="411.2" y="236" width="1.3" height="15" fill="rgb(210,80,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>emit (__init__.py:1163) — 0.01s (0.1%)</title><rect x="411.2" y="220" width="1.3" height="15" fill="rgb(235,152,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>buildEnviron (serving.py:717) — 0.01s (0.1%)</title><rect x="413.0" y="300" width="1.3" height="15" fill="rgb(241,84,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceivesAllIx (serving.py:386) — 0.01s (0.1%)</title><rect x="414.8" y="316" width="1.3" height="15" fill="rgb(205,142,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="414.8" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="414.8" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:199) — 0.01s (0.1%)</title><rect x="414.8" y="268" width="1.3" height="15" fill="rgb(228,165,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:186) — 0.01s (0.1%)</title><rect x="414.8" y="252" width="1.3" height="15" fill="rgb(246,208,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="414.8" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:850) — 0.11s (1.6%)</title><rect x="416.5" y="332" width="19.0" height="15" fill="rgb(219,155,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSendsAllIx (serving.py:409) — 0.06s (0.9%)</title><rect x="416.5" y="316" width="10.1" height="15" fill="rgb(228,135,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (serving.py:838) — 0.04s (0.6%)</title><rect x="416.5" y="300" width="6.6" height="15" fill="rgb(244,139,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (serving.py:794) — 0.04s (0.6%)</title><rect x="416.5" y="284" width="6.6" height="15" fill="rgb(239,158,84)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makeParser (httping.py:1024) — 0.01s (0.1%)</title><rect x="423.6" y="300" width="1.3" height="15" fill="rgb(225,114,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>write (serving.py:390) — 0.01s (0.1%)</title><rect x="423.6" y="284" width="1.3" height="15" fill="rgb(232,166,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tx (serving.py:827) — 0.01s (0.1%)</title><rect x="423.6" y="268" width="1.3" height="15" fill="rgb(232,112,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReps (serving.py:830) — 0.02s (0.3%)</title><rect x="427.2" y="316" width="3.0" height="15" fill="rgb(237,88,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:499) — 0.01s (0.1%)</title><rect x="427.2" y="300" width="1.3" height="15" fill="rgb(228,194,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>write (serving.py:381) — 0.01s (0.1%)</title><rect x="427.2" y="284" width="1.3" height="15" fill="rgb(252,147,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (serving.py:364) — 0.01s (0.1%)</title><rect x="427.2" y="268" width="1.3" height="15" fill="rgb(250,172,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:470) — 0.01s (0.1%)</title><rect x="429.0" y="300" width="1.3" height="15" fill="rgb(227,150,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:767) — 0.01s (0.1%)</title><rect x="430.7" y="316" width="1.3" height="15" fill="rgb(233,203,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="430.7" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="430.7" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.01s (0.1%)</title><rect x="430.7" y="268" width="1.3" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="430.7" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="430.7" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceivesAllIx (serving.py:384) — 0.01s (0.1%)</title><rect x="432.5" y="316" width="1.3" height="15" fill="rgb(243,140,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReps (serving.py:836) — 0.01s (0.1%)</title><rect x="434.3" y="316" width="1.3" height="15" fill="rgb(223,92,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:846) — 0.11s (1.6%)</title><rect x="436.0" y="332" width="19.0" height="15" fill="rgb(244,139,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:769) — 0.04s (0.6%)</title><rect x="436.0" y="316" width="6.6" height="15" fill="rgb(245,204,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>closeConnection (serving.py:757) — 0.02s (0.3%)</title><rect x="436.0" y="300" width="3.0" height="15" fill="rgb(230,174,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>removeIx (serving.py:361) — 0.01s (0.1%)</title><rect x="436.0" y="284" width="1.3" height="15" fill="rgb(250,141,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>close (serving.py:702) — 0.01s (0.1%)</title><rect x="436.0" y="268" width="1.3" height="15" fill="rgb(218,171,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>shutdown (serving.py:670) — 0.01s (0.1%)</title><rect x="436.0" y="252" width="1.3" height="15" fill="rgb(244,198,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>closeConnection (serving.py:752) — 0.01s (0.1%)</title><rect x="439.6" y="300" width="1.3" height="15" fill="rgb(225,171,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="439.6" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:199) — 0.01s (0.1%)</title><rect x="439.6" y="268" width="1.3" height="15" fill="rgb(228,165,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:186) — 0.01s (0.1%)</title><rect x="439.6" y="252" width="1.3" height="15" fill="rgb(246,208,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>closeConnection (serving.py:756) — 0.01s (0.1%)</title><rect x="441.4" y="300" width="1.3" height="15" fill="rgb(249,173,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:766) — 0.03s (0.4%)</title><rect x="443.1" y="316" width="4.8" height="15" fill="rgb(252,202,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.03s (0.4%)</title><rect x="443.1" y="300" width="4.8" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:278) — 0.02s (0.3%)</title><rect x="443.1" y="284" width="3.0" height="15" fill="rgb(214,87,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="446.7" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.01s (0.1%)</title><rect x="446.7" y="268" width="1.3" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="446.7" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="446.7" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReps (serving.py:824) — 0.02s (0.3%)</title><rect x="448.4" y="316" width="3.0" height="15" fill="rgb(250,201,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="448.4" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="448.4" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.01s (0.1%)</title><rect x="448.4" y="268" width="1.3" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="448.4" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="448.4" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:767) — 0.02s (0.3%)</title><rect x="452.0" y="316" width="3.0" height="15" fill="rgb(233,203,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="452.0" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:278) — 0.01s (0.1%)</title><rect x="452.0" y="284" width="1.3" height="15" fill="rgb(214,87,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:199) — 0.01s (0.1%)</title><rect x="452.0" y="268" width="1.3" height="15" fill="rgb(228,165,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="452.0" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:296) — 0.01s (0.1%)</title><rect x="452.0" y="236" width="1.3" height="15" fill="rgb(245,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:847) — 0.04s (0.6%)</title><rect x="455.5" y="332" width="6.6" height="15" fill="rgb(225,140,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:773) — 0.02s (0.3%)</title><rect x="455.5" y="316" width="3.0" height="15" fill="rgb(220,90,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serving.py:646) — 0.01s (0.1%)</title><rect x="455.5" y="300" width="1.3" height="15" fill="rgb(207,143,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serving.py:652) — 0.01s (0.1%)</title><rect x="457.3" y="300" width="1.3" height="15" fill="rgb(244,159,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (tyming.py:224) — 0.01s (0.1%)</title><rect x="457.3" y="284" width="1.3" height="15" fill="rgb(221,103,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:766) — 0.02s (0.3%)</title><rect x="459.1" y="316" width="3.0" height="15" fill="rgb(252,202,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.02s (0.3%)</title><rect x="459.1" y="300" width="3.0" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.02s (0.3%)</title><rect x="459.1" y="284" width="3.0" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.02s (0.3%)</title><rect x="459.1" y="268" width="3.0" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.02s (0.3%)</title><rect x="459.1" y="252" width="3.0" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.02s (0.3%)</title><rect x="459.1" y="236" width="3.0" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1041) — 0.01s (0.1%)</title><rect x="462.6" y="332" width="1.3" height="15" fill="rgb(229,90,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.01s (0.1%)</title><rect x="462.6" y="316" width="1.3" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:888) — 0.01s (0.1%)</title><rect x="462.6" y="300" width="1.3" height="15" fill="rgb(225,89,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1020) — 0.01s (0.1%)</title><rect x="462.6" y="284" width="1.3" height="15" fill="rgb(226,181,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="462.6" y="268" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1548) — 0.01s (0.1%)</title><rect x="462.6" y="252" width="1.3" height="15" fill="rgb(243,161,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 2.41s (35.6%)</title><rect x="467.9" y="364" width="426.7" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="376" fill="#000">do (doing.py:922)</text>
+</g>
+<g><title>recur (agenting.py:511) — 2.39s (35.3%)</title><rect x="467.9" y="348" width="423.1" height="15" fill="rgb(208,113,71)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="360" fill="#000">recur (agenting.py:511)</text>
+</g>
+<g><title>recur (doing.py:1026) — 2.32s (34.3%)</title><rect x="467.9" y="332" width="410.7" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="344" fill="#000">recur (doing.py:1026)</text>
+</g>
+<g><title>do (doing.py:922) — 2.29s (33.8%)</title><rect x="467.9" y="316" width="405.4" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="328" fill="#000">do (doing.py:922)</text>
+</g>
+<g><title>recur (agenting.py:888) — 2.29s (33.8%)</title><rect x="467.9" y="300" width="405.4" height="15" fill="rgb(225,89,86)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="312" fill="#000">recur (agenting.py:888)</text>
+</g>
+<g><title>recur (doing.py:1026) — 2.25s (33.2%)</title><rect x="467.9" y="284" width="398.3" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="296" fill="#000">recur (doing.py:1026)</text>
+</g>
+<g><title>do (doing.py:564) — 0.92s (13.6%)</title><rect x="467.9" y="268" width="162.6" height="15" fill="rgb(246,166,104)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="280" fill="#000">do (doing.py:564)</text>
+</g>
+<g><title>recur (agenting.py:1089) — 0.92s (13.6%)</title><rect x="467.9" y="252" width="162.6" height="15" fill="rgb(213,120,77)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="264" fill="#000">recur (agenting.py:1089…</text>
+</g>
+<g><title>receipt (agenting.py:113) — 0.43s (6.4%)</title><rect x="467.9" y="236" width="75.7" height="15" fill="rgb(253,141,73)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="248" fill="#000">receipt (a…</text>
+</g>
+<g><title>parseOne (parsing.py:375) — 0.43s (6.4%)</title><rect x="467.9" y="220" width="75.7" height="15" fill="rgb(249,140,65)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="232" fill="#000">parseOne (…</text>
+</g>
+<g><title>onceParsator (parsing.py:518) — 0.43s (6.4%)</title><rect x="467.9" y="204" width="75.7" height="15" fill="rgb(226,107,95)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="216" fill="#000">onceParsat…</text>
+</g>
+<g><title>msgParsator (parsing.py:1046) — 0.36s (5.3%)</title><rect x="467.9" y="188" width="63.3" height="15" fill="rgb(221,195,98)" stroke="#fff" stroke-width="0.3"/>
+<text x="469.9" y="200" fill="#000">msgParsat…</text>
+</g>
+<g><title>processReceipt (eventing.py:4109) — 0.21s (3.1%)</title><rect x="467.9" y="172" width="36.7" height="15" fill="rgb(230,191,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addWig (basing.py:2251) — 0.20s (3.0%)</title><rect x="467.9" y="156" width="35.0" height="15" fill="rgb(241,188,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addVal (dbing.py:1339) — 0.19s (2.8%)</title><rect x="467.9" y="140" width="33.2" height="15" fill="rgb(227,150,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addVal (dbing.py:1341) — 0.01s (0.1%)</title><rect x="501.6" y="140" width="1.3" height="15" fill="rgb(240,164,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4077) — 0.05s (0.7%)</title><rect x="505.2" y="172" width="8.4" height="15" fill="rgb(254,118,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.03s (0.4%)</title><rect x="505.2" y="156" width="4.8" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.03s (0.4%)</title><rect x="505.2" y="140" width="4.8" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:715) — 0.01s (0.1%)</title><rect x="505.2" y="124" width="1.3" height="15" fill="rgb(227,146,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:772) — 0.01s (0.1%)</title><rect x="506.9" y="124" width="1.3" height="15" fill="rgb(250,129,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (__init__.py:72) — 0.01s (0.1%)</title><rect x="506.9" y="108" width="1.3" height="15" fill="rgb(230,113,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:766) — 0.01s (0.1%)</title><rect x="508.7" y="124" width="1.3" height="15" fill="rgb(213,113,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:126) — 0.01s (0.1%)</title><rect x="508.7" y="108" width="1.3" height="15" fill="rgb(215,151,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_from_iterable (&lt;frozen _collections_abc&gt;:616) — 0.01s (0.1%)</title><rect x="508.7" y="92" width="1.3" height="15" fill="rgb(220,162,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:594) — 0.01s (0.1%)</title><rect x="510.5" y="156" width="1.3" height="15" fill="rgb(238,182,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:565) — 0.01s (0.1%)</title><rect x="510.5" y="140" width="1.3" height="15" fill="rgb(248,201,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getEvt (basing.py:1934) — 0.01s (0.1%)</title><rect x="512.3" y="156" width="1.3" height="15" fill="rgb(213,181,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getIoDupValLast (dbing.py:1648) — 0.01s (0.1%)</title><rect x="512.3" y="140" width="1.3" height="15" fill="rgb(248,91,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4102) — 0.04s (0.6%)</title><rect x="514.0" y="172" width="6.6" height="15" fill="rgb(213,187,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (coring.py:3113) — 0.03s (0.4%)</title><rect x="514.0" y="156" width="4.8" height="15" fill="rgb(254,160,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_ed25519 (coring.py:3127) — 0.03s (0.4%)</title><rect x="514.0" y="140" width="4.8" height="15" fill="rgb(240,82,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_verify_detached (__init__.py:1261) — 0.03s (0.4%)</title><rect x="514.0" y="124" width="4.8" height="15" fill="rgb(231,120,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>qb64 (coring.py:1191) — 0.01s (0.1%)</title><rect x="519.4" y="156" width="1.3" height="15" fill="rgb(206,111,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1621) — 0.01s (0.1%)</title><rect x="519.4" y="140" width="1.3" height="15" fill="rgb(232,195,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4108) — 0.02s (0.3%)</title><rect x="521.1" y="172" width="3.0" height="15" fill="rgb(249,190,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (indexing.py:780) — 0.01s (0.1%)</title><rect x="521.1" y="156" width="1.3" height="15" fill="rgb(238,206,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (indexing.py:278) — 0.01s (0.1%)</title><rect x="521.1" y="140" width="1.3" height="15" fill="rgb(220,203,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__iter__ (indexing.py:127) — 0.01s (0.1%)</title><rect x="521.1" y="124" width="1.3" height="15" fill="rgb(225,161,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>astuple (dataclasses.py:1410) — 0.01s (0.1%)</title><rect x="521.1" y="108" width="1.3" height="15" fill="rgb(237,129,79)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_astuple_inner (dataclasses.py:1419) — 0.01s (0.1%)</title><rect x="521.1" y="92" width="1.3" height="15" fill="rgb(214,170,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4103) — 0.02s (0.3%)</title><rect x="524.7" y="172" width="3.0" height="15" fill="rgb(244,187,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>fetchWitnessState (eventing.py:3728) — 0.02s (0.3%)</title><rect x="524.7" y="156" width="3.0" height="15" fill="rgb(253,163,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.02s (0.3%)</title><rect x="524.7" y="140" width="3.0" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.02s (0.3%)</title><rect x="524.7" y="124" width="3.0" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:766) — 0.01s (0.1%)</title><rect x="524.7" y="108" width="1.3" height="15" fill="rgb(213,113,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>copy (copy.py:71) — 0.01s (0.1%)</title><rect x="524.7" y="92" width="1.3" height="15" fill="rgb(213,89,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:779) — 0.01s (0.1%)</title><rect x="526.4" y="108" width="1.3" height="15" fill="rgb(217,134,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:99) — 0.01s (0.1%)</title><rect x="526.4" y="92" width="1.3" height="15" fill="rgb(242,106,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4088) — 0.01s (0.1%)</title><rect x="528.2" y="172" width="1.3" height="15" fill="rgb(246,138,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_nonTransReceiptCouples (parsing.py:270) — 0.01s (0.1%)</title><rect x="530.0" y="172" width="1.3" height="15" fill="rgb(237,206,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_extractor (parsing.py:123) — 0.01s (0.1%)</title><rect x="530.0" y="156" width="1.3" height="15" fill="rgb(238,172,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:3092) — 0.01s (0.1%)</title><rect x="530.0" y="140" width="1.3" height="15" fill="rgb(233,150,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_exfil (counting.py:848) — 0.01s (0.1%)</title><rect x="530.0" y="124" width="1.3" height="15" fill="rgb(241,127,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>msgParsator (parsing.py:715) — 0.07s (1.0%)</title><rect x="531.8" y="188" width="11.9" height="15" fill="rgb(219,167,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reap (serdering.py:238) — 0.06s (0.9%)</title><rect x="531.8" y="172" width="10.1" height="15" fill="rgb(205,132,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.03s (0.4%)</title><rect x="531.8" y="156" width="4.8" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.02s (0.3%)</title><rect x="531.8" y="140" width="3.0" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:785) — 0.01s (0.1%)</title><rect x="531.8" y="124" width="1.3" height="15" fill="rgb(254,150,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (serdering.py:1176) — 0.01s (0.1%)</title><rect x="531.8" y="108" width="1.3" height="15" fill="rgb(232,135,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (__init__.py:234) — 0.01s (0.1%)</title><rect x="531.8" y="92" width="1.3" height="15" fill="rgb(219,101,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:763) — 0.01s (0.1%)</title><rect x="533.5" y="124" width="1.3" height="15" fill="rgb(220,111,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1588) — 0.01s (0.1%)</title><rect x="535.3" y="140" width="1.3" height="15" fill="rgb(224,109,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:594) — 0.02s (0.3%)</title><rect x="537.1" y="156" width="3.0" height="15" fill="rgb(238,182,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:114) — 0.01s (0.1%)</title><rect x="537.1" y="140" width="1.3" height="15" fill="rgb(213,114,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:126) — 0.01s (0.1%)</title><rect x="538.8" y="140" width="1.3" height="15" fill="rgb(236,134,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:204) — 0.01s (0.1%)</title><rect x="540.6" y="156" width="1.3" height="15" fill="rgb(216,82,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:106) — 0.01s (0.1%)</title><rect x="540.6" y="140" width="1.3" height="15" fill="rgb(214,96,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reap (serdering.py:235) — 0.01s (0.1%)</title><rect x="542.4" y="172" width="1.3" height="15" fill="rgb(212,130,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:199) — 0.01s (0.1%)</title><rect x="542.4" y="156" width="1.3" height="15" fill="rgb(229,182,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:93) — 0.21s (3.1%)</title><rect x="544.2" y="236" width="36.7" height="15" fill="rgb(246,147,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>httpClient (agenting.py:991) — 0.18s (2.7%)</title><rect x="544.2" y="220" width="31.4" height="15" fill="rgb(212,168,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:787) — 0.13s (1.9%)</title><rect x="544.2" y="204" width="22.5" height="15" fill="rgb(240,167,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:97) — 0.07s (1.0%)</title><rect x="544.2" y="188" width="11.9" height="15" fill="rgb(220,203,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reinitHostPort (clienting.py:201) — 0.07s (1.0%)</title><rect x="544.2" y="172" width="11.9" height="15" fill="rgb(219,171,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>normalizeHost (coring.py:25) — 0.07s (1.0%)</title><rect x="544.2" y="156" width="11.9" height="15" fill="rgb(247,184,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getaddrinfo (socket.py:976) — 0.07s (1.0%)</title><rect x="544.2" y="140" width="11.9" height="15" fill="rgb(245,186,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:101) — 0.04s (0.6%)</title><rect x="556.6" y="188" width="6.6" height="15" fill="rgb(220,205,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>normalizeHost (coring.py:25) — 0.04s (0.6%)</title><rect x="556.6" y="172" width="6.6" height="15" fill="rgb(247,184,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getaddrinfo (socket.py:976) — 0.04s (0.6%)</title><rect x="556.6" y="156" width="6.6" height="15" fill="rgb(245,186,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>encode (idna.py:176) — 0.01s (0.1%)</title><rect x="556.6" y="140" width="1.3" height="15" fill="rgb(223,131,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:96) — 0.01s (0.1%)</title><rect x="563.7" y="188" width="1.3" height="15" fill="rgb(239,202,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:94) — 0.01s (0.1%)</title><rect x="565.4" y="188" width="1.3" height="15" fill="rgb(227,201,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:766) — 0.02s (0.3%)</title><rect x="567.2" y="204" width="3.0" height="15" fill="rgb(237,128,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>normalizeHost (coring.py:25) — 0.02s (0.3%)</title><rect x="567.2" y="188" width="3.0" height="15" fill="rgb(247,184,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getaddrinfo (socket.py:976) — 0.01s (0.1%)</title><rect x="567.2" y="172" width="1.3" height="15" fill="rgb(245,186,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:835) — 0.01s (0.1%)</title><rect x="570.8" y="204" width="1.3" height="15" fill="rgb(214,146,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>port (clienting.py:138) — 0.01s (0.1%)</title><rect x="570.8" y="188" width="1.3" height="15" fill="rgb(205,156,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>normalizeHost (coring.py:43) — 0.01s (0.1%)</title><rect x="570.8" y="172" width="1.3" height="15" fill="rgb(207,92,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getaddrinfo (socket.py:978) — 0.01s (0.1%)</title><rect x="570.8" y="156" width="1.3" height="15" fill="rgb(207,188,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:808) — 0.01s (0.1%)</title><rect x="572.5" y="204" width="1.3" height="15" fill="rgb(224,90,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:101) — 0.01s (0.1%)</title><rect x="572.5" y="188" width="1.3" height="15" fill="rgb(220,205,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>normalizeHost (coring.py:25) — 0.01s (0.1%)</title><rect x="572.5" y="172" width="1.3" height="15" fill="rgb(247,184,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getaddrinfo (socket.py:976) — 0.01s (0.1%)</title><rect x="572.5" y="156" width="1.3" height="15" fill="rgb(245,186,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>httpClient (agenting.py:990) — 0.02s (0.3%)</title><rect x="576.1" y="220" width="3.0" height="15" fill="rgb(231,167,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>fetchUrls (habbing.py:1657) — 0.01s (0.1%)</title><rect x="576.1" y="204" width="1.3" height="15" fill="rgb(253,154,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:154) — 0.01s (0.1%)</title><rect x="576.1" y="188" width="1.3" height="15" fill="rgb(253,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="576.1" y="172" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>fetchUrls (habbing.py:1658) — 0.01s (0.1%)</title><rect x="577.8" y="204" width="1.3" height="15" fill="rgb(234,155,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:154) — 0.01s (0.1%)</title><rect x="577.8" y="188" width="1.3" height="15" fill="rgb(253,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="577.8" y="172" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>httpClient (agenting.py:985) — 0.01s (0.1%)</title><rect x="579.6" y="220" width="1.3" height="15" fill="rgb(225,151,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>fetchUrls (habbing.py:1658) — 0.01s (0.1%)</title><rect x="579.6" y="204" width="1.3" height="15" fill="rgb(234,155,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="579.6" y="188" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:134) — 0.08s (1.2%)</title><rect x="581.4" y="236" width="13.7" height="15" fill="rgb(206,181,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (eventing.py:1042) — 0.04s (0.6%)</title><rect x="581.4" y="220" width="6.6" height="15" fill="rgb(232,181,101)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:624) — 0.02s (0.3%)</title><rect x="581.4" y="204" width="3.0" height="15" fill="rgb(252,123,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makify (serdering.py:985) — 0.01s (0.1%)</title><rect x="581.4" y="188" width="1.3" height="15" fill="rgb(211,112,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:119) — 0.01s (0.1%)</title><rect x="581.4" y="172" width="1.3" height="15" fill="rgb(247,133,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makify (serdering.py:854) — 0.01s (0.1%)</title><rect x="583.2" y="188" width="1.3" height="15" fill="rgb(206,108,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>deversify (kering.py:175) — 0.01s (0.1%)</title><rect x="583.2" y="172" width="1.3" height="15" fill="rgb(245,123,89)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:643) — 0.02s (0.3%)</title><rect x="584.9" y="204" width="3.0" height="15" fill="rgb(243,161,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.01s (0.1%)</title><rect x="584.9" y="188" width="1.3" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (serdering.py:1191) — 0.01s (0.1%)</title><rect x="584.9" y="172" width="1.3" height="15" fill="rgb(249,170,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (__init__.py:238) — 0.01s (0.1%)</title><rect x="584.9" y="156" width="1.3" height="15" fill="rgb(243,103,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>encode (encoder.py:200) — 0.01s (0.1%)</title><rect x="584.9" y="140" width="1.3" height="15" fill="rgb(245,180,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>iterencode (encoder.py:258) — 0.01s (0.1%)</title><rect x="584.9" y="124" width="1.3" height="15" fill="rgb(206,84,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (eventing.py:1031) — 0.03s (0.4%)</title><rect x="588.5" y="220" width="4.8" height="15" fill="rgb(240,161,101)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>versify (kering.py:146) — 0.02s (0.3%)</title><rect x="588.5" y="204" width="3.0" height="15" fill="rgb(246,157,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1779) — 0.01s (0.1%)</title><rect x="592.0" y="204" width="1.3" height="15" fill="rgb(223,106,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:970) — 0.01s (0.1%)</title><rect x="592.0" y="188" width="1.3" height="15" fill="rgb(241,115,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (eventing.py:1032) — 0.01s (0.1%)</title><rect x="593.8" y="220" width="1.3" height="15" fill="rgb(221,162,101)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1782) — 0.01s (0.1%)</title><rect x="593.8" y="204" width="1.3" height="15" fill="rgb(217,121,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_rawSize (coring.py:1032) — 0.01s (0.1%)</title><rect x="593.8" y="188" width="1.3" height="15" fill="rgb(217,157,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:145) — 0.07s (1.0%)</title><rect x="595.6" y="236" width="11.9" height="15" fill="rgb(248,200,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:181) — 0.02s (0.3%)</title><rect x="595.6" y="220" width="3.0" height="15" fill="rgb(230,143,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:4218) — 0.01s (0.1%)</title><rect x="595.6" y="204" width="1.3" height="15" fill="rgb(234,162,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw (coring.py:4325) — 0.01s (0.1%)</title><rect x="595.6" y="188" width="1.3" height="15" fill="rgb(251,167,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_inhale (coring.py:4260) — 0.01s (0.1%)</title><rect x="595.6" y="172" width="1.3" height="15" fill="rgb(223,203,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (coring.py:164) — 0.01s (0.1%)</title><rect x="595.6" y="156" width="1.3" height="15" fill="rgb(237,177,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sniff (kering.py:284) — 0.01s (0.1%)</title><rect x="597.3" y="204" width="1.3" height="15" fill="rgb(227,196,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:169) — 0.01s (0.1%)</title><rect x="599.1" y="220" width="1.3" height="15" fill="rgb(206,110,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (counting.py:500) — 0.01s (0.1%)</title><rect x="600.9" y="220" width="1.3" height="15" fill="rgb(221,93,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:171) — 0.01s (0.1%)</title><rect x="602.7" y="220" width="1.3" height="15" fill="rgb(219,124,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__str__ (pathlib.py:443) — 0.01s (0.1%)</title><rect x="602.7" y="204" width="1.3" height="15" fill="rgb(225,198,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>joinpath (pathlib.py:717) — 0.01s (0.1%)</title><rect x="602.7" y="188" width="1.3" height="15" fill="rgb(239,183,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:172) — 0.01s (0.1%)</title><rect x="604.4" y="220" width="1.3" height="15" fill="rgb(250,124,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__str__ (pathlib.py:443) — 0.01s (0.1%)</title><rect x="604.4" y="204" width="1.3" height="15" fill="rgb(225,198,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>joinpath (pathlib.py:717) — 0.01s (0.1%)</title><rect x="604.4" y="188" width="1.3" height="15" fill="rgb(239,183,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:106) — 0.04s (0.6%)</title><rect x="608.0" y="236" width="6.6" height="15" fill="rgb(235,124,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:181) — 0.02s (0.3%)</title><rect x="608.0" y="220" width="3.0" height="15" fill="rgb(230,143,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>sniff (kering.py:288) — 0.01s (0.1%)</title><rect x="608.0" y="204" width="1.3" height="15" fill="rgb(251,198,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:4218) — 0.01s (0.1%)</title><rect x="609.7" y="204" width="1.3" height="15" fill="rgb(234,162,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw (coring.py:4325) — 0.01s (0.1%)</title><rect x="609.7" y="188" width="1.3" height="15" fill="rgb(251,167,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_inhale (coring.py:4260) — 0.01s (0.1%)</title><rect x="609.7" y="172" width="1.3" height="15" fill="rgb(223,203,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (coring.py:164) — 0.01s (0.1%)</title><rect x="609.7" y="156" width="1.3" height="15" fill="rgb(237,177,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:114) — 0.01s (0.1%)</title><rect x="609.7" y="140" width="1.3" height="15" fill="rgb(213,114,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:188) — 0.01s (0.1%)</title><rect x="611.5" y="220" width="1.3" height="15" fill="rgb(247,147,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:4218) — 0.01s (0.1%)</title><rect x="611.5" y="204" width="1.3" height="15" fill="rgb(234,162,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw (coring.py:4324) — 0.01s (0.1%)</title><rect x="611.5" y="188" width="1.3" height="15" fill="rgb(220,167,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:80) — 0.03s (0.4%)</title><rect x="615.1" y="236" width="4.8" height="15" fill="rgb(242,126,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>makeOwnEvent (habbing.py:2039) — 0.03s (0.4%)</title><rect x="615.1" y="220" width="4.8" height="15" fill="rgb(234,145,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getOwnEvent (habbing.py:2017) — 0.03s (0.4%)</title><rect x="615.1" y="204" width="4.8" height="15" fill="rgb(234,123,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.02s (0.3%)</title><rect x="615.1" y="188" width="3.0" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.02s (0.3%)</title><rect x="615.1" y="172" width="3.0" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:757) — 0.01s (0.1%)</title><rect x="615.1" y="156" width="1.3" height="15" fill="rgb(233,94,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__getitem__ (__init__.py:119) — 0.01s (0.1%)</title><rect x="615.1" y="140" width="1.3" height="15" fill="rgb(247,133,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:594) — 0.01s (0.1%)</title><rect x="618.6" y="188" width="1.3" height="15" fill="rgb(238,182,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_inhale (serdering.py:1046) — 0.01s (0.1%)</title><rect x="618.6" y="172" width="1.3" height="15" fill="rgb(233,123,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:204) — 0.01s (0.1%)</title><rect x="618.6" y="156" width="1.3" height="15" fill="rgb(216,82,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:110) — 0.01s (0.1%)</title><rect x="618.6" y="140" width="1.3" height="15" fill="rgb(239,111,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:114) — 0.02s (0.3%)</title><rect x="620.4" y="236" width="3.0" height="15" fill="rgb(234,142,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:614) — 0.01s (0.1%)</title><rect x="620.4" y="220" width="1.3" height="15" fill="rgb(241,104,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1565) — 0.01s (0.1%)</title><rect x="620.4" y="204" width="1.3" height="15" fill="rgb(209,199,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:776) — 0.01s (0.1%)</title><rect x="620.4" y="188" width="1.3" height="15" fill="rgb(224,132,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:594) — 0.01s (0.1%)</title><rect x="622.2" y="220" width="1.3" height="15" fill="rgb(238,182,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_inhale (serdering.py:1044) — 0.01s (0.1%)</title><rect x="622.2" y="204" width="1.3" height="15" fill="rgb(221,122,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:204) — 0.01s (0.1%)</title><rect x="622.2" y="188" width="1.3" height="15" fill="rgb(216,82,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:105) — 0.01s (0.1%)</title><rect x="622.2" y="172" width="1.3" height="15" fill="rgb(233,95,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:96) — 0.02s (0.3%)</title><rect x="623.9" y="236" width="3.0" height="15" fill="rgb(239,149,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>extend (doing.py:1084) — 0.01s (0.1%)</title><rect x="623.9" y="220" width="1.3" height="15" fill="rgb(239,140,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>enter (doing.py:982) — 0.01s (0.1%)</title><rect x="623.9" y="204" width="1.3" height="15" fill="rgb(221,164,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>httpClient (agenting.py:994) — 0.01s (0.1%)</title><rect x="625.7" y="220" width="1.3" height="15" fill="rgb(205,170,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (clienting.py:835) — 0.01s (0.1%)</title><rect x="625.7" y="204" width="1.3" height="15" fill="rgb(214,146,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:139) — 0.01s (0.1%)</title><rect x="627.5" y="236" width="1.3" height="15" fill="rgb(211,184,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (counting.py:465) — 0.01s (0.1%)</title><rect x="627.5" y="220" width="1.3" height="15" fill="rgb(251,135,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (serdering.py:643) — 0.01s (0.1%)</title><rect x="627.5" y="204" width="1.3" height="15" fill="rgb(243,161,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_verify (serdering.py:1598) — 0.01s (0.1%)</title><rect x="627.5" y="188" width="1.3" height="15" fill="rgb(235,128,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.54s (8.0%)</title><rect x="631.0" y="268" width="95.2" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+<text x="633.0" y="280" fill="#000">do (doing.py:…</text>
+</g>
+<g><title>recur (doing.py:1026) — 0.51s (7.5%)</title><rect x="631.0" y="252" width="89.9" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+<text x="633.0" y="264" fill="#000">recur (doing…</text>
+</g>
+<g><title>do (doing.py:568) — 0.40s (5.9%)</title><rect x="631.0" y="236" width="70.4" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+<text x="633.0" y="248" fill="#000">do (doing.…</text>
+</g>
+<g><title>recur (clienting.py:1320) — 0.39s (5.8%)</title><rect x="631.0" y="220" width="68.6" height="15" fill="rgb(221,154,58)" stroke="#fff" stroke-width="0.3"/>
+<text x="633.0" y="232" fill="#000">recur (cl…</text>
+</g>
+<g><title>service (clienting.py:1169) — 0.16s (2.4%)</title><rect x="631.0" y="204" width="27.9" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1079) — 0.08s (1.2%)</title><rect x="631.0" y="188" width="13.7" height="15" fill="rgb(233,118,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parse (httping.py:1037) — 0.08s (1.2%)</title><rect x="631.0" y="172" width="13.7" height="15" fill="rgb(249,114,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseMessage (httping.py:995) — 0.03s (0.4%)</title><rect x="631.0" y="156" width="4.8" height="15" fill="rgb(240,133,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseHead (clienting.py:456) — 0.02s (0.3%)</title><rect x="631.0" y="140" width="3.0" height="15" fill="rgb(234,111,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseStatusLine (httping.py:632) — 0.01s (0.1%)</title><rect x="631.0" y="124" width="1.3" height="15" fill="rgb(229,194,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseHead (clienting.py:416) — 0.01s (0.1%)</title><rect x="634.6" y="140" width="1.3" height="15" fill="rgb(240,164,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:405) — 0.02s (0.3%)</title><rect x="636.3" y="156" width="3.0" height="15" fill="rgb(238,93,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.01s (0.1%)</title><rect x="639.9" y="156" width="1.3" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:387) — 0.01s (0.1%)</title><rect x="641.7" y="156" width="1.3" height="15" fill="rgb(247,172,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1076) — 0.06s (0.9%)</title><rect x="645.2" y="188" width="10.1" height="15" fill="rgb(240,116,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (clienting.py:419) — 0.05s (0.7%)</title><rect x="645.2" y="172" width="8.4" height="15" fill="rgb(211,144,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.05s (0.7%)</title><rect x="645.2" y="156" width="8.4" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (clienting.py:420) — 0.01s (0.1%)</title><rect x="654.1" y="172" width="1.3" height="15" fill="rgb(243,157,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.01s (0.1%)</title><rect x="654.1" y="156" width="1.3" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1086) — 0.02s (0.3%)</title><rect x="655.8" y="188" width="3.0" height="15" fill="rgb(251,135,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dictify (httping.py:1050) — 0.02s (0.3%)</title><rect x="655.8" y="172" width="3.0" height="15" fill="rgb(219,153,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (__init__.py:359) — 0.02s (0.3%)</title><rect x="655.8" y="156" width="3.0" height="15" fill="rgb(237,149,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1167) — 0.12s (1.8%)</title><rect x="659.4" y="204" width="20.8" height="15" fill="rgb(224,118,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceRequests (clienting.py:1069) — 0.10s (1.5%)</title><rect x="659.4" y="188" width="17.2" height="15" fill="rgb(217,97,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>transmit (clienting.py:973) — 0.07s (1.0%)</title><rect x="659.4" y="172" width="11.9" height="15" fill="rgb(211,124,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rebuild (clienting.py:167) — 0.05s (0.7%)</title><rect x="659.4" y="156" width="8.4" height="15" fill="rgb(253,159,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:189) — 0.01s (0.1%)</title><rect x="659.4" y="140" width="1.3" height="15" fill="rgb(224,98,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>quote (parse.py:905) — 0.01s (0.1%)</title><rect x="659.4" y="124" width="1.3" height="15" fill="rgb(220,207,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:208) — 0.01s (0.1%)</title><rect x="661.2" y="140" width="1.3" height="15" fill="rgb(246,149,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>updateQargsQuery (httping.py:374) — 0.01s (0.1%)</title><rect x="661.2" y="124" width="1.3" height="15" fill="rgb(222,199,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>quote_from_bytes (parse.py:950) — 0.01s (0.1%)</title><rect x="661.2" y="108" width="1.3" height="15" fill="rgb(213,97,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:180) — 0.01s (0.1%)</title><rect x="662.9" y="140" width="1.3" height="15" fill="rgb(245,92,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:179) — 0.01s (0.1%)</title><rect x="664.7" y="140" width="1.3" height="15" fill="rgb(213,209,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:207) — 0.01s (0.1%)</title><rect x="666.5" y="140" width="1.3" height="15" fill="rgb(215,149,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rebuild (clienting.py:157) — 0.01s (0.1%)</title><rect x="668.2" y="156" width="1.3" height="15" fill="rgb(242,140,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>transmit (clienting.py:968) — 0.01s (0.1%)</title><rect x="671.8" y="172" width="1.3" height="15" fill="rgb(205,108,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (clienting.py:420) — 0.01s (0.1%)</title><rect x="673.6" y="172" width="1.3" height="15" fill="rgb(243,157,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.01s (0.1%)</title><rect x="673.6" y="156" width="1.3" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (clienting.py:419) — 0.01s (0.1%)</title><rect x="675.3" y="172" width="1.3" height="15" fill="rgb(211,144,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.01s (0.1%)</title><rect x="675.3" y="156" width="1.3" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1076) — 0.01s (0.1%)</title><rect x="677.1" y="188" width="1.3" height="15" fill="rgb(240,116,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceives (clienting.py:419) — 0.01s (0.1%)</title><rect x="677.1" y="172" width="1.3" height="15" fill="rgb(211,144,55)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receive (clienting.py:381) — 0.01s (0.1%)</title><rect x="677.1" y="156" width="1.3" height="15" fill="rgb(211,169,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1159) — 0.06s (0.9%)</title><rect x="680.6" y="204" width="10.1" height="15" fill="rgb(225,100,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnect (clienting.py:361) — 0.05s (0.7%)</title><rect x="680.6" y="188" width="8.4" height="15" fill="rgb(251,207,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>connect (clienting.py:351) — 0.05s (0.7%)</title><rect x="680.6" y="172" width="8.4" height="15" fill="rgb(211,208,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (clienting.py:323) — 0.05s (0.7%)</title><rect x="680.6" y="156" width="8.4" height="15" fill="rgb(222,99,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1168) — 0.05s (0.7%)</title><rect x="691.3" y="204" width="8.4" height="15" fill="rgb(205,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (clienting.py:493) — 0.05s (0.7%)</title><rect x="691.3" y="188" width="8.4" height="15" fill="rgb(214,127,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (clienting.py:449) — 0.04s (0.6%)</title><rect x="691.3" y="172" width="6.6" height="15" fill="rgb(229,137,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>transmit (clienting.py:987) — 0.01s (0.1%)</title><rect x="698.4" y="172" width="1.3" height="15" fill="rgb(246,145,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rebuild (clienting.py:167) — 0.01s (0.1%)</title><rect x="698.4" y="156" width="1.3" height="15" fill="rgb(253,159,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (clienting.py:208) — 0.01s (0.1%)</title><rect x="698.4" y="140" width="1.3" height="15" fill="rgb(246,149,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>updateQargsQuery (httping.py:376) — 0.01s (0.1%)</title><rect x="698.4" y="124" width="1.3" height="15" fill="rgb(234,200,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.03s (0.4%)</title><rect x="701.9" y="236" width="4.8" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="701.9" y="220" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.01s (0.1%)</title><rect x="707.2" y="236" width="1.3" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1026) — 0.01s (0.1%)</title><rect x="707.2" y="220" width="1.3" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>clientDo (httping.py:279) — 0.01s (0.1%)</title><rect x="707.2" y="204" width="1.3" height="15" fill="rgb(233,136,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1020) — 0.01s (0.1%)</title><rect x="721.4" y="252" width="1.3" height="15" fill="rgb(226,181,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>scoobiDo (oobiing.py:405) — 0.45s (6.6%)</title><rect x="726.7" y="268" width="79.3" height="15" fill="rgb(225,200,86)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="280" fill="#000">scoobiDo (o…</text>
+</g>
+<g><title>processFlows (oobiing.py:414) — 0.43s (6.4%)</title><rect x="726.7" y="252" width="75.7" height="15" fill="rgb(205,119,107)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="264" fill="#000">processFlo…</text>
+</g>
+<g><title>processClients (oobiing.py:501) — 0.42s (6.2%)</title><rect x="726.7" y="236" width="73.9" height="15" fill="rgb(223,163,104)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="248" fill="#000">processCli…</text>
+</g>
+<g><title>parse (parsing.py:325) — 0.42s (6.2%)</title><rect x="726.7" y="220" width="73.9" height="15" fill="rgb(228,84,77)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="232" fill="#000">parse (par…</text>
+</g>
+<g><title>allParsator (parsing.py:432) — 0.42s (6.2%)</title><rect x="726.7" y="204" width="73.9" height="15" fill="rgb(231,95,74)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="216" fill="#000">allParsato…</text>
+</g>
+<g><title>msgParsator (parsing.py:1015) — 0.37s (5.5%)</title><rect x="726.7" y="188" width="65.1" height="15" fill="rgb(207,137,98)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="200" fill="#000">msgParsat…</text>
+</g>
+<g><title>processEvent (eventing.py:3890) — 0.35s (5.2%)</title><rect x="726.7" y="172" width="61.5" height="15" fill="rgb(224,106,92)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="184" fill="#000">processE…</text>
+</g>
+<g><title>update (eventing.py:1978) — 0.30s (4.4%)</title><rect x="726.7" y="156" width="52.7" height="15" fill="rgb(237,180,53)" stroke="#fff" stroke-width="0.3"/>
+<text x="728.7" y="168" fill="#000">update …</text>
+</g>
+<g><title>logEvent (eventing.py:3182) — 0.05s (0.7%)</title><rect x="726.7" y="140" width="8.4" height="15" fill="rgb(205,204,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (subing.py:388) — 0.05s (0.7%)</title><rect x="726.7" y="124" width="8.4" height="15" fill="rgb(213,198,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.04s (0.6%)</title><rect x="726.7" y="108" width="6.6" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:547) — 0.01s (0.1%)</title><rect x="733.8" y="108" width="1.3" height="15" fill="rgb(244,203,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3134) — 0.05s (0.7%)</title><rect x="735.6" y="140" width="8.4" height="15" fill="rgb(212,109,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putSigs (basing.py:2186) — 0.05s (0.7%)</title><rect x="735.6" y="124" width="8.4" height="15" fill="rgb(247,108,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVals (dbing.py:1306) — 0.04s (0.6%)</title><rect x="735.6" y="108" width="6.6" height="15" fill="rgb(208,140,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVals (dbing.py:1310) — 0.01s (0.1%)</title><rect x="742.7" y="108" width="1.3" height="15" fill="rgb(233,155,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3166) — 0.04s (0.6%)</title><rect x="744.5" y="140" width="6.6" height="15" fill="rgb(207,168,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (koming.py:292) — 0.04s (0.6%)</title><rect x="744.5" y="124" width="6.6" height="15" fill="rgb(248,139,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.03s (0.4%)</title><rect x="744.5" y="108" width="4.8" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:526) — 0.01s (0.1%)</title><rect x="749.8" y="108" width="1.3" height="15" fill="rgb(248,173,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3187) — 0.04s (0.6%)</title><rect x="751.6" y="140" width="6.6" height="15" fill="rgb(210,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addKe (basing.py:2597) — 0.03s (0.4%)</title><rect x="751.6" y="124" width="4.8" height="15" fill="rgb(227,129,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addIoDupVal (dbing.py:1538) — 0.03s (0.4%)</title><rect x="751.6" y="108" width="4.8" height="15" fill="rgb(227,182,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putIoDupVals (dbing.py:1492) — 0.03s (0.4%)</title><rect x="751.6" y="92" width="4.8" height="15" fill="rgb(227,106,82)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>preb (serdering.py:1676) — 0.01s (0.1%)</title><rect x="756.9" y="124" width="1.3" height="15" fill="rgb(235,131,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dumps (__init__.py:238) — 0.01s (0.1%)</title><rect x="756.9" y="108" width="1.3" height="15" fill="rgb(243,103,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>encode (encoder.py:202) — 0.01s (0.1%)</title><rect x="756.9" y="92" width="1.3" height="15" fill="rgb(207,182,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode (encoder.py:432) — 0.01s (0.1%)</title><rect x="756.9" y="76" width="1.3" height="15" fill="rgb(231,143,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode_dict (encoder.py:334) — 0.01s (0.1%)</title><rect x="756.9" y="60" width="1.3" height="15" fill="rgb(219,81,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_make_iterencode (encoder.py:414) — 0.01s (0.1%)</title><rect x="756.9" y="44" width="1.3" height="15" fill="rgb(216,207,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3140) — 0.04s (0.6%)</title><rect x="758.6" y="140" width="6.6" height="15" fill="rgb(249,125,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putEvt (basing.py:1917) — 0.03s (0.4%)</title><rect x="758.6" y="124" width="4.8" height="15" fill="rgb(219,158,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.03s (0.4%)</title><rect x="758.6" y="108" width="4.8" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3181) — 0.03s (0.4%)</title><rect x="765.7" y="140" width="4.8" height="15" fill="rgb(224,203,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setDts (basing.py:2106) — 0.03s (0.4%)</title><rect x="765.7" y="124" width="4.8" height="15" fill="rgb(243,206,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.03s (0.4%)</title><rect x="765.7" y="108" width="4.8" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3170) — 0.02s (0.3%)</title><rect x="771.0" y="140" width="3.0" height="15" fill="rgb(232,183,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>appendFe (basing.py:2047) — 0.02s (0.3%)</title><rect x="771.0" y="124" width="3.0" height="15" fill="rgb(243,136,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>said (serdering.py:1521) — 0.01s (0.1%)</title><rect x="771.0" y="108" width="1.3" height="15" fill="rgb(240,202,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_infil (coring.py:1309) — 0.01s (0.1%)</title><rect x="771.0" y="92" width="1.3" height="15" fill="rgb(225,137,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>appendOnVal (dbing.py:763) — 0.01s (0.1%)</title><rect x="772.8" y="108" width="1.3" height="15" fill="rgb(223,161,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3138) — 0.02s (0.3%)</title><rect x="774.6" y="140" width="3.0" height="15" fill="rgb(236,111,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (subing.py:1070) — 0.02s (0.3%)</title><rect x="774.6" y="124" width="3.0" height="15" fill="rgb(222,102,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putIoSetVals (dbing.py:985) — 0.02s (0.3%)</title><rect x="774.6" y="108" width="3.0" height="15" fill="rgb(242,143,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3132) — 0.01s (0.1%)</title><rect x="778.1" y="140" width="1.3" height="15" fill="rgb(250,107,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putDts (basing.py:2097) — 0.01s (0.1%)</title><rect x="778.1" y="124" width="1.3" height="15" fill="rgb(233,170,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.01s (0.1%)</title><rect x="778.1" y="108" width="1.3" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>update (eventing.py:1961) — 0.03s (0.4%)</title><rect x="779.9" y="156" width="4.8" height="15" fill="rgb(209,157,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>valSigsWigsDel (eventing.py:2316) — 0.02s (0.3%)</title><rect x="779.9" y="140" width="3.0" height="15" fill="rgb(243,92,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verifySigs (eventing.py:401) — 0.02s (0.3%)</title><rect x="779.9" y="124" width="3.0" height="15" fill="rgb(217,97,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verify (coring.py:3113) — 0.02s (0.3%)</title><rect x="779.9" y="108" width="3.0" height="15" fill="rgb(254,160,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_ed25519 (coring.py:3127) — 0.02s (0.3%)</title><rect x="779.9" y="92" width="3.0" height="15" fill="rgb(240,82,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_verify_detached (__init__.py:1261) — 0.02s (0.3%)</title><rect x="779.9" y="76" width="3.0" height="15" fill="rgb(231,120,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>valSigsWigsDel (eventing.py:2335) — 0.01s (0.1%)</title><rect x="783.5" y="140" width="1.3" height="15" fill="rgb(234,130,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>exposeds (eventing.py:2462) — 0.01s (0.1%)</title><rect x="783.5" y="124" width="1.3" height="15" fill="rgb(236,141,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_satisfy_numeric (coring.py:4099) — 0.01s (0.1%)</title><rect x="783.5" y="108" width="1.3" height="15" fill="rgb(209,118,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>update (eventing.py:1989) — 0.01s (0.1%)</title><rect x="785.2" y="156" width="1.3" height="15" fill="rgb(229,200,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>verfers (serdering.py:1758) — 0.01s (0.1%)</title><rect x="785.2" y="140" width="1.3" height="15" fill="rgb(220,158,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>update (eventing.py:2003) — 0.01s (0.1%)</title><rect x="787.0" y="156" width="1.3" height="15" fill="rgb(207,151,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (koming.py:307) — 0.01s (0.1%)</title><rect x="787.0" y="140" width="1.3" height="15" fill="rgb(249,176,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.01s (0.1%)</title><rect x="787.0" y="124" width="1.3" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEvent (eventing.py:3792) — 0.02s (0.3%)</title><rect x="788.8" y="172" width="3.0" height="15" fill="rgb(245,161,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (eventing.py:1589) — 0.02s (0.3%)</title><rect x="788.8" y="156" width="3.0" height="15" fill="rgb(238,108,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3170) — 0.01s (0.1%)</title><rect x="788.8" y="140" width="1.3" height="15" fill="rgb(232,183,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>appendFe (basing.py:2047) — 0.01s (0.1%)</title><rect x="788.8" y="124" width="1.3" height="15" fill="rgb(243,136,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>logEvent (eventing.py:3181) — 0.01s (0.1%)</title><rect x="790.5" y="140" width="1.3" height="15" fill="rgb(224,203,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setDts (basing.py:2106) — 0.01s (0.1%)</title><rect x="790.5" y="124" width="1.3" height="15" fill="rgb(243,206,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:545) — 0.01s (0.1%)</title><rect x="790.5" y="108" width="1.3" height="15" fill="rgb(232,202,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>msgParsator (parsing.py:1074) — 0.03s (0.4%)</title><rect x="792.3" y="188" width="4.8" height="15" fill="rgb(242,121,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReply (routing.py:199) — 0.03s (0.4%)</title><rect x="792.3" y="172" width="4.8" height="15" fill="rgb(233,185,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dispatch (routing.py:84) — 0.03s (0.4%)</title><rect x="792.3" y="156" width="4.8" height="15" fill="rgb(243,204,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReplyLocScheme (eventing.py:4620) — 0.02s (0.3%)</title><rect x="792.3" y="140" width="3.0" height="15" fill="rgb(239,155,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>acceptReply (routing.py:298) — 0.01s (0.1%)</title><rect x="792.3" y="124" width="1.3" height="15" fill="rgb(254,187,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>updateReply (routing.py:419) — 0.01s (0.1%)</title><rect x="792.3" y="108" width="1.3" height="15" fill="rgb(248,197,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (subing.py:1070) — 0.01s (0.1%)</title><rect x="792.3" y="92" width="1.3" height="15" fill="rgb(222,102,100)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putIoSetVals (dbing.py:985) — 0.01s (0.1%)</title><rect x="792.3" y="76" width="1.3" height="15" fill="rgb(242,143,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>acceptReply (routing.py:257) — 0.01s (0.1%)</title><rect x="794.1" y="124" width="1.3" height="15" fill="rgb(229,110,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getVal (dbing.py:563) — 0.01s (0.1%)</title><rect x="794.1" y="108" width="1.3" height="15" fill="rgb(236,200,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReplyLocScheme (eventing.py:4629) — 0.01s (0.1%)</title><rect x="795.9" y="140" width="1.3" height="15" fill="rgb(218,161,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>updateLoc (eventing.py:4789) — 0.01s (0.1%)</title><rect x="795.9" y="124" width="1.3" height="15" fill="rgb(238,91,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>pin (subing.py:388) — 0.01s (0.1%)</title><rect x="795.9" y="108" width="1.3" height="15" fill="rgb(213,198,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>setVal (dbing.py:547) — 0.01s (0.1%)</title><rect x="795.9" y="92" width="1.3" height="15" fill="rgb(244,203,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>msgParsator (parsing.py:715) — 0.02s (0.3%)</title><rect x="797.6" y="188" width="3.0" height="15" fill="rgb(219,167,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reap (serdering.py:235) — 0.01s (0.1%)</title><rect x="797.6" y="172" width="1.3" height="15" fill="rgb(212,130,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:199) — 0.01s (0.1%)</title><rect x="797.6" y="156" width="1.3" height="15" fill="rgb(229,182,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>reap (serdering.py:238) — 0.01s (0.1%)</title><rect x="799.4" y="172" width="1.3" height="15" fill="rgb(205,132,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>smell (kering.py:204) — 0.01s (0.1%)</title><rect x="799.4" y="156" width="1.3" height="15" fill="rgb(216,82,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>rematch (kering.py:114) — 0.01s (0.1%)</title><rect x="799.4" y="140" width="1.3" height="15" fill="rgb(213,114,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processClients (oobiing.py:510) — 0.01s (0.1%)</title><rect x="801.2" y="236" width="1.3" height="15" fill="rgb(253,181,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>put (koming.py:292) — 0.01s (0.1%)</title><rect x="801.2" y="220" width="1.3" height="15" fill="rgb(248,139,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>putVal (dbing.py:524) — 0.01s (0.1%)</title><rect x="801.2" y="204" width="1.3" height="15" fill="rgb(236,172,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processFlows (oobiing.py:413) — 0.02s (0.3%)</title><rect x="803.0" y="252" width="3.0" height="15" fill="rgb(224,118,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processOobis (oobiing.py:424) — 0.02s (0.3%)</title><rect x="803.0" y="236" width="3.0" height="15" fill="rgb(219,89,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.21s (3.1%)</title><rect x="806.5" y="268" width="36.7" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1542) — 0.08s (1.2%)</title><rect x="806.5" y="252" width="13.7" height="15" fill="rgb(207,158,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:5406) — 0.02s (0.3%)</title><rect x="806.5" y="236" width="3.0" height="15" fill="rgb(249,189,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowUnverWitness (eventing.py:6103) — 0.01s (0.1%)</title><rect x="806.5" y="220" width="1.3" height="15" fill="rgb(230,138,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowOutOfOrders (eventing.py:5458) — 0.01s (0.1%)</title><rect x="808.3" y="220" width="1.3" height="15" fill="rgb(247,94,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:5405) — 0.02s (0.3%)</title><rect x="810.0" y="236" width="3.0" height="15" fill="rgb(218,189,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowUnverWitness (eventing.py:6051) — 0.01s (0.1%)</title><rect x="810.0" y="220" width="1.3" height="15" fill="rgb(232,157,92)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:5404) — 0.01s (0.1%)</title><rect x="813.6" y="236" width="1.3" height="15" fill="rgb(237,188,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:5407) — 0.01s (0.1%)</title><rect x="815.4" y="236" width="1.3" height="15" fill="rgb(230,190,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowPartialWigs (eventing.py:5759) — 0.01s (0.1%)</title><rect x="815.4" y="220" width="1.3" height="15" fill="rgb(230,146,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processRetries (oobiing.py:599) — 0.01s (0.1%)</title><rect x="817.1" y="236" width="1.3" height="15" fill="rgb(226,203,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="817.1" y="220" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="817.1" y="204" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processMOOBIs (oobiing.py:579) — 0.01s (0.1%)</title><rect x="818.9" y="236" width="1.3" height="15" fill="rgb(211,154,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="818.9" y="220" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="818.9" y="204" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1547) — 0.06s (0.9%)</title><rect x="820.7" y="252" width="10.1" height="15" fill="rgb(212,161,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowReply (routing.py:472) — 0.02s (0.3%)</title><rect x="820.7" y="236" width="3.0" height="15" fill="rgb(222,138,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2020) — 0.01s (0.1%)</title><rect x="820.7" y="220" width="1.3" height="15" fill="rgb(208,150,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowState (escrowing.py:131) — 0.01s (0.1%)</title><rect x="820.7" y="204" width="1.3" height="15" fill="rgb(206,116,85)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getOotItemIter (viring.py:875) — 0.01s (0.1%)</title><rect x="820.7" y="188" width="1.3" height="15" fill="rgb(241,191,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2016) — 0.01s (0.1%)</title><rect x="822.5" y="220" width="1.3" height="15" fill="rgb(233,134,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (credentialing.py:120) — 0.01s (0.1%)</title><rect x="824.2" y="236" width="1.3" height="15" fill="rgb(234,148,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2016) — 0.01s (0.1%)</title><rect x="824.2" y="220" width="1.3" height="15" fill="rgb(233,134,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowOutOfOrders (eventing.py:2042) — 0.01s (0.1%)</title><rect x="824.2" y="204" width="1.3" height="15" fill="rgb(223,127,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="824.2" y="188" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="824.2" y="172" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowDelegables (eventing.py:6348) — 0.01s (0.1%)</title><rect x="826.0" y="236" width="1.3" height="15" fill="rgb(208,165,80)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowPartialWigs (eventing.py:5759) — 0.01s (0.1%)</title><rect x="826.0" y="220" width="1.3" height="15" fill="rgb(230,146,96)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2013) — 0.01s (0.1%)</title><rect x="827.8" y="236" width="1.3" height="15" fill="rgb(240,132,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2020) — 0.01s (0.1%)</title><rect x="827.8" y="220" width="1.3" height="15" fill="rgb(208,150,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2015) — 0.01s (0.1%)</title><rect x="829.5" y="236" width="1.3" height="15" fill="rgb(252,133,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2018) — 0.01s (0.1%)</title><rect x="829.5" y="220" width="1.3" height="15" fill="rgb(245,135,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1544) — 0.04s (0.6%)</title><rect x="831.3" y="252" width="6.6" height="15" fill="rgb(219,159,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (credentialing.py:120) — 0.04s (0.6%)</title><rect x="831.3" y="236" width="6.6" height="15" fill="rgb(234,148,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowDuplicitous (eventing.py:6855) — 0.01s (0.1%)</title><rect x="831.3" y="220" width="1.3" height="15" fill="rgb(236,167,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2015) — 0.01s (0.1%)</title><rect x="833.1" y="220" width="1.3" height="15" fill="rgb(252,133,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowAnchorless (eventing.py:2106) — 0.01s (0.1%)</title><rect x="833.1" y="204" width="1.3" height="15" fill="rgb(224,146,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processQueryNotFound (eventing.py:6463) — 0.01s (0.1%)</title><rect x="834.9" y="220" width="1.3" height="15" fill="rgb(244,172,87)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2014) — 0.01s (0.1%)</title><rect x="836.6" y="220" width="1.3" height="15" fill="rgb(221,133,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowAnchorless (eventing.py:2106) — 0.01s (0.1%)</title><rect x="836.6" y="204" width="1.3" height="15" fill="rgb(224,146,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1548) — 0.01s (0.1%)</title><rect x="838.4" y="252" width="1.3" height="15" fill="rgb(243,161,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2016) — 0.01s (0.1%)</title><rect x="838.4" y="236" width="1.3" height="15" fill="rgb(233,134,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (subing.py:1250) — 0.01s (0.1%)</title><rect x="838.4" y="220" width="1.3" height="15" fill="rgb(220,88,106)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_tokey (subing.py:162) — 0.01s (0.1%)</title><rect x="838.4" y="204" width="1.3" height="15" fill="rgb(205,89,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1543) — 0.01s (0.1%)</title><rect x="840.2" y="252" width="1.3" height="15" fill="rgb(238,158,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:5409) — 0.01s (0.1%)</title><rect x="840.2" y="236" width="1.3" height="15" fill="rgb(242,191,81)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1545) — 0.01s (0.1%)</title><rect x="841.9" y="252" width="1.3" height="15" fill="rgb(250,159,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (credentialing.py:120) — 0.01s (0.1%)</title><rect x="841.9" y="236" width="1.3" height="15" fill="rgb(234,148,105)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (eventing.py:2014) — 0.01s (0.1%)</title><rect x="841.9" y="220" width="1.3" height="15" fill="rgb(221,133,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowOutOfOrders (eventing.py:2042) — 0.01s (0.1%)</title><rect x="841.9" y="204" width="1.3" height="15" fill="rgb(223,127,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.03s (0.4%)</title><rect x="843.7" y="268" width="4.8" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="843.7" y="252" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processRetries (oobiing.py:599) — 0.01s (0.1%)</title><rect x="845.5" y="252" width="1.3" height="15" fill="rgb(226,203,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="845.5" y="236" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="845.5" y="220" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processMOOBIs (oobiing.py:579) — 0.01s (0.1%)</title><rect x="847.3" y="252" width="1.3" height="15" fill="rgb(211,154,78)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="847.3" y="236" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="847.3" y="220" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:567) — 0.01s (0.1%)</title><rect x="849.0" y="268" width="1.3" height="15" fill="rgb(239,168,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1020) — 0.03s (0.4%)</title><rect x="866.8" y="284" width="4.8" height="15" fill="rgb(226,181,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.01s (0.1%)</title><rect x="866.8" y="268" width="1.3" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1026) — 0.01s (0.1%)</title><rect x="866.8" y="252" width="1.3" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="868.5" y="268" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1549) — 0.01s (0.1%)</title><rect x="868.5" y="252" width="1.3" height="15" fill="rgb(224,162,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrow (exchanging.py:185) — 0.01s (0.1%)</title><rect x="868.5" y="236" width="1.3" height="15" fill="rgb(229,197,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowState (escrowing.py:82) — 0.01s (0.1%)</title><rect x="868.5" y="220" width="1.3" height="15" fill="rgb(209,94,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:628) — 0.01s (0.1%)</title><rect x="868.5" y="204" width="1.3" height="15" fill="rgb(233,197,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="868.5" y="188" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1018) — 0.01s (0.1%)</title><rect x="879.2" y="332" width="1.3" height="15" fill="rgb(213,167,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tyme (tyming.py:56) — 0.02s (0.3%)</title><rect x="895.1" y="364" width="3.0" height="15" fill="rgb(217,163,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1026) — 0.01s (0.1%)</title><rect x="895.1" y="348" width="1.3" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.01s (0.1%)</title><rect x="895.1" y="332" width="1.3" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:888) — 0.01s (0.1%)</title><rect x="895.1" y="316" width="1.3" height="15" fill="rgb(225,89,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1034) — 0.01s (0.1%)</title><rect x="895.1" y="300" width="1.3" height="15" fill="rgb(211,203,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="895.1" y="284" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1549) — 0.01s (0.1%)</title><rect x="895.1" y="268" width="1.3" height="15" fill="rgb(224,162,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrow (exchanging.py:185) — 0.01s (0.1%)</title><rect x="895.1" y="252" width="1.3" height="15" fill="rgb(229,197,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowState (escrowing.py:82) — 0.01s (0.1%)</title><rect x="895.1" y="236" width="1.3" height="15" fill="rgb(209,94,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="895.1" y="220" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="895.1" y="204" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:850) — 0.01s (0.1%)</title><rect x="896.9" y="348" width="1.3" height="15" fill="rgb(219,155,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSendsAllIx (serving.py:409) — 0.01s (0.1%)</title><rect x="896.9" y="332" width="1.3" height="15" fill="rgb(228,135,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (serving.py:838) — 0.01s (0.1%)</title><rect x="896.9" y="316" width="1.3" height="15" fill="rgb(244,139,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (serving.py:794) — 0.01s (0.1%)</title><rect x="896.9" y="300" width="1.3" height="15" fill="rgb(239,158,84)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>start (timing.py:104) — 0.01s (0.1%)</title><rect x="898.7" y="364" width="1.3" height="15" fill="rgb(244,118,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>start (timing.py:102) — 0.01s (0.1%)</title><rect x="900.4" y="364" width="1.3" height="15" fill="rgb(232,117,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>restart (timing.py:113) — 0.02s (0.3%)</title><rect x="909.3" y="380" width="3.0" height="15" fill="rgb(209,99,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>latest (timing.py:196) — 0.02s (0.3%)</title><rect x="909.3" y="364" width="3.0" height="15" fill="rgb(210,197,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:269) — 0.02s (0.3%)</title><rect x="912.9" y="380" width="3.0" height="15" fill="rgb(232,127,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="912.9" y="364" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (serving.py:1359) — 0.01s (0.1%)</title><rect x="912.9" y="348" width="1.3" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:846) — 0.01s (0.1%)</title><rect x="912.9" y="332" width="1.3" height="15" fill="rgb(244,139,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:766) — 0.01s (0.1%)</title><rect x="912.9" y="316" width="1.3" height="15" fill="rgb(252,202,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="912.9" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="912.9" y="284" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.01s (0.1%)</title><rect x="912.9" y="268" width="1.3" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="912.9" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="912.9" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>start (timing.py:102) — 0.01s (0.1%)</title><rect x="914.6" y="364" width="1.3" height="15" fill="rgb(232,117,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:273) — 0.01s (0.1%)</title><rect x="916.4" y="380" width="1.3" height="15" fill="rgb(207,143,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>start (timing.py:104) — 0.01s (0.1%)</title><rect x="916.4" y="364" width="1.3" height="15" fill="rgb(244,118,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:160) — 0.27s (4.0%)</title><rect x="919.9" y="396" width="47.4" height="15" fill="rgb(208,121,86)" stroke="#fff" stroke-width="0.3"/>
+<text x="921.9" y="408" fill="#000">do (do…</text>
+</g>
+<g><title>remaining (timing.py:178) — 0.02s (0.3%)</title><rect x="919.9" y="380" width="3.0" height="15" fill="rgb(235,92,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tick (tyming.py:87) — 0.01s (0.1%)</title><rect x="919.9" y="364" width="1.3" height="15" fill="rgb(243,209,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:846) — 0.01s (0.1%)</title><rect x="919.9" y="348" width="1.3" height="15" fill="rgb(244,139,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:786) — 0.01s (0.1%)</title><rect x="919.9" y="332" width="1.3" height="15" fill="rgb(216,145,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tyme (tyming.py:56) — 0.01s (0.1%)</title><rect x="921.7" y="364" width="1.3" height="15" fill="rgb(217,163,59)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:846) — 0.01s (0.1%)</title><rect x="921.7" y="348" width="1.3" height="15" fill="rgb(244,139,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:784) — 0.01s (0.1%)</title><rect x="921.7" y="332" width="1.3" height="15" fill="rgb(254,143,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:290) — 0.02s (0.3%)</title><rect x="923.5" y="380" width="3.0" height="15" fill="rgb(236,179,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.02s (0.3%)</title><rect x="923.5" y="364" width="3.0" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (serving.py:1359) — 0.02s (0.3%)</title><rect x="923.5" y="348" width="3.0" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:847) — 0.02s (0.3%)</title><rect x="923.5" y="332" width="3.0" height="15" fill="rgb(225,140,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceivesAllIx (serving.py:386) — 0.01s (0.1%)</title><rect x="923.5" y="316" width="1.3" height="15" fill="rgb(205,142,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="923.5" y="300" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:272) — 0.01s (0.1%)</title><rect x="923.5" y="284" width="1.3" height="15" fill="rgb(228,83,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:198) — 0.01s (0.1%)</title><rect x="923.5" y="268" width="1.3" height="15" fill="rgb(247,164,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:184) — 0.01s (0.1%)</title><rect x="923.5" y="252" width="1.3" height="15" fill="rgb(234,207,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="923.5" y="236" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReps (serving.py:824) — 0.01s (0.1%)</title><rect x="925.3" y="316" width="1.3" height="15" fill="rgb(250,201,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:275) — 0.01s (0.1%)</title><rect x="927.0" y="380" width="1.3" height="15" fill="rgb(219,144,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="927.0" y="364" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (serving.py:1359) — 0.01s (0.1%)</title><rect x="927.0" y="348" width="1.3" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:850) — 0.01s (0.1%)</title><rect x="927.0" y="332" width="1.3" height="15" fill="rgb(219,155,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSendsAllIx (serving.py:409) — 0.01s (0.1%)</title><rect x="927.0" y="316" width="1.3" height="15" fill="rgb(228,135,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (serving.py:838) — 0.01s (0.1%)</title><rect x="927.0" y="300" width="1.3" height="15" fill="rgb(244,139,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:159) — 0.02s (0.3%)</title><rect x="967.8" y="396" width="3.0" height="15" fill="rgb(226,107,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:275) — 0.01s (0.1%)</title><rect x="967.8" y="380" width="1.3" height="15" fill="rgb(219,144,50)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="967.8" y="364" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (serving.py:1359) — 0.01s (0.1%)</title><rect x="967.8" y="348" width="1.3" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:850) — 0.01s (0.1%)</title><rect x="967.8" y="332" width="1.3" height="15" fill="rgb(219,155,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSendsAllIx (serving.py:409) — 0.01s (0.1%)</title><rect x="967.8" y="316" width="1.3" height="15" fill="rgb(228,135,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (serving.py:838) — 0.01s (0.1%)</title><rect x="967.8" y="300" width="1.3" height="15" fill="rgb(244,139,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (serving.py:794) — 0.01s (0.1%)</title><rect x="967.8" y="284" width="1.3" height="15" fill="rgb(239,158,84)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:161) — 0.01s (0.1%)</title><rect x="971.3" y="396" width="1.3" height="15" fill="rgb(239,121,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>expired (timing.py:187) — 0.01s (0.1%)</title><rect x="971.3" y="380" width="1.3" height="15" fill="rgb(214,109,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>latest (timing.py:195) — 0.01s (0.1%)</title><rect x="971.3" y="364" width="1.3" height="15" fill="rgb(229,196,108)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:921) — 0.27s (4.0%)</title><rect x="973.1" y="476" width="47.4" height="15" fill="rgb(223,131,62)" stroke="#fff" stroke-width="0.3"/>
+<text x="975.1" y="488" fill="#000">do (do…</text>
+</g>
+<g><title>recur (doing.py:1026) — 0.12s (1.8%)</title><rect x="973.1" y="460" width="20.8" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="973.1" y="444" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1138) — 0.01s (0.1%)</title><rect x="973.1" y="428" width="1.3" height="15" fill="rgb(249,116,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="974.9" y="444" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="974.9" y="428" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1076) — 0.01s (0.1%)</title><rect x="974.9" y="412" width="1.3" height="15" fill="rgb(240,116,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (clienting.py:449) — 0.01s (0.1%)</title><rect x="974.9" y="396" width="1.3" height="15" fill="rgb(229,137,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (clienting.py:1318) — 0.01s (0.1%)</title><rect x="976.7" y="444" width="1.3" height="15" fill="rgb(208,140,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="976.7" y="428" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1099) — 0.01s (0.1%)</title><rect x="976.7" y="412" width="1.3" height="15" fill="rgb(205,157,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>copy (copy.py:85) — 0.01s (0.1%)</title><rect x="976.7" y="396" width="1.3" height="15" fill="rgb(248,110,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1016) — 0.03s (0.4%)</title><rect x="994.4" y="460" width="4.8" height="15" fill="rgb(251,165,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="994.4" y="444" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1079) — 0.01s (0.1%)</title><rect x="994.4" y="428" width="1.3" height="15" fill="rgb(233,118,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (clienting.py:449) — 0.01s (0.1%)</title><rect x="994.4" y="412" width="1.3" height="15" fill="rgb(229,137,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.02s (0.3%)</title><rect x="999.7" y="460" width="3.0" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1026) — 0.02s (0.3%)</title><rect x="999.7" y="444" width="3.0" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="999.7" y="428" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (credentialing.py:1533) — 0.01s (0.1%)</title><rect x="999.7" y="412" width="1.3" height="15" fill="rgb(227,186,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1020) — 0.02s (0.3%)</title><rect x="1003.2" y="460" width="3.0" height="15" fill="rgb(226,181,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="1003.2" y="444" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1018) — 0.01s (0.1%)</title><rect x="1006.8" y="460" width="1.3" height="15" fill="rgb(213,167,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:888) — 0.01s (0.1%)</title><rect x="1008.6" y="460" width="1.3" height="15" fill="rgb(225,89,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1020) — 0.01s (0.1%)</title><rect x="1008.6" y="444" width="1.3" height="15" fill="rgb(226,181,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1511) — 0.01s (0.1%)</title><rect x="1010.3" y="460" width="1.3" height="15" fill="rgb(243,99,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.24s (3.5%)</title><rect x="1021.0" y="476" width="42.0" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+<text x="1023.0" y="488" fill="#000">getTop…</text>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.02s (0.3%)</title><rect x="1021.0" y="460" width="3.0" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="1024.5" y="460" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:628) — 0.01s (0.1%)</title><rect x="1026.3" y="460" width="1.3" height="15" fill="rgb(233,197,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:567) — 0.18s (2.7%)</title><rect x="1063.5" y="476" width="31.4" height="15" fill="rgb(239,168,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (serving.py:1359) — 0.04s (0.6%)</title><rect x="1063.5" y="460" width="6.6" height="15" fill="rgb(222,122,71)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:848) — 0.02s (0.3%)</title><rect x="1063.5" y="444" width="3.0" height="15" fill="rgb(206,141,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceivesAllIx (serving.py:380) — 0.01s (0.1%)</title><rect x="1063.5" y="428" width="1.3" height="15" fill="rgb(219,138,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReceivesAllIx (serving.py:386) — 0.01s (0.1%)</title><rect x="1065.3" y="428" width="1.3" height="15" fill="rgb(205,142,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:850) — 0.01s (0.1%)</title><rect x="1067.1" y="444" width="1.3" height="15" fill="rgb(219,155,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceReqs (serving.py:783) — 0.01s (0.1%)</title><rect x="1067.1" y="428" width="1.3" height="15" fill="rgb(223,143,91)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:294) — 0.01s (0.1%)</title><rect x="1067.1" y="412" width="1.3" height="15" fill="rgb(218,140,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAxes (serving.py:271) — 0.01s (0.1%)</title><rect x="1067.1" y="396" width="1.3" height="15" fill="rgb(247,82,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:199) — 0.01s (0.1%)</title><rect x="1067.1" y="380" width="1.3" height="15" fill="rgb(228,165,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:186) — 0.01s (0.1%)</title><rect x="1067.1" y="364" width="1.3" height="15" fill="rgb(246,208,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="1067.1" y="348" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (serving.py:846) — 0.01s (0.1%)</title><rect x="1068.8" y="444" width="1.3" height="15" fill="rgb(244,139,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceConnects (serving.py:766) — 0.01s (0.1%)</title><rect x="1068.8" y="428" width="1.3" height="15" fill="rgb(252,202,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceSends (serving.py:837) — 0.01s (0.1%)</title><rect x="1068.8" y="412" width="1.3" height="15" fill="rgb(213,139,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>send (serving.py:818) — 0.01s (0.1%)</title><rect x="1068.8" y="396" width="1.3" height="15" fill="rgb(216,83,88)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1551) — 0.03s (0.4%)</title><rect x="1070.6" y="460" width="4.8" height="15" fill="rgb(237,176,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (credentialing.py:1533) — 0.01s (0.1%)</title><rect x="1070.6" y="444" width="1.3" height="15" fill="rgb(227,186,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrowPartialSigned (exchanging.py:208) — 0.01s (0.1%)</title><rect x="1070.6" y="428" width="1.3" height="15" fill="rgb(234,155,90)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (verifying.py:235) — 0.01s (0.1%)</title><rect x="1072.4" y="444" width="1.3" height="15" fill="rgb(225,145,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (verifying.py:237) — 0.01s (0.1%)</title><rect x="1074.2" y="444" width="1.3" height="15" fill="rgb(237,146,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1550) — 0.02s (0.3%)</title><rect x="1075.9" y="460" width="3.0" height="15" fill="rgb(206,176,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processEscrows (verifying.py:235) — 0.02s (0.3%)</title><rect x="1075.9" y="444" width="3.0" height="15" fill="rgb(225,145,83)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (clienting.py:1320) — 0.01s (0.1%)</title><rect x="1079.5" y="460" width="1.3" height="15" fill="rgb(221,154,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="1079.5" y="444" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (subing.py:1250) — 0.07s (1.0%)</title><rect x="1095.4" y="476" width="11.9" height="15" fill="rgb(220,88,106)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_tokey (subing.py:158) — 0.01s (0.1%)</title><rect x="1095.4" y="460" width="1.3" height="15" fill="rgb(230,203,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopIoSetItemIter (dbing.py:1283) — 0.01s (0.1%)</title><rect x="1097.2" y="460" width="1.3" height="15" fill="rgb(215,100,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="1097.2" y="444" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_tokey (subing.py:161) — 0.01s (0.1%)</title><rect x="1099.0" y="460" width="1.3" height="15" fill="rgb(224,88,53)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopIoSetItemIter (dbing.py:1283) — 0.05s (0.7%)</title><rect x="1107.8" y="476" width="8.4" height="15" fill="rgb(215,100,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.02s (0.3%)</title><rect x="1107.8" y="460" width="3.0" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="1111.4" y="460" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (subing.py:313) — 0.04s (0.6%)</title><rect x="1116.7" y="476" width="6.6" height="15" fill="rgb(205,93,60)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.03s (0.4%)</title><rect x="1116.7" y="460" width="4.8" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="1122.0" y="460" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.04s (0.6%)</title><rect x="1123.8" y="476" width="6.6" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.02s (0.3%)</title><rect x="1123.8" y="460" width="3.0" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:627) — 0.01s (0.1%)</title><rect x="1127.3" y="460" width="1.3" height="15" fill="rgb(252,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:564) — 0.03s (0.4%)</title><rect x="1130.9" y="476" width="4.8" height="15" fill="rgb(246,166,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1089) — 0.01s (0.1%)</title><rect x="1130.9" y="460" width="1.3" height="15" fill="rgb(213,120,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:106) — 0.01s (0.1%)</title><rect x="1130.9" y="444" width="1.3" height="15" fill="rgb(235,124,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:190) — 0.01s (0.1%)</title><rect x="1130.9" y="428" width="1.3" height="15" fill="rgb(210,162,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>size (coring.py:4367) — 0.01s (0.1%)</title><rect x="1130.9" y="412" width="1.3" height="15" fill="rgb(230,142,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>raw (coring.py:4325) — 0.01s (0.1%)</title><rect x="1130.9" y="396" width="1.3" height="15" fill="rgb(251,167,97)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>write (serving.py:381) — 0.02s (0.3%)</title><rect x="1136.2" y="476" width="3.0" height="15" fill="rgb(252,147,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>build (serving.py:364) — 0.02s (0.3%)</title><rect x="1136.2" y="460" width="3.0" height="15" fill="rgb(250,172,69)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>packHeader (httping.py:416) — 0.01s (0.1%)</title><rect x="1136.2" y="444" width="1.3" height="15" fill="rgb(238,191,106)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (signing.py:130) — 0.02s (0.3%)</title><rect x="1139.7" y="476" width="3.0" height="15" fill="rgb(230,147,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>crypto_sign_seed_keypair (__init__.py:1221) — 0.02s (0.3%)</title><rect x="1139.7" y="460" width="3.0" height="15" fill="rgb(252,102,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getOnItemIter (subing.py:2348) — 0.02s (0.3%)</title><rect x="1143.3" y="476" width="3.0" height="15" fill="rgb(236,134,101)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_tokey (subing.py:157) — 0.01s (0.1%)</title><rect x="1143.3" y="460" width="1.3" height="15" fill="rgb(249,202,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getOnIoDupItemIter (dbing.py:1980) — 0.01s (0.1%)</title><rect x="1145.1" y="460" width="1.3" height="15" fill="rgb(242,124,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>scoobiDo (oobiing.py:406) — 0.02s (0.3%)</title><rect x="1146.8" y="476" width="3.0" height="15" fill="rgb(206,201,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processFlows (oobiing.py:415) — 0.01s (0.1%)</title><rect x="1146.8" y="460" width="1.3" height="15" fill="rgb(236,119,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processOobis (oobiing.py:424) — 0.01s (0.1%)</title><rect x="1146.8" y="444" width="1.3" height="15" fill="rgb(219,89,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="1146.8" y="428" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="1146.8" y="412" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processFlows (oobiing.py:416) — 0.01s (0.1%)</title><rect x="1148.6" y="460" width="1.3" height="15" fill="rgb(217,120,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processOobis (oobiing.py:424) — 0.01s (0.1%)</title><rect x="1148.6" y="444" width="1.3" height="15" fill="rgb(219,89,65)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="1148.6" y="428" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="1148.6" y="412" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopIoDupItemIter (dbing.py:1805) — 0.02s (0.3%)</title><rect x="1150.4" y="476" width="3.0" height="15" fill="rgb(206,175,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:603) — 0.01s (0.1%)</title><rect x="1150.4" y="460" width="1.3" height="15" fill="rgb(206,156,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode (encoder.py:432) — 0.02s (0.3%)</title><rect x="1153.9" y="476" width="3.0" height="15" fill="rgb(231,143,72)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode_dict (encoder.py:383) — 0.01s (0.1%)</title><rect x="1153.9" y="460" width="1.3" height="15" fill="rgb(243,176,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode_dict (encoder.py:334) — 0.01s (0.1%)</title><rect x="1155.7" y="460" width="1.3" height="15" fill="rgb(219,81,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_make_iterencode (encoder.py:414) — 0.01s (0.1%)</title><rect x="1155.7" y="444" width="1.3" height="15" fill="rgb(216,207,98)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__iter__ (&lt;frozen _collections_abc&gt;:894) — 0.01s (0.1%)</title><rect x="1157.5" y="476" width="1.3" height="15" fill="rgb(208,124,107)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_iterencode_dict (encoder.py:412) — 0.01s (0.1%)</title><rect x="1159.2" y="476" width="1.3" height="15" fill="rgb(226,117,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseLeader (httping.py:506) — 0.01s (0.1%)</title><rect x="1161.0" y="476" width="1.3" height="15" fill="rgb(228,96,66)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>msgParsator (parsing.py:1054) — 0.01s (0.1%)</title><rect x="1162.8" y="476" width="1.3" height="15" fill="rgb(220,83,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processReceipt (eventing.py:4084) — 0.01s (0.1%)</title><rect x="1162.8" y="460" width="1.3" height="15" fill="rgb(222,136,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addWig (basing.py:2251) — 0.01s (0.1%)</title><rect x="1162.8" y="444" width="1.3" height="15" fill="rgb(241,188,99)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>addVal (dbing.py:1339) — 0.01s (0.1%)</title><rect x="1162.8" y="428" width="1.3" height="15" fill="rgb(227,150,94)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>parseHead (clienting.py:520) — 0.01s (0.1%)</title><rect x="1164.5" y="476" width="1.3" height="15" fill="rgb(206,126,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>checkPersisted (clienting.py:367) — 0.01s (0.1%)</title><rect x="1164.5" y="460" width="1.3" height="15" fill="rgb(223,91,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceAccepts (serving.py:199) — 0.01s (0.1%)</title><rect x="1166.3" y="476" width="1.3" height="15" fill="rgb(228,165,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (serving.py:187) — 0.01s (0.1%)</title><rect x="1166.3" y="460" width="1.3" height="15" fill="rgb(227,209,70)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>accept (socket.py:295) — 0.01s (0.1%)</title><rect x="1166.3" y="444" width="1.3" height="15" fill="rgb(214,208,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>gitDo (agenting.py:248) — 0.01s (0.1%)</title><rect x="1168.1" y="476" width="1.3" height="15" fill="rgb(251,165,66)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>tock (doing.py:528) — 0.01s (0.1%)</title><rect x="1169.9" y="476" width="1.3" height="15" fill="rgb(226,112,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>processClients (oobiing.py:477) — 0.01s (0.1%)</title><rect x="1169.9" y="460" width="1.3" height="15" fill="rgb(245,95,101)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getItemIter (koming.py:153) — 0.01s (0.1%)</title><rect x="1169.9" y="444" width="1.3" height="15" fill="rgb(222,151,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:626) — 0.01s (0.1%)</title><rect x="1169.9" y="428" width="1.3" height="15" fill="rgb(221,196,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1006) — 0.01s (0.1%)</title><rect x="1171.6" y="476" width="1.3" height="15" fill="rgb(216,89,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:922) — 0.01s (0.1%)</title><rect x="1173.4" y="476" width="1.3" height="15" fill="rgb(254,131,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (doing.py:1026) — 0.01s (0.1%)</title><rect x="1173.4" y="460" width="1.3" height="15" fill="rgb(212,185,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:568) — 0.01s (0.1%)</title><rect x="1173.4" y="444" width="1.3" height="15" fill="rgb(220,169,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (clienting.py:1320) — 0.01s (0.1%)</title><rect x="1173.4" y="428" width="1.3" height="15" fill="rgb(221,154,58)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>service (clienting.py:1169) — 0.01s (0.1%)</title><rect x="1173.4" y="412" width="1.3" height="15" fill="rgb(236,119,61)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>serviceResponse (clienting.py:1090) — 0.01s (0.1%)</title><rect x="1173.4" y="396" width="1.3" height="15" fill="rgb(226,151,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>dictify (httping.py:1050) — 0.01s (0.1%)</title><rect x="1173.4" y="380" width="1.3" height="15" fill="rgb(219,153,86)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>loads (__init__.py:359) — 0.01s (0.1%)</title><rect x="1173.4" y="364" width="1.3" height="15" fill="rgb(237,149,54)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>decode (decoder.py:338) — 0.01s (0.1%)</title><rect x="1173.4" y="348" width="1.3" height="15" fill="rgb(223,198,103)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getTopItemIter (dbing.py:633) — 0.01s (0.1%)</title><rect x="1175.2" y="476" width="1.3" height="15" fill="rgb(239,83,74)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>clientDo (httping.py:290) — 0.01s (0.1%)</title><rect x="1177.0" y="476" width="1.3" height="15" fill="rgb(226,169,76)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>recur (agenting.py:1089) — 0.01s (0.1%)</title><rect x="1178.7" y="476" width="1.3" height="15" fill="rgb(213,120,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>receipt (agenting.py:145) — 0.01s (0.1%)</title><rect x="1178.7" y="460" width="1.3" height="15" fill="rgb(248,200,73)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>streamCESRRequests (httping.py:195) — 0.01s (0.1%)</title><rect x="1178.7" y="444" width="1.3" height="15" fill="rgb(215,165,52)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>do (doing.py:584) — 0.01s (0.1%)</title><rect x="1180.5" y="476" width="1.3" height="15" fill="rgb(218,205,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>exit (clienting.py:1325) — 0.01s (0.1%)</title><rect x="1180.5" y="460" width="1.3" height="15" fill="rgb(241,170,56)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>close (clienting.py:869) — 0.01s (0.1%)</title><rect x="1180.5" y="444" width="1.3" height="15" fill="rgb(219,87,109)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>close (clienting.py:303) — 0.01s (0.1%)</title><rect x="1180.5" y="428" width="1.3" height="15" fill="rgb(212,109,85)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>shutdown (clienting.py:266) — 0.01s (0.1%)</title><rect x="1180.5" y="412" width="1.3" height="15" fill="rgb(224,166,75)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>getIoSetValsIter (dbing.py:1114) — 0.01s (0.1%)</title><rect x="1182.3" y="476" width="1.3" height="15" fill="rgb(206,87,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>unsuffix (dbing.py:256) — 0.01s (0.1%)</title><rect x="1182.3" y="460" width="1.3" height="15" fill="rgb(210,175,68)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:3402) — 0.01s (0.1%)</title><rect x="1182.3" y="444" width="1.3" height="15" fill="rgb(248,150,64)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1001) — 0.01s (0.1%)</title><rect x="1182.3" y="428" width="1.3" height="15" fill="rgb(211,86,62)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_exfil (coring.py:1428) — 0.01s (0.1%)</title><rect x="1182.3" y="412" width="1.3" height="15" fill="rgb(205,139,77)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_processUnweighted (coring.py:3990) — 0.01s (0.1%)</title><rect x="1184.0" y="476" width="1.3" height="15" fill="rgb(254,140,93)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (coring.py:1779) — 0.01s (0.1%)</title><rect x="1184.0" y="460" width="1.3" height="15" fill="rgb(223,106,95)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>encode (encoder.py:203) — 0.01s (0.1%)</title><rect x="1185.8" y="476" width="1.3" height="15" fill="rgb(238,182,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>iterencode (encoder.py:258) — 0.01s (0.1%)</title><rect x="1185.8" y="460" width="1.3" height="15" fill="rgb(206,84,51)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_extractor (parsing.py:123) — 0.01s (0.1%)</title><rect x="1187.6" y="476" width="1.3" height="15" fill="rgb(238,172,63)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (counting.py:465) — 0.01s (0.1%)</title><rect x="1187.6" y="460" width="1.3" height="15" fill="rgb(251,135,104)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>_infil (coring.py:1266) — 0.01s (0.1%)</title><rect x="1189.4" y="476" width="1.3" height="15" fill="rgb(207,175,57)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>__init__ (&lt;string&gt;:19) — 0.01s (0.1%)</title><rect x="1191.1" y="476" width="1.3" height="15" fill="rgb(243,163,67)" stroke="#fff" stroke-width="0.3"/>
+</g>
+<g><title>datify (helping.py:81) — 0.01s (0.1%)</title><rect x="1191.1" y="460" width="1.3" height="15" fill="rgb(210,162,102)" stroke="#fff" stroke-width="0.3"/>
+</g>
+</svg>

@@ -1,0 +1,4 @@
+profiling-profiler-1 0.00% 800KiB / 11.68GiB
+profiling-keria-1 3.31% 52.2MiB / 11.68GiB
+profiling-vlei-server-1 2.08% 47.03MiB / 11.68GiB
+profiling-witness-demo-1 2.80% 114.7MiB / 11.68GiB

@@ -1,0 +1,113 @@
+# Self-contained profiling stack for KERIA.
+#
+# Why self-contained (not `-f signify-ts/docker-compose.yaml -f overlay`): compose
+# resolves relative paths against the FIRST compose file's directory, which makes a
+# cross-directory overlay fragile. Instead we reproduce the same services here with
+# paths relative to this file, reusing signify-ts's config files verbatim.
+#
+# KERIA runs LOCAL keria + keripy source via PYTHONPATH shadowing (edit on host,
+# `docker compose restart keria`, no rebuild). A py-spy sidecar shares KERIA's PID
+# namespace and attaches without touching the KERIA image.
+#
+# Bring up:  docker compose -f compose.profiling.yaml up -d --build
+# Profiles land in ./profiles (bind-mounted into keria and the profiler).
+
+x-healthcheck: &healthcheck
+    interval: 2s
+    timeout: 3s
+    retries: 10
+    start_period: 2s
+
+services:
+    vlei-server:
+        image: gleif/vlei:1.0.3
+        command: vLEI-server -s /vLEI/schema -c /vLEI/credentials -o /vLEI/oobis
+        healthcheck:
+            test: curl -f http://localhost:7723/oobi/EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao
+            <<: *healthcheck
+        ports:
+            - 7723:7723
+
+    # All 6 vanilla keripy witnesses (wan/wil/wes/wit/wub/wyz) on 5642-5647.
+    # `witness demo` starts all six; we publish all six so fleet size W can sweep 1..6.
+    witness-demo:
+        image: weboftrust/keri:1.2.13
+        environment:
+            PYTHONUNBUFFERED: 1
+            PYTHONIOENCODING: UTF-8
+        command: witness demo
+        volumes:
+            - ../../signify-ts/config/witness-demo:/keripy/scripts/keri/cf/main
+        healthcheck:
+            test: wget --spider http://127.0.0.1:5642/oobi
+            <<: *healthcheck
+        ports:
+            - 5642:5642
+            - 5643:5643
+            - 5644:5644
+            - 5645:5645
+            - 5646:5646
+            - 5647:5647
+
+    keria:
+        # Runtime base = the locally-cached published image (Python 3.12 + the keri
+        # 1.2.13-era dependency tree: lmdb, libsodium, blake3, rpds-py, falcon...).
+        # We do NOT run its bundled keria/keri — the local source is shadowed via
+        # PYTHONPATH below, so this image only supplies a working, representative dep
+        # stack. (Building from local source needs python:3.12.8-alpine, which isn't
+        # cached; the pinned deps don't build on the cached 3.14 base.)
+        image: weboftrust/keria:0.4.0
+        environment:
+            KERI_AGENT_CORS: 1
+            PYTHONUNBUFFERED: 1
+            PYTHONIOENCODING: UTF-8
+            # Shadow the pip-installed keria+keri with the bind-mounted local source.
+            # PYTHONPATH wins over site-packages, so edits on the host take effect on
+            # `docker compose restart keria` with no rebuild.
+            PYTHONPATH: /src/keria/src:/src/keripy/src
+        volumes:
+            # Agency config. keri's Configer (a) picks between the --config-dir path and
+            # ~/.keri depending on which candidate files exist, and (b) os.chmod()s the
+            # file at open, so it must be READ-WRITE. We mount a local writable COPY at
+            # both candidate paths (so the shared signify-ts config is never mutated).
+            - ./keria-agency.json:/keria/config/keri/cf/keria.json
+            - ./keria-agency.json:/root/.keri/cf/keria.json
+            - ..:/src/keria:ro                # local keria source
+            - ../../keripy:/src/keripy:ro     # local keripy source (editable target)
+            - ./profiles:/profiles
+        command: start --config-dir /keria/config --config-file keria --name keria --loglevel INFO
+        cap_add:
+            - SYS_PTRACE                      # lets an in-namespace profiler attach
+        healthcheck:
+            # Use the CHEAP boot-port /health (3903), NOT admin /spec.yaml. /spec.yaml
+            # regenerates + YAML-serializes the whole OpenAPI spec on every hit; at the
+            # 2s interval that polluted CPU flamegraphs with ~20-30% apispec/yaml noise.
+            # All 3 servers share one hio loop, so boot /health answering ⇒ admin ready.
+            test: curl -f http://localhost:3903/health
+            <<: *healthcheck
+        depends_on:
+            witness-demo:
+                condition: service_healthy
+        ports:
+            - 3901:3901
+            - 3902:3902
+            - 3903:3903
+
+    # py-spy sidecar. Shares KERIA's PID namespace so it can see and attach to the
+    # KERIA process. Produces PYTHON-level flamegraphs from interpreter memory (no
+    # access to KERIA's filesystem required for python frames). Stays idle; the
+    # orchestrator `docker compose exec`s pyspy.sh into it per phase.
+    profiler:
+        build:
+            context: .
+            dockerfile: profiler.dockerfile
+        pid: "service:keria"
+        cap_add:
+            - SYS_PTRACE
+        volumes:
+            - ./profiles:/profiles
+            - ./pyspy.sh:/usr/local/bin/pyspy.sh:ro
+        command: sleep infinity
+        depends_on:
+            keria:
+                condition: service_healthy
