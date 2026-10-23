@@ -698,10 +698,9 @@ class Begins:
             )
 
         val = self.pather.resolve(args[0])
-        if not isinstance(val, str):
-            raise ValueError(f"invalid type={type(args[0])} for begins, must be `str`")
-
-        return val.startswith(self.value)
+        # A shared attribute index can contain numeric values from another
+        # schema. A string-prefix query must exclude them, not fail the query.
+        return isinstance(val, str) and val.startswith(self.value)
 
     def index(self, idx):
         return [val.qb64 for _, val in idx.getItemIter(keys=(self.value,))]

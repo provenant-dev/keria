@@ -436,6 +436,7 @@ def test_seeker_numeric_attributes(level):
             # when their string index keys collide, including compound queries.
             assert list(seeker.find({"-a-loa": level})) == [saids[0]]
             assert list(seeker.find({"-a-loa": str(level)})) == [saids[1]]
+            assert list(seeker.find({"-a-loa": {"$begins": str(level)}})) == [saids[1]]
             assert list(seeker.find({"-i": hab.pre, "-a-loa": level})) == [saids[0]]
             if level == 2:
                 assert list(seeker.find({"-a-loa": 2})) == [saids[0]]
