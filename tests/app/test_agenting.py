@@ -412,6 +412,35 @@ def test_agency_with_urls_from_arguments():
         assert agent.hby.cf.get()[f"agent-{caid}"]["curls"] == curls
         assert agent.hby.cf.get()["iurls"] == iurls
         assert agent.hby.cf.get()["durls"] == durls
+        # Storing curls alone is insufficient: Hab.reconfigure only publishes
+        # the signed location/controller role when the habitat has a timestamp.
+        assert agent.hby.cf.get()[f"agent-{caid}"].get("dt")
+        location = agent.hby.db.locs.get(keys=(agent.pre, "http"))
+        assert location is not None
+        assert location.url == curls[0]
+        controller = agent.hby.db.ends.get(keys=(agent.pre, "controller", agent.pre))
+        assert controller is not None and controller.allowed
+
+
+@pytest.mark.parametrize("configured_dt", [None, "2022-01-20T12:57:59.823350+00:00"])
+def test_cli_url_config_supplies_missing_timestamp_and_preserves_explicit_one(configured_dt):
+    agency = agenting.Agency(name="keria", bran=None, temp=True, curls=["http://example.com:3902/"])
+    cf = configing.Configer(name="cli-url-config", temp=True, reopen=True, clear=False)
+    payload = {} if configured_dt is None else {
+        "dt": configured_dt, "keria": {"dt": configured_dt}
+    }
+    cf.put(payload)
+    agency.cf = cf
+    try:
+        config = agency._loadConfigForAgent("controller")
+        assert config["dt"]
+        assert config["agent-controller"]["dt"] == config["dt"]
+        assert config["agent-controller"]["curls"] == ["http://example.com:3902/"]
+        if configured_dt is not None:
+            assert config["agent-controller"]["dt"] == configured_dt
+    finally:
+        cf.close(clear=True)
+        agency.adb.close(clear=True)
 
 
 def test_unprotected_boot_ends(helpers):
