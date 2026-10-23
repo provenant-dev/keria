@@ -19,6 +19,14 @@ SCHEMA_FIELD = coring.Pather(path=["s"])
 REGISTRY_FIELD = coring.Pather(path=["ri"])
 
 
+def _index_key(value):
+    # Equality treats integral floats and ints alike. Keep existing string keys
+    # compatible; Cursor rechecks candidates to distinguish strings/numbers.
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
 @dataclass
 class IndexRecord:
     """Registry Key keyed by Registry name"""
@@ -227,7 +235,7 @@ class Seeker(dbing.LMDBer):
                 pather = coring.Pather(qb64=path)
                 values.append(pather.resolve(creder.sad))
 
-            value = "".join(values)
+            value = "".join(_index_key(value) for value in values)
             db.add(keys=(value,), val=saider)
 
     def unindex(self, said):
@@ -247,7 +255,7 @@ class Seeker(dbing.LMDBer):
                 pather = coring.Pather(qb64=path)
                 values.append(pather.resolve(creder.sad))
 
-            value = "".join(values)
+            value = "".join(_index_key(value) for value in values)
             db.rem(keys=(value,), val=saider)
 
     def generateIndexes(self, said):
@@ -507,9 +515,9 @@ class Cursor:
                 [said for (said,), _ in self.seeker.table.getItemIter()]
             )
         elif (saids := self.indexSearch()) is not None:
-            self.saids = self.order(saids)
+            self.saids = self.order(self.tableScan(saids, self.operators))
         elif (saids := self.indexScan()) is not None:
-            self.saids = self.order(saids)
+            self.saids = self.order(self.tableScan(saids, self.operators))
         else:
             saids = self.fullTableScan()
             self.saids = self.order(saids)
@@ -525,7 +533,7 @@ class Cursor:
             return None
 
         idx = self.seeker.indexes[index]
-        val = "".join(self.values)
+        val = "".join(_index_key(value) for value in self.values)
         return [val.qb64 for val in idx.getIter(keys=(val,))]
 
     def indexScan(self):
@@ -564,9 +572,11 @@ class Cursor:
         res = []
         for said in saids:
             val = self.seeker.value(said)
-            for op in ops:
-                if op(val):
-                    res.append(said)
+            # Index keys concatenate strings. Recheck candidates against the
+            # credential so numeric/string values and compound-key collisions
+            # cannot broaden a query's equality constraints.
+            if all(op(val) for op in ops):
+                res.append(said)
 
         return res
 
@@ -669,7 +679,7 @@ class Eq:
         return self.pather.qb64
 
     def index(self, idx):
-        return [val.qb64 for val in idx.getIter(keys=(self.value,))]
+        return [val.qb64 for val in idx.getIter(keys=(_index_key(self.value),))]
 
 
 class Begins:
