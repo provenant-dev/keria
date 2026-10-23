@@ -387,3 +387,64 @@ def test_exnseeker(helpers, seeder, mockHelpingNowUTC):
 
         saids = seeker.find({"-a-i": {"$eq": issueeHab.pre}})
         assert list(saids) == [grant.said, apply.said]
+
+
+@pytest.mark.parametrize("level", [2, 2.0, 2.5, -2])
+def test_seeker_numeric_attributes(level):
+    """Numeric assurance levels must be indexed, queried and removed without stalling cues."""
+    from keri.core import coring, scheming
+    from keri.vc import proving
+    from keri.vdr import viring
+
+    with habbing.openHab(name="numeric-index", temp=True) as (hby, hab):
+        reger = viring.Reger(name="numeric-index", temp=True, reopen=True)
+        seeker = basing.Seeker(db=hby.db, reger=reger, temp=True, reopen=True)
+        try:
+            saids = []
+            for kind, value in [("number", level), ("string", str(level))]:
+                schema = scheming.Schemer(
+                    sed={
+                        "$id": "",
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "type": "object",
+                        "properties": {
+                            "a": {
+                                "type": "object",
+                                "properties": {
+                                    "i": {"type": "string"},
+                                    "loa": {"type": kind},
+                                },
+                            }
+                        },
+                    }
+                )
+                hby.db.schema.pin(keys=(schema.said,), val=schema)
+                credential = proving.credential(
+                    schema=schema.said,
+                    issuer=hab.pre,
+                    data={"i": hab.pre, "loa": value},
+                    status=hab.pre,
+                )
+                reger.creds.pin(keys=(credential.said,), val=credential)
+                reger.saved.pin(
+                    keys=(credential.said,), val=coring.Saider(qb64=credential.said)
+                )
+                seeker.index(credential.said)
+                saids.append(credential.said)
+                assert list(seeker.find({"-s": schema.said})) == [credential.said]
+            # Numeric/string values must retain distinct equality semantics even
+            # when their string index keys collide, including compound queries.
+            assert list(seeker.find({"-a-loa": level})) == [saids[0]]
+            assert list(seeker.find({"-a-loa": str(level)})) == [saids[1]]
+            assert list(seeker.find({"-a-loa": {"$begins": str(level)}})) == [saids[1]]
+            assert list(seeker.find({"-i": hab.pre, "-a-loa": level})) == [saids[0]]
+            if level == 2:
+                assert list(seeker.find({"-a-loa": 2})) == [saids[0]]
+                assert list(seeker.find({"-a-loa": 2.0})) == [saids[0]]
+            assert list(seeker.find({"-a-loa": 3})) == []
+            seeker.unindex(saids[0])
+            assert list(seeker.find({"-a-loa": level})) == []
+            assert list(seeker.find({"-a-loa": str(level)})) == [saids[1]]
+        finally:
+            seeker.close(clear=True)
+            reger.close(clear=True)
