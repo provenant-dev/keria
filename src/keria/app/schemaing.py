@@ -38,6 +38,8 @@ from keri.help import helping
 logger = logging.getLogger("keria")
 
 ALLOWED_SCHEMES = ("http", "https")
+MAX_SCHEMA_BYTES = 1 << 20  # no ACDC schema comes anywhere near 1 MiB
+READ_CHUNK = 64 * 1024
 
 
 def saidFromOobi(url):
@@ -161,6 +163,9 @@ class SchemaCache:
         that could not be fetched here is simply resolved the usual way by the
         first agent that asks for it. Fetches still pending when ``deadline``
         seconds have elapsed are abandoned so startup is never held up for long.
+        Every fetch also enforces the deadline on its own reads, so a server that
+        trickles bytes cannot keep a worker thread alive past it (plus at most one
+        socket ``timeout``), and gives up on responses over ``MAX_SCHEMA_BYTES``.
 
         Returns the number of schemas added.
         """
@@ -183,11 +188,13 @@ class SchemaCache:
 
         if pending:
             started = time.monotonic()
+            deadlineAt = started + deadline
             executor = concurrent.futures.ThreadPoolExecutor(
                 max_workers=min(workers, len(pending))
             )
             futures = {
-                executor.submit(self._fetch, url, timeout): url for url in pending
+                executor.submit(self._fetch, url, timeout, deadlineAt): url
+                for url in pending
             }
             try:
                 for future in concurrent.futures.as_completed(
@@ -229,9 +236,17 @@ class SchemaCache:
         return count
 
     @staticmethod
-    def _fetch(url, timeout):
+    def _fetch(url, timeout, deadlineAt, maxBytes=MAX_SCHEMA_BYTES):
+        """GET ``url`` in chunks, giving up at ``deadlineAt`` (monotonic) or past ``maxBytes``."""
+        raw = bytearray()
         with urllib.request.urlopen(url, timeout=timeout) as rep:
-            return rep.read()
+            while chunk := rep.read(READ_CHUNK):
+                raw.extend(chunk)
+                if len(raw) > maxBytes:
+                    raise ValueError(f"response larger than {maxBytes} bytes")
+                if time.monotonic() > deadlineAt:
+                    raise TimeoutError("schema warm-up deadline reached while reading")
+        return bytes(raw)
 
     def resolve(self, db, url, oobialias=None):
         """Satisfy a schema OOBI posted by an agent without touching the network, when possible.

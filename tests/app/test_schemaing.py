@@ -9,6 +9,7 @@ Testing the agency-wide schema cache
 import http.client
 import json
 import threading
+import time
 import urllib.error
 from unittest import mock
 
@@ -40,12 +41,15 @@ def oobiFor(schemer, host="http://127.0.0.1:7723"):
     return f"{host}/oobi/{schemer.said}"
 
 
-def fakeResponse(raw=None, error=None):
+def fakeResponse(raw=None, error=None, reads=None):
+    """A fake urlopen response: one body, an error on read, or a scripted list of reads."""
     rep = mock.MagicMock()
     if error is not None:
         rep.read.side_effect = error
+    elif reads is not None:
+        rep.read.side_effect = reads
     else:
-        rep.read.return_value = raw
+        rep.read.side_effect = [raw, b""]
     rep.__enter__.return_value = rep
     return rep
 
@@ -199,6 +203,46 @@ def test_schema_cache_load_urls_deadline():
 
     assert fast.said in cache
     assert slow.said not in cache
+
+
+def test_schema_cache_load_urls_trickling_server_and_size_cap():
+    """A server trickling bytes cannot keep a worker alive past the deadline, and huge bodies are dropped."""
+    cache = schemaing.SchemaCache()
+    trickle = makeSchema("url-trickle")
+    huge = makeSchema("url-huge")
+    reads = {"count": 0}
+
+    def trickleRead(size=-1):
+        # one byte every 50 ms, forever, always inside the socket timeout
+        reads["count"] += 1
+        time.sleep(0.05)
+        return b"x"
+
+    def fakeUrlopen(url, timeout=None):
+        if url == oobiFor(trickle):
+            return fakeResponse(reads=trickleRead)
+        if url == oobiFor(huge):
+            return fakeResponse(reads=[b"x" * (schemaing.MAX_SCHEMA_BYTES + 1), b""])
+        raise urllib.error.URLError("unexpected url")
+
+    before = threading.active_count()
+    started = time.monotonic()
+    with mock.patch(
+        "keria.app.schemaing.urllib.request.urlopen", side_effect=fakeUrlopen
+    ):
+        assert cache.loadUrls([oobiFor(trickle), oobiFor(huge)], deadline=0.5) == 0
+    elapsed = time.monotonic() - started
+
+    assert len(cache) == 0
+    assert elapsed < 2.0  # the deadline was honoured
+    assert reads["count"] >= 2  # the trickling read did run and was cut short
+
+    # the worker that was reading the trickle gives up right after the deadline
+    for _ in range(40):
+        if threading.active_count() <= before:
+            break
+        time.sleep(0.05)
+    assert threading.active_count() <= before
 
 
 def test_load_schema_cache(tmp_path):
