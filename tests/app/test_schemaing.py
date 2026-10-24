@@ -8,18 +8,19 @@ Testing the agency-wide schema cache
 
 import http.client
 import json
+import threading
 import urllib.error
 from unittest import mock
 
 import falcon
 from hio.base import doing
 from keri import core
-from keri.app import configing
+from keri.app import configing, habbing
 from keri.app.oobiing import Result
 from keri.core import coring, scheming
 
 from keria.app import agenting, schemaing
-from keria.core import longrunning
+from keria.testing.testing_helper import SCRIPTS_DIR
 
 
 def makeSchema(title):
@@ -37,6 +38,16 @@ def makeSchema(title):
 
 def oobiFor(schemer, host="http://127.0.0.1:7723"):
     return f"{host}/oobi/{schemer.said}"
+
+
+def fakeResponse(raw=None, error=None):
+    rep = mock.MagicMock()
+    if error is not None:
+        rep.read.side_effect = error
+    else:
+        rep.read.return_value = raw
+    rep.__enter__.return_value = rep
+    return rep
 
 
 def test_said_from_oobi():
@@ -123,26 +134,22 @@ def test_schema_cache_load_urls():
     down = makeSchema("url-down")
     truncated = makeSchema("url-truncated")
     after = makeSchema("url-after-truncated")
+    local = makeSchema("url-file-scheme")
 
     responses = {
         oobiFor(good): good.raw,
         oobiFor(wrong): good.raw,  # served content does not match the SAID in the URL
         oobiFor(after): after.raw,
+        oobiFor(local, host="file:///tmp"): local.raw,  # must never be fetched
     }
 
     def fakeUrlopen(url, timeout=None):
         if url == oobiFor(truncated):
             # server closed the connection before sending the advertised Content-Length
-            rep = mock.MagicMock()
-            rep.read.side_effect = http.client.IncompleteRead(b"{", 100)
-            rep.__enter__.return_value = rep
-            return rep
+            return fakeResponse(error=http.client.IncompleteRead(b"{", 100))
         if url not in responses:
             raise urllib.error.URLError("connection refused")
-        rep = mock.MagicMock()
-        rep.read.return_value = responses[url]
-        rep.__enter__.return_value = rep
-        return rep
+        return fakeResponse(raw=responses[url])
 
     urls = [
         oobiFor(good),
@@ -150,19 +157,48 @@ def test_schema_cache_load_urls():
         oobiFor(down),
         oobiFor(truncated),
         "http://127.0.0.1:5642/oobi/EAID/witness/BEID",  # not a schema OOBI
+        oobiFor(local, host="file:///tmp"),  # not http(s), skipped without fetching
         oobiFor(after),  # loading continues after every failure above
     ]
     with mock.patch(
         "keria.app.schemaing.urllib.request.urlopen", side_effect=fakeUrlopen
-    ):
+    ) as urlopen:
         assert cache.loadUrls(urls) == 2
+
+    fetched = {call.args[0] for call in urlopen.call_args_list}
+    assert oobiFor(local, host="file:///tmp") not in fetched
+    assert "http://127.0.0.1:5642/oobi/EAID/witness/BEID" not in fetched
 
     assert good.said in cache
     assert after.said in cache
     assert wrong.said not in cache
     assert down.said not in cache
     assert truncated.said not in cache
+    assert local.said not in cache
     assert len(cache) == 2
+
+
+def test_schema_cache_load_urls_deadline():
+    cache = schemaing.SchemaCache()
+    fast = makeSchema("url-fast")
+    slow = makeSchema("url-slow")
+    release = threading.Event()
+
+    def fakeUrlopen(url, timeout=None):
+        if url == oobiFor(slow):
+            release.wait(5.0)  # a server that never answers within the deadline
+        return fakeResponse(raw=slow.raw if url == oobiFor(slow) else fast.raw)
+
+    try:
+        with mock.patch(
+            "keria.app.schemaing.urllib.request.urlopen", side_effect=fakeUrlopen
+        ):
+            assert cache.loadUrls([oobiFor(slow), oobiFor(fast)], deadline=0.5) == 1
+    finally:
+        release.set()
+
+    assert fast.said in cache
+    assert slow.said not in cache
 
 
 def test_load_schema_cache(tmp_path):
@@ -177,46 +213,13 @@ def test_load_schema_cache(tmp_path):
     assert len(cache) == 0
 
 
-def test_schema_cache_preload_resolve_harvest(helpers):
+def test_schema_cache_resolve_and_settle(helpers):
     with helpers.openKeria() as (agency, agent, app, client):
         db = agent.hby.db
         cache = schemaing.SchemaCache()
 
         cached = makeSchema("cached")
         cache.add(cached)
-
-        # preload copies cached schemas into the agent database, once
-        assert db.schema.get(keys=(cached.said,)) is None
-        assert cache.preload(db) == 1
-        assert db.schema.get(keys=(cached.said,)).said == cached.said
-        assert cache.preload(db) == 0
-
-        # preload also picks up schemas the agent already had (e.g. from config durls)
-        owned = makeSchema("owned")
-        db.schema.pin(keys=(owned.said,), val=owned)
-        assert owned.said not in cache
-        assert cache.preload(db) == 0
-        assert owned.said in cache
-
-        # and settles schema OOBIs still queued for the Oobiery when the schema is cached
-        queued = oobiFor(cached)
-        witness = "http://127.0.0.1:5642/oobi/EAID/witness/BEID"
-        notCached = oobiFor(makeSchema("not-cached"))
-        for u in (queued, witness, notCached):
-            db.oobis.pin(
-                keys=(u,),
-                val=agenting.OobiRecord(date="2021-01-01T00:00:00.000000+00:00"),
-            )
-        assert cache.preload(db) == 0
-        assert db.oobis.get(keys=(queued,)) is None
-        assert db.roobi.get(keys=(queued,)).state == Result.resolved
-        assert db.roobi.get(keys=(queued,)).said == cached.said
-        assert (
-            db.oobis.get(keys=(witness,)) is not None
-        )  # not a schema OOBI, left alone
-        assert db.oobis.get(keys=(notCached,)) is not None  # unknown schema, left alone
-        for u in (witness, notCached):
-            db.oobis.rem(keys=(u,))
 
         # resolve: not a schema OOBI
         assert (
@@ -228,36 +231,80 @@ def test_schema_cache_preload_resolve_harvest(helpers):
         assert cache.resolve(db, oobiFor(unknown)) is False
         assert db.roobi.get(keys=(oobiFor(unknown),)) is None
 
-        # resolve: cached schema is recorded as resolved for the agent
+        # resolve: cached schema is written to the agent and recorded as resolved
         url = oobiFor(cached)
-        assert cache.resolve(db, url) is True
+        assert db.schema.get(keys=(cached.said,)) is None
+        assert cache.resolve(db, url, oobialias="vlei") is True
+        assert db.schema.get(keys=(cached.said,)).said == cached.said
         obr = db.roobi.get(keys=(url,))
         assert obr is not None
         assert obr.state == Result.resolved
         assert obr.said == cached.said
+        assert obr.oobialias == "vlei"
         assert obr.date is not None
 
         # resolving again does not rewrite the record
         assert cache.resolve(db, url) is True
         assert db.roobi.get(keys=(url,)).date == obr.date
 
-        # resolve: the agent already has the schema but the cache does not, share it
+        # resolve: the agent already has a schema the cache does not; the cache stays as is
         mine = makeSchema("mine")
         db.schema.pin(keys=(mine.said,), val=mine)
-        assert mine.said not in cache
         assert cache.resolve(db, oobiFor(mine)) is True
-        assert mine.said in cache
+        assert mine.said not in cache
         assert db.roobi.get(keys=(oobiFor(mine),)).state == Result.resolved
 
-        # harvest: schema resolved by the agent the usual way
-        harvested = makeSchema("harvested")
-        assert (
-            cache.harvest(db, oobiFor(harvested)) is False
-        )  # agent does not have it yet
-        db.schema.pin(keys=(harvested.said,), val=harvested)
-        assert cache.harvest(db, oobiFor(harvested)) is True
-        assert cache.harvest(db, oobiFor(harvested)) is False  # already cached
-        assert cache.harvest(db, "http://127.0.0.1:5642/oobi?name=alias") is False
+        # settle: queued schema OOBIs whose schema is cached are satisfied, the rest left alone
+        second = makeSchema("cached-second")
+        cache.add(second)
+        queued = oobiFor(second)
+        witness = "http://127.0.0.1:5642/oobi/EAID/witness/BEID"
+        notCached = oobiFor(makeSchema("not-cached"))
+        for u in (queued, witness, notCached):
+            db.oobis.pin(
+                keys=(u,),
+                val=agenting.OobiRecord(
+                    date="2021-01-01T00:00:00.000000+00:00", oobialias="cfg"
+                ),
+            )
+        assert cache.settle(db) == 1
+        assert db.oobis.get(keys=(queued,)) is None
+        assert db.schema.get(keys=(second.said,)).said == second.said
+        assert db.roobi.get(keys=(queued,)).state == Result.resolved
+        assert db.roobi.get(keys=(queued,)).oobialias == "cfg"
+        assert db.oobis.get(keys=(witness,)) is not None  # not a schema OOBI
+        assert db.oobis.get(keys=(notCached,)) is not None  # unknown schema
+        assert cache.settle(db) == 0
+        for u in (witness, notCached):
+            db.oobis.rem(keys=(u,))
+
+
+def test_schema_cache_is_per_agent_on_read():
+    """What one agent resolves never reaches the cache or another agent's database."""
+    cache = schemaing.SchemaCache()
+    shared = makeSchema("shared")
+    cache.add(shared)
+
+    with (
+        habbing.openHby(name="agentA", temp=True) as hbyA,
+        habbing.openHby(name="agentB", temp=True) as hbyB,
+    ):
+        # agent A resolves the shared schema and one of its own
+        private = makeSchema("private-to-A")
+        hbyA.db.schema.pin(keys=(private.said,), val=private)
+        assert cache.resolve(hbyA.db, oobiFor(shared)) is True
+        assert cache.resolve(hbyA.db, oobiFor(private)) is True
+
+        # the cache only ever holds what the operator loaded
+        assert cache.saids == [shared.said]
+
+        # agent B sees nothing of A, and gets the shared schema only when it asks
+        assert hbyB.db.schema.cntAll() == 0
+        assert cache.settle(hbyB.db) == 0
+        assert hbyB.db.schema.cntAll() == 0
+        assert cache.resolve(hbyB.db, oobiFor(private)) is False
+        assert cache.resolve(hbyB.db, oobiFor(shared)) is True
+        assert [said for (said,), _ in hbyB.db.schema.getItemIter()] == [shared.said]
 
 
 def test_oobi_end_uses_agency_schema_cache(helpers):
@@ -274,13 +321,13 @@ def test_oobi_end_uses_agency_schema_cache(helpers):
 
         # A schema OOBI the agency already knows: no network, operation done at once
         url = oobiFor(cached)
-        res = client.simulate_post(
-            path="/oobis", body=json.dumps(dict(url=url)).encode("utf-8")
-        )
+        body = json.dumps(dict(url=url, oobialias="vlei")).encode("utf-8")
+        res = client.simulate_post(path="/oobis", body=body)
         assert res.status == falcon.HTTP_202
         assert db.oobis.cntAll() == pending  # nothing queued for the Oobiery
         assert db.schema.get(keys=(cached.said,)).said == cached.said
         assert db.roobi.get(keys=(url,)).state == Result.resolved
+        assert db.roobi.get(keys=(url,)).oobialias == "vlei"
 
         status = agent.monitor.get(res.json["name"])
         assert status is not None
@@ -309,40 +356,9 @@ def test_oobi_end_uses_agency_schema_cache(helpers):
         db.oobis.rem(keys=(ctrl,))
 
 
-def test_monitor_harvests_resolved_schema(helpers):
-    with helpers.openKeria() as (agency, agent, app, client):
-        db = agent.hby.db
-        assert agent.monitor.schemas is agency.schemas
-
-        # Simulate the Oobiery having resolved a schema OOBI for this agent
-        schemer = makeSchema("monitor-harvest")
-        url = oobiFor(schemer)
-        db.schema.pin(keys=(schemer.said,), val=schemer)
-        db.roobi.pin(
-            keys=(url,),
-            val=agenting.OobiRecord(
-                said=schemer.said,
-                state=Result.resolved,
-                date="2021-01-01T00:00:00.000000+00:00",
-            ),
-        )
-        assert schemer.said not in agency.schemas
-
-        # submit returns the operation status, which already went through the monitor
-        status = agent.monitor.submit(
-            core.Salter().qb64, longrunning.OpTypes.oobi, metadata=dict(oobi=url)
-        )
-        assert status.done is True
-        assert status.response == dict(oobi=url)
-
-        # The schema is now available to every other agent of the agency
-        assert schemer.said in agency.schemas
-        assert agency.schemas.get(schemer.said).said == schemer.said
-
-
-def test_agency_preloads_schemas_into_new_agents():
+def test_agency_settles_config_durls_for_new_agents():
     salter = core.Salter(raw=b"0123456789abcdef")
-    schemer = makeSchema("agency-preload")
+    schemer = makeSchema("agency-settle")
 
     cache = schemaing.SchemaCache()
     cache.add(schemer)
@@ -370,22 +386,26 @@ def test_agency_preloads_schemas_into_new_agents():
 
     caid = "ELI7pg979AdhmvrjDeam2eAO2SR5niCgnjAJXJHtJose"
     agent = agency.create(caid, salt=salter.qb64)
-    assert agent.hby.db.schema.get(keys=(schemer.said,)).said == schemer.said
-    assert agent.monitor.schemas is cache
 
     # config durls were queued by the Habery on open; the cached one is settled
     # from the cache instead of fetched, the unknown one is left for the Oobiery
     assert cachedUrl in agent.hby.cf.get()["durls"]
     assert agent.hby.db.oobis.get(keys=(cachedUrl,)) is None
+    assert agent.hby.db.schema.get(keys=(schemer.said,)).said == schemer.said
     assert agent.hby.db.roobi.get(keys=(cachedUrl,)).state == Result.resolved
     assert agent.hby.db.oobis.get(keys=(uncachedUrl,)) is not None
+
+    # only what the agent asked for through its config got written, nothing else
+    assert [said for (said,), _ in agent.hby.db.schema.getItemIter()] == [schemer.said]
 
     agency.shut(agent)
     agency.adb.close(clear=True)
 
 
 def test_agency_default_schema_cache():
-    agency = agenting.Agency(name="agency", bran=None, temp=True)
+    agency = agenting.Agency(
+        name="agency", bran=None, temp=True, configFile="keria", configDir=SCRIPTS_DIR
+    )
     assert isinstance(agency.schemas, schemaing.SchemaCache)
     assert len(agency.schemas) == 0
     agency.adb.close(clear=True)
@@ -395,12 +415,15 @@ def test_server_config_schema_fields():
     config = agenting.KERIAServerConfig(name="x", bran=None)
     assert config.schemaDir is None
     assert config.surls == []
+    assert config.surlsTimeout == 30.0
 
     config = agenting.KERIAServerConfig(
         name="x",
         bran=None,
         schemaDir="/schemas",
         surls=["http://127.0.0.1:7723/oobi/ESAID"],
+        surlsTimeout=5,
     )
     assert config.schemaDir == "/schemas"
     assert config.surls == ["http://127.0.0.1:7723/oobi/ESAID"]
+    assert config.surlsTimeout == 5

@@ -81,20 +81,26 @@ You can see a [working example here](https://github.com/WebOfTrust/signify-ts/bl
 #### Agency-wide schema cache
 
 ACDC schemas are content addressed, so the agency keeps a single in-memory cache of
-validated schemas shared by every agent. A schema OOBI (`.../oobi/{said}`) posted to
-`/oobis` whose schema is already cached is satisfied immediately: the schema is written
-to the agent database, the OOBI is recorded as resolved and the operation completes on
-its first status check, without a network round trip. Schemas resolved the usual way by
-any agent are added to the cache, so only the first agent to ask for a schema pays for
-the fetch. New agents also get every cached schema copied into their database when they
-are created, and schema OOBIs queued from the config file `durls` whose schema is cached
-are settled from the cache instead of fetched.
+validated schemas shared by every agent. The cache is curated by the operator only: it holds
+what is loaded at startup and nothing else, so one controller can never push data into the
+cache or into other agents' databases, and every replica holds the same set of schemas.
 
-The cache can be warmed up at startup with either or both of:
+A schema is written into an agent database only when that agent asks for it:
 
-* `KERIA_SCHEMA_DIR`: a directory of schema JSON files (`*.json`) loaded at startup.
-* `KERIA_SURLS`: schema OOBI URLs, separated by `;`, fetched once at startup. A URL that
-  cannot be fetched is skipped and its schema is resolved on demand as before.
+* a schema OOBI (`.../oobi/{said}`) posted to `/oobis` whose schema is cached is satisfied
+  immediately: the schema is written to the agent database, the OOBI is recorded as resolved
+  and the operation completes on its first status check, without a network round trip;
+* schema OOBIs queued from the config file `durls` whose schema is cached are settled the
+  same way when the agent is created or reloaded, before the Oobiery sees them.
+
+Anything not in the cache is resolved over the network as before. The cache is loaded at
+startup with either or both of:
+
+* `KERIA_SCHEMA_DIR`: a directory of schema JSON files (`*.json`).
+* `KERIA_SURLS`: schema OOBI URLs (`http`/`https` only), separated by `;`, fetched
+  concurrently once at startup. `KERIA_SURLS_TIMEOUT` bounds the whole warm-up (default 30
+  seconds); URLs that fail or do not answer in time are logged and skipped, and their
+  schemas are resolved on demand as before.
 
 ### Running Tests
 

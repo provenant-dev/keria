@@ -149,6 +149,8 @@ class KERIAServerConfig:
     schemaDir: str = None
     # Schema (data) OOBI URLs fetched once at startup into the agency-wide schema cache shared by every Agent.
     surls: List[str] = field(default_factory=list)
+    # Total time budget, in seconds, for fetching the surls at startup. Default is 30 seconds
+    surlsTimeout: float = 30.0
 
     # Experimental configuration
     # Experimental password for boot endpoint. Enables HTTP Basic Authentication for the boot endpoint. Only meant to be used for testing purposes.
@@ -371,8 +373,8 @@ class Agency(doing.DoDoer):
             salt=salt,
         )
         agentHab = agentHby.makeHab(habName, ns="agent", transferable=True, delpre=caid)
-        # after makeHab: that is when the Habery queues the config iurls/durls
-        self.schemas.preload(agentHby.db)
+        # after makeHab: by now the Habery has queued the config iurls/durls
+        self.schemas.settle(agentHby.db)
         agentRgy = Regery(
             hby=agentHby, name=agentHab.name, base=self.base, temp=self.temp
         )
@@ -452,7 +454,7 @@ class Agency(doing.DoDoer):
         agentHby = habbing.Habery(
             name=caid, base=self.base, bran=self.bran, ks=ks, temp=self.temp
         )
-        self.schemas.preload(agentHby.db)
+        self.schemas.settle(agentHby.db)
 
         agentHab = agentHby.habByName(f"agent-{caid}", ns="agent")
         if aaid.qb64 != agentHab.pre:
@@ -748,7 +750,6 @@ class Agent(doing.DoDoer):
             credentialer=self.credentialer,
             submitter=self.submitter,
             exchanger=self.exc,
-            schemas=self.agency.schemas if self.agency is not None else None,
         )
 
         self.rvy = routing.Revery(db=hby.db, cues=self.cues)
@@ -1025,7 +1026,9 @@ def createAgency(config: KERIAServerConfig, temp=False, cf=None):
         durls=config.durls,
         temp=temp,
         cf=cf,
-        schemas=loadSchemaCache(config.schemaDir, config.surls),
+        schemas=loadSchemaCache(
+            config.schemaDir, config.surls, deadline=config.surlsTimeout
+        ),
     )
 
 
@@ -2008,7 +2011,9 @@ class OOBICollectionEnd:
                 obr.oobialias = body["oobialias"]
 
             agency = agent.agency
-            if agency is not None and agency.schemas.resolve(agent.hby.db, oobi):
+            if agency is not None and agency.schemas.resolve(
+                agent.hby.db, oobi, oobialias=obr.oobialias
+            ):
                 # Schema already known to the agency: stored in the agent database and
                 # recorded as resolved without a network round trip.
                 logger.debug("OOBI %s satisfied from the agency schema cache", oobi)
