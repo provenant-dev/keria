@@ -48,6 +48,7 @@ from keri.core.signing import Salter
 from keri.db.basing import OobiRecord
 from keri.vc import protocoling
 
+from keria.app.schemaing import SchemaCache, loadSchemaCache
 from keria.end import ending
 from keri.help import helping, nowIso8601
 from keri.peer import exchanging
@@ -144,6 +145,12 @@ class KERIAServerConfig:
     iurls: List[str] = field(default_factory=list)
     # Data OOBI URLs resolved at startup of each Agent. For things like ACDC schemas, ACDCs (credentials), or other CESR streams.
     durls: List[str] = field(default_factory=list)
+    # Directory of ACDC schema JSON files preloaded at startup into the agency-wide schema cache shared by every Agent.
+    schemaDir: str = None
+    # Schema (data) OOBI URLs fetched once at startup into the agency-wide schema cache shared by every Agent.
+    surls: List[str] = field(default_factory=list)
+    # Total time budget, in seconds, for fetching the surls at startup. Default is 30 seconds
+    surlsTimeout: float = 30.0
 
     # Experimental configuration
     # Experimental password for boot endpoint. Enables HTTP Basic Authentication for the boot endpoint. Only meant to be used for testing purposes.
@@ -228,6 +235,7 @@ class Agency(doing.DoDoer):
         iurls=None,
         durls=None,
         cf=None,
+        schemas=None,
     ):
         """
         Initialize the Agency with the given parameters.
@@ -244,6 +252,7 @@ class Agency(doing.DoDoer):
             curls (list | None): Controller Service Endpoint Location OOBI URLs to resolve at startup of each Agent.
             iurls (list | None): General Introduction OOBI URLs to resolve at startup of each Agent.
             durls (list | None): Data OOBI URLs resolved at startup of each Agent.
+            schemas (SchemaCache | None): Agency-wide cache of ACDC schemas shared by every Agent.
             cf (configing.Configer | None): Optional Configer instance for configuration data.
         """
         self.name = name
@@ -271,6 +280,7 @@ class Agency(doing.DoDoer):
             self.cf = cf
 
         self.agents = dict()
+        self.schemas = schemas if schemas is not None else SchemaCache()
 
         self.adb = (
             adb
@@ -363,6 +373,8 @@ class Agency(doing.DoDoer):
             salt=salt,
         )
         agentHab = agentHby.makeHab(habName, ns="agent", transferable=True, delpre=caid)
+        # after makeHab: by now the Habery has queued the config iurls/durls
+        self.schemas.settle(agentHby.db)
         agentRgy = Regery(
             hby=agentHby, name=agentHab.name, base=self.base, temp=self.temp
         )
@@ -442,6 +454,7 @@ class Agency(doing.DoDoer):
         agentHby = habbing.Habery(
             name=caid, base=self.base, bran=self.bran, ks=ks, temp=self.temp
         )
+        self.schemas.settle(agentHby.db)
 
         agentHab = agentHby.habByName(f"agent-{caid}", ns="agent")
         if aaid.qb64 != agentHab.pre:
@@ -1013,6 +1026,9 @@ def createAgency(config: KERIAServerConfig, temp=False, cf=None):
         durls=config.durls,
         temp=temp,
         cf=cf,
+        schemas=loadSchemaCache(
+            config.schemaDir, config.surls, deadline=config.surlsTimeout
+        ),
     )
 
 
@@ -1994,7 +2010,15 @@ class OOBICollectionEnd:
             if "oobialias" in body:
                 obr.oobialias = body["oobialias"]
 
-            agent.hby.db.oobis.pin(keys=(oobi,), val=obr)
+            agency = agent.agency
+            if agency is not None and agency.schemas.resolve(
+                agent.hby.db, oobi, oobialias=obr.oobialias
+            ):
+                # Schema already known to the agency: stored in the agent database and
+                # recorded as resolved without a network round trip.
+                logger.debug("OOBI %s satisfied from the agency schema cache", oobi)
+            else:
+                agent.hby.db.oobis.pin(keys=(oobi,), val=obr)
 
         elif "rpy" in body:
             raise falcon.HTTPNotImplemented(
