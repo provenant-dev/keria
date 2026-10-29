@@ -304,6 +304,7 @@ class Agency(doing.DoDoer):
         """
         timestamp = nowIso8601()
         config = dict(self.cf.get() if self.cf is not None else {"dt": timestamp})
+        config.setdefault("dt", timestamp)
 
         # Renames sub-section of config
         habName = f"agent-{caid}"
@@ -314,6 +315,7 @@ class Agency(doing.DoDoer):
         else:
             config[habName] = {}
 
+        config[habName].setdefault("dt", config["dt"])
         config[habName]["curls"] = config[habName].get("curls", [])
         config["iurls"] = config.get("iurls", [])
         config["durls"] = config.get("durls", [])
