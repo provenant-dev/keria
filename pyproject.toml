@@ -26,8 +26,8 @@ keywords = [
 ]
 requires-python = ">=3.12.2"
 dependencies = [
-    "hio==0.6.14",
-    "keri @ git+https://github.com/provenant-dev/keripy.git@051549c4407d451ccacaf5145435d3a802c1ef45",
+    'hio @ git+https://github.com/provenant-dev/hio.git@078290ff5f16603776dc84c74a594ac7cad8416c', #v0.6.14-fix1
+    "keri @ git+https://github.com/provenant-dev/keripy.git@b4de564b806e1bb101623eff11abf62771015c63", #rc-1.5.0 + hotfix
     "mnemonic==0.21",
     "multicommand>=1.0.0",
     "falcon==4.0.2",

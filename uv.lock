@@ -417,7 +417,7 @@ wheels = [
 [[package]]
 name = "hio"
 version = "0.6.14"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "https://github.com/provenant-dev/hio.git?rev=078290ff5f16603776dc84c74a594ac7cad8416c#078290ff5f16603776dc84c74a594ac7cad8416c" }
 dependencies = [
     { name = "cbor2" },
     { name = "falcon" },
@@ -426,7 +426,6 @@ dependencies = [
     { name = "multidict" },
     { name = "ordered-set" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/46/95/97da1390407769e8b8e863738c5d5906caa2310a3b8e256972af1c7f3240/hio-0.6.14.tar.gz", hash = "sha256:a069790f32205318b29145be17a3910dfdff5ca7b330e16358d14d5e2c9fca3d", size = 88550, upload-time = "2024-07-18T15:30:47.279Z" }
 
 [[package]]
 name = "hjson"
@@ -518,7 +517,7 @@ wheels = [
 [[package]]
 name = "keri"
 version = "1.2.13"
-source = { git = "https://github.com/provenant-dev/keripy.git?rev=051549c4407d451ccacaf5145435d3a802c1ef45#051549c4407d451ccacaf5145435d3a802c1ef45" }
+source = { git = "https://github.com/provenant-dev/keripy.git?rev=b4de564b806e1bb101623eff11abf62771015c63#b4de564b806e1bb101623eff11abf62771015c63" }
 dependencies = [
     { name = "apispec" },
     { name = "blake3" },
@@ -579,9 +578,9 @@ requires-dist = [
     { name = "dataclasses-json", specifier = "==0.6.7" },
     { name = "deprecation", specifier = "==2.1.0" },
     { name = "falcon", specifier = "==4.0.2" },
-    { name = "hio", specifier = "==0.6.14" },
+    { name = "hio", git = "https://github.com/provenant-dev/hio.git?rev=078290ff5f16603776dc84c74a594ac7cad8416c" },
     { name = "http-sfv", specifier = "==0.9.9" },
-    { name = "keri", git = "https://github.com/provenant-dev/keripy.git?rev=051549c4407d451ccacaf5145435d3a802c1ef45" },
+    { name = "keri", git = "https://github.com/provenant-dev/keripy.git?rev=b4de564b806e1bb101623eff11abf62771015c63" },
     { name = "lmdb", specifier = "==1.6.2" },
     { name = "marshmallow-dataclass", specifier = "==8.7.1" },
     { name = "mnemonic", specifier = "==0.21" },
